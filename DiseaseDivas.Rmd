@@ -104,10 +104,30 @@ ggplot(freq_gt1, aes(agegrp,`Count of Tumors`)) +
   scale_fill_viridis_d(option  = "mako") 
   
 ```
-
-
-
-
+##reading in the cleaned second dataset 
+```{r}
+sample <- read.csv("Sample.csv")
+```
+##Dealing with missing values
+```{r}
+temp.NA <- sample
+temp.NA[temp.NA == "'--"] <- NA
+temp.NA
+```
+```{r}
+#changing '-- Null values to NA 
+temp.NA1 <- subset(temp.NA, temp.NA$classification_of_tumor != "NA" & temp.NA$last_known_disease_status !="NA" & temp.NA$tumor_largest_dimension_diameter!="NA")
+temp.NA1
+```
+```{r}
+#explored the relationship between the missing variables sorted by Case ID 
+library(VIM)
+matrixplot(temp.NA1,sortby=1)
+```
+```{r}
+#created a margin plot to observe how the missing values in days to last follow up comapre with each case 
+marginplot(temp.NA1[,c(1,20)])
+``` 
 
 
 
