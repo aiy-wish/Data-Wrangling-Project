@@ -106,11 +106,11 @@ ggplot(freq_gt1, aes(agegrp,`Count of Tumors`)) +
 ```
 ##reading in the cleaned second dataset 
 ```{r}
-sample <- read.csv("Sample.csv")
+sample <- read.csv("SampleRevised.csv")
 ```
 ##Dealing with missing values
 ```{r}
-temp.NA <- sample
+temp.NA <- sample_rev
 temp.NA[temp.NA == "'--"] <- NA
 temp.NA
 ```
