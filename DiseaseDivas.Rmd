@@ -52,6 +52,7 @@ complete_dat[!complete_dat$Patient.ID %in% complete_dat$Sample.ID, ]
 
 
 ```
+
 ```{r}
 cols_nonunique <- c()
 
@@ -104,31 +105,92 @@ ggplot(freq_gt1, aes(agegrp,`Count of Tumors`)) +
   scale_fill_viridis_d(option  = "mako") 
   
 ```
+Aim(3.1)-Assign classifications of “high”, “medium” or “low” based on the intensity of tumor content
+```{r}
+finaldata<-remove_nonuniques
+range(finaldata$tumor.content) ##checking the range of the content
+
+#fixing thresholds to fixate the Severity levels
+finaldata%>%add_column(Severity="Low")->finaldata
+finaldata%>%mutate(Severity=ifelse(`tumor.content`>30 & `tumor.content`<=70 ,"Moderate",Severity))->finaldata
+finaldata%>%mutate(Severity=ifelse(`tumor.content`>70 & `tumor.content`<=100 ,"High",Severity))->finaldata
+unique(finaldata$Severity)
+
+```
+Aim3.3-Are these then related to biopsy sites?  (we need to add more to this)
+```{r}
+finaldata%>%group_by(Severity,`Tumor.Site`)%>%summarise(count=n())#number of subjects in each level
+```
+```{r}
+#source("https://neuroconductor.org/neurocLite.R")
+#neuro_install("gganatogram")
+library(gganatogram)
+library(gridExtra)
+#plotting based on the severity 
+#making a dataframe with the required values to plot
+organPlot <- data.frame(organ = c("bone_marrow", "lymph_node", "prostate", "gall_bladder", "liver", "penis","smooth_muscle", "bone","throat","heart","stomach","urinary_bladder"), 
+ colour = c("red", "red", "red", "red", "red", "red","red", "red","yellow","green","yellow","green"), 
+ value = c(10, 5, 1, 8, 2,5, 5, 5,2,2,2,1), 
+ stringsAsFactors=F)
+
+gganatogram(data=organPlot, organism='human', sex='male', fill="colour")
+
+```
+
+
+```{r}
+biopsies <- data.frame(biopsy = c("bone_marrow", "lymph_node", "prostate", "gall_bladder", "liver", "penis","smooth_muscle", "bone","throat","heart","stomach","urinary_bladder"),
+ x = c(10, 5, 1, 8, 2,5, 5, 5,2,2,2,1),
+ y = c(10, 5, 1, 8, 2,5, 5, 5,2,2,2,1),
+ value = c(10, 5, 1, 8, 2,5, 5, 5,2,2,2,1))
+p <- hgMale_key %>%
+ dplyr::filter(organ %in% c("bone_marrow", "lymph_node", "prostate", "gall_bladder", "liver", "penis","smooth_muscle", "bone","throat","heart","stomach","urinary_bladder")) %>%
+ gganatogram(fillOutline="lightgray", organism="human", sex="male",
+ fill="colour") + theme_void() +
+ ggtitle("Position␣of␣biopsies")
+        
+p2 <- hgMale_key%>%
+ dplyr::filter(organ %in% c("bone_marrow", "lymph_node", "prostate", "gall_bladder", "liver", "penis","smooth_muscle", "bone","throat","heart","stomach","urinary_bladder"))%>%
+ gganatogram(fillOutline="lightgray", organism="human", sex="male", 
+ fill="value") + theme_void() +
+ ggtitle("Value␣of␣biopsies")+
+ geom_point(data = biopsies, pch=21, size=3, aes(x =x, y = -y,
+ fill = value), colour="red")
+        
+lay <- rbind(c(1,2), c(1,2), c(3, NULL))
+grid.arrange(p, p2, layout_matrix = lay)
+```
+
+
 ##reading in the cleaned second dataset 
 ```{r}
-sample <- read.csv("SampleRevised.csv")
+#sample <- read.csv("SampleRevised.csv")
 ```
 ##Dealing with missing values
-```{r}
-temp.NA <- sample_rev
-temp.NA[temp.NA == "'--"] <- NA
-temp.NA
+# ```{r}
+# temp.NA <- sample_rev
+# temp.NA[temp.NA == "'--"] <- NA
+# temp.NA
 ```
 ```{r}
-#changing '-- Null values to NA 
-temp.NA1 <- subset(temp.NA, temp.NA$classification_of_tumor != "NA" & temp.NA$last_known_disease_status !="NA" & temp.NA$tumor_largest_dimension_diameter!="NA")
-temp.NA1
+# #changing '-- Null values to NA 
+# temp.NA1 <- subset(temp.NA, temp.NA$classification_of_tumor != "NA" & temp.NA$last_known_disease_status !="NA" & temp.NA$tumor_largest_dimension_diameter!="NA")
+# temp.NA1
 ```
 ```{r}
-#explored the relationship between the missing variables sorted by Case ID 
-library(VIM)
-matrixplot(temp.NA1,sortby=1)
-```
-```{r}
-#created a margin plot to observe how the missing values in days to last follow up comapre with each case 
-marginplot(temp.NA1[,c(1,20)])
+# #explored the relationship between the missing variables sorted by Case ID 
+# library(VIM)
+# matrixplot(temp.NA1,sortby=1)
+# ```
+# ```{r}
+# #created a margin plot to observe how the missing values in days to last follow up comapre with each case 
+# marginplot(temp.NA1[,c(1,20)])
 ``` 
 
+#getting in the cleaned dataset  (you guys can comment this line off)
+```{r}
+SampleRevised<-read_csv("/Users/parinithakompala/Documents/GitHub/Data-Wrangling-Project/SampleRevised.csv")
+```
 
 
 
