@@ -1,0 +1,353 @@
+---
+title: "DiseaseDiva"
+author: "Us"
+date: "10/24/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction 
+Prostate cancer is among one of the leading causes of death in males in the United States. The genomic study of metastatic prostate cancer has been limited due to tumor samples being obtained from autopsies as well as limited cohort preclinical models. Prospective studies are few and far between due to limitations in collecting adequate tumor tissue through biopsy. A paper published in 2015 prospectively analyzed tumor biopsies among affected individuals. Subsequently as of 2016, genomic data for prostate cancer has become more widely available due to the National Cancer Institutes (NCI) Genomics Data Commons (GDC).
+
+In this project we will explore data from both the 2015 prospective cohort study along with data available from the NCI's Genomic Data Commons. This project aims to investigate three datasets, through mapping and transformation of the raw data in multiple programs such as Excel, SQL and R,  with the ultimate goal of optimizing downstream analysis of the prostate cancer cohorts. We will discuss various methods by which we wrangled the data to investigate underlying associations between individual case presentations and manifestation of disease.
+
+A team of 73 researchers conducted a multi-institutional study that investigated clinical genomics of advanced prostate cancer specifically metastatic, castration resistant prostate cancer (mCRPC). mCRPC occurs in individuals who develop resistance to androgen deprivation therapies (ADT). The aim of this research was to facilitate precision medicine by developing a prospective whole-exome and transcriptome sequencing of tumor biopsies. Data was obtained from living affected individuals to compile a set of genomic alterations. The study was published in the journal "Cell" in May 2015. 
+
+The link to the publication can be found [here.](https://pubmed.ncbi.nlm.nih.gov/26000489/)
+
+Data was extracted from the cBioPortal, a public cancer genomics site hosted and mainted by the Memorial Sloan Kettering Cancer Center. The sample included 150 individuals with metastatic prostate cancer along with 17 data points per individual,  described below:
+-**Patient ID**: unique patient identifier (number)
+-**Sample ID**: unique biopsy sample identifier from clinical trial(number)
+-**Mutation Count**: mutation rate for mCRPC defined as mutations per megabase or mutations/Mb (number)
+-**Fraction Genome Altered**: fraction of mutant allele variants in biopsy (number)
+-**Diagnosis Age**: patient's age when they were diagnosed (number)
+-**Tumor Site**: physical site of tumor on human body from which biopsy was taken (string)
+-**Abiraterzone (ABI) and Enzalutamide (ENZA) Exposure Status**: exposure to  second-generation androgen deprivation therapies (binary: yes/no)
+-**Center of Sequencing**: the international academic medical center where exome sequencing occurred (string)
+-**Prior Treatment**: receipt of previous androgen deprivation therapy (binary:yes/no)
+-**Site Sequenced**: site of exome sequencing: Broad or UM (string)
+-**tumor content**: percentage of tumor captured in the biopsy (number)
+
+The National Cancer Institute (NCI) maintains a unified repository of genomic data known as the Genomic Data Commons(GDC). Groundwork for this repository began in June 2015 with nearly 50,000 raw data sequences analyzed by June 2016. This data sharing platform uses an Open-Stack-based private cloud to unite several large-scale cancer genome research programs such as TCGA and OCG. The purpose of this repository is to standardize the data processing of these multi-dimensional datasets by using common bioinformatics pipelines that facilitate direct comparison of the data. 
+
+More about the National Cancer Institute's Genomic Data Commons can be found [here.](https://gdc.cancer.gov/about-gdc)
+
+Data was extracted from GDC Portal's Exploration page. The "cleaned" version of the data sample included 493 individuals with metastatic prostrate cancer along with 24 data pointsper individual as described below: 
+-**CaseUUID**: universally unique identifier assigned to every entity in the data model (string)
+-**CaseID**:specific individual cases using the submitter ID from the genomic cancer research program (string)
+-**Project**:The cancer research program from which the case originated from (string)
+-**Primary Site**: The primary site of the cancer (string)
+-**Gender**:"Gender is defined as a set of characteristics that distinguish persons based on their social roles" (string)
+-**Files**: the quantity of files available for that case (number)
+-**Seq**:Number of the sequencing reads(an inferred sequence of basepairs) (number)
+-**Exp**:The transcriptome profiling (number)
+-**SNV**:simple nucleotide variation (number)
+-**CNV**:Copy number variation,the number of copies of a particular gene varies from one individual to the next (number)
+-**Meth**:Number of DNA methylation that took place (number)
+-**Clinical**: The number of clinical alterations (number)
+-**Bio**:biospecimen (number)
+-**Mutations**:The number of simple somatic mutations detected for that case(number)
+-**Genes**: The quantity of genes affected by mutations for each case (number)
+-**Slides**: the quantity of slides available for each case (number)
+-**Program**: The type of program the subject is enrolled in “The Cancer Genome Atlas” or the “Count Me In” (string) 
+-**Disease Type**: This describes if it is Adenomas and Adenocarcinomas, the location where the cancer is formed (string)
+-**Age at diagnosis**:Age at the time of diagnosis calculated from their day of
+birth to the day they were diagnosed with cancer (string)
+-**Days to death**:The date from when they were diagnosed, and they died (string)
+-**Vital Status**: the survival status of the person (string)
+-**Primary Diagnosis**:Their initial pathological diagnoses of cancer (string)
+-**Ethnicity**: "An individual's self-identified social and cultural category, particularly whether they identify as Hispanic or Latino" (string)
+-**Race**: "A taxonomic group that is a division of a species that is classified arbitrarily. It is characterized by shared heredity, physical attributes, and behavior, and in the case of humans, by common history, nationality, or geographic distribution" (string)
+
+##Methods 
+
+##Extract the Data from the cBioPortal 
+The first dataset was downloaded from the cBioPortal site using the "download clinical data for the selected cases" button extracting all columns. 
+
+The link to the dataset can be found [here.](https://www.cbioportal.org/study/clinicalData?id=prad_su2c_2015)
+
+##Cleaning Our Data
+The first dataset was downloaded as a TSV file which required conversion in Excel to a CSV file. After importing the data into Excel using the Import Data From Text tool, the worksheet was saved as a csv file. The raw data contained 150 rows and 20 columns. As a team we worked through the exploratory investigation and cleaning of the data by utilizing GitHub to collaborate on an R Markdown file. 
+
+```{r}
+#Loaded the data as a CSV into the R Markdown file 
+rawdat<- read.csv("~/Documents/Dartmouth/Fall 2021/QBS 181/group project/Data .csv")
+```
+
+To gain an understanding for the types of variables we would be analyzing along with some of the numeric summaries for the continuous variables, we employed the summary function. 
+
+```{r pressure, echo=FALSE}
+#Summarize the variables 
+summary(rawdat)
+```
+Preliminary findings indicate, mean age of diagnosis for prostate cancer is approximately 67 years of age. Average tumor content found in these biopsies appears to be 60%. Initial analysis revealed that there were several cells for which NA values were present. The following command was used to eliminate the NAs saving the new data to a dataframe called complete_dat. 
+
+```{r}
+#Remove NAs
+complete_dat <- na.omit(rawdat)
+```
+
+Upon removal of the NAs, the dataset reduced to 147 rows and 20 columns. Three patients from the original extract contained in rows 71 to 73 were therefore excluded from subsequent analyses due to the NAs being present in both the Diagnosis.Age column along with the Abiraterone (ABI) and Enzalutamide (ENZA) Exposure Status. These two columns are crucial in further analyses being as age is a related factor for severity of disease. Furthermore, without information as to prior exposure status to the androgen deprivation therapies, assessment of mCRPC is incomplete. 
+
+Further analysis of the data revealed that several columns were found to have duplicated values. To assess whether the individual cases included in the sample were duplicated, we utilized the duplicated command to check the Sample ID column for repeat values. As shown below, none were found. 
+
+```{r}
+#Check for duplicates
+duplicated(complete_dat$Sample.ID)
+```
+Upon cursory glance the Patient ID and Sample ID column appeared to be populated with the exact same values per each row. To confirm this assumption we used the following syntax to check if the values between the two columns were unique. The syntax reads as follows, from the compelete_dat dataframe check if Patient Id is not contained in Sample Id then output the results. 
+
+```{r}
+#Check if sample id is unique
+complete_dat[!complete_dat$Patient.ID %in% complete_dat$Sample.ID, ]
+```
+
+The output above is empty indicating that all the Patient Ids are contained within the Sample Id. In other words the two columns are the same. 
+
+Several columns appeared to be populated by the same value for each row. For example, the Cancer.Type column was entirely populated by the value "Prostate Adenocarcinoma".  To determine whether this assumption was indeed true we created the following for loop that cycled through each column to check that the values contained in the column were unique. 
+
+```{r}
+find_nonuniq <- function(dataset){
+  cols_nonunique <- c()
+  for(i in 1:ncol(dataset)){
+    if(length(unique(dataset[,i])) <= 1){
+      cols_nonunique[length(cols_nonunique) + 1] <- i
+    }
+  }
+  print(cols_nonunique)
+}
+find_nonuniq(complete_dat)
+
+```
+
+```{r}
+cols_nonunique <- c() #set an empty vector to store the results of the for loop
+
+
+for(i in 1:ncol(complete_dat)){
+  if(length(unique(complete_dat[,i])) <= 1){
+    cols_nonunique[length(cols_nonunique) + 1] <- i
+  }
+}
+
+print(cols_nonunique)
+
+```
+
+```{r}
+
+remove_nonuniques <- complete_dat[,-cols_nonunique]
+
+```
+
+
+
+```{r}
+#subset the data 
+library(tidyverse)
+age_tumor <- remove_nonuniques[c(4,11)]
+age_tumor
+summary(age_tumor$Diagnosis.Age)
+
+age_tumor$agegrp <- ifelse(age_tumor$Diagnosis.Age >= 40 & age_tumor$Diagnosis.Age <=59, "40-59",
+                  ifelse(age_tumor$Diagnosis.Age > 59 & age_tumor$Diagnosis.Age <= 69, "60-69",
+                         ifelse(age_tumor$Diagnosis.Age > 69 & age_tumor$Diagnosis.Age <= 79, "70-79",
+                                ifelse(age_tumor$Diagnosis.Age >79,"80+", NA))))
+
+library(dplyr)
+install.packages("gtsummary")
+library(gtsummary)
+age_tumor %>% 
+  select(Tumor.Site, agegrp) %>%
+  tbl_summary(by = agegrp, label = Tumor.Site ~ "Tumor Site") %>% add_p(test=everything()~"kruskal.test")
+```
+
+```{r}
+freq <- age_tumor %>% group_by(agegrp,Tumor.Site) %>% summarise(Freq=n())
+freq <- rename(freq, "Count of Tumors"=Freq)
+freq_gt1 <-freq[which(freq$`Count of Tumors`>1),]
+library(ggplot2)
+library(viridis)
+ggplot(freq_gt1, aes(agegrp,`Count of Tumors`)) +
+  labs(x="Age Grouped by BJC paper levels", y="Frequency of Tumors") +
+  geom_bar(aes(fill=`Tumor.Site`),stat="identity",position="dodge") +
+  scale_fill_viridis_d(option  = "mako") 
+  
+```
+
+```{r}
+aov.out <- aov(freq$`Count of Tumors`~freq$agegrp)
+summary(aov.out)
+
+
+```
+##Extract the Data from National Cancer Institute 
+We downloaded the second cancer dataset from the National Cancer Institute GDC Data Portal for all the clinical cases including all the columns. 
+
+The link can be found [here.](https://portal.gdc.cancer.gov/exploration?cases_size=100&filters=%7B%22op%22%3A%22and%22%2C%22content%22%3A%5B%7B%22op%22%3A%22in%22%2C%22content%22%3A%7B%22field%22%3A%22cases.primary_site%22%2C%22value%22%3A%5B%22prostate%20gland%22%5D%7D%7D%2C%7B%22content%22%3A%7B%22field%22%3A%22cases.project.project_id%22%2C%22value%22%3A%5B%22TCGA-PRAD%22%5D%7D%2C%22op%22%3A%22in%22%7D%2C%7B%22content%22%3A%7B%22field%22%3A%22genes.is_cancer_gene_census%22%2C%22value%22%3A%5B%22true%22%5D%7D%2C%22op%22%3A%22in%22%7D%5D%7D&searchTableTab=cases)
+
+##Excel Cleaning for Second Data Set 
+The data was downloaded as a TSV file so it needed to be imported into Excel to change the format to a CSV or .XLSX file. The raw data contained  960 rows and 156 columns. Upon further investigation it was evident that several of the columns were empty or had values missing. In order to determine the columns with no data present along with those which had missing values we used the Filter tool in Excel. Missing values were those marked as '-- in the cells. 
+
+The raw data contained 112 empty columns for which no data was available and 33 columns with missing values. The 112 empty columns were then removed from the analysis by simple deletion in Excel and a new sheet was created, "Sample". This new sheet "Sample" contains 44 columns. 
+
+Exported the "Sample" data as a standalone CSV file. 
+
+
+```{r}
+sample <- read.csv("cleanedsample.csv")
+
+```
+
+##Dealing with Missing Values 
+
+```{r}
+temp.NA <- sample
+temp.NA[temp.NA == "'--"] <- NA
+temp.NA
+```
+
+```{r}
+#changing '-- Null values to NA 
+temp.NA1 <- subset(temp.NA, temp.NA$classification_of_tumor != "NA" & temp.NA$last_known_disease_status !="NA" & temp.NA$tumor_largest_dimension_diameter!="NA")
+temp.NA1
+
+```
+```{r}
+#explored the relationship between the missing variables sorted by Case ID 
+library(VIM)
+matrixplot(temp.NA1,sortby=1)
+
+```
+
+```{r}
+#created a margin plot to observe how the missing values in days to last follow up comapre with each case 
+marginplot(temp.NA1[,c(1,20)])
+
+```
+
+```{r}
+#install.packages("sqldf")
+library(sqldf)
+new_sample <- read.csv("removed_dups.csv")
+new_sample <- subset(new_sample, select=-c(36:39))
+dim(new_sample)
+GDC <- read.csv("Dataset2DD.csv")
+GDC <- rename(GDC, case_id=Case.UUID)
+dim(GDC)
+
+dataset_1 <- remove_nonuniques
+dataset_1 <- rename(dataset_1, ID=Patient.ID)
+dataset_1 <- rename(dataset_1,Age=Diagnosis.Age)
+dataset_1sql <- sqldf("SELECT ID, case when Age >=40 and Age <= 59 then '40-59' when Age >59 and Age <= 69 then '60-69'when Age >69 and Age <= 79 then '70-79' else '80+' end  FROM dataset_1 GROUP BY ID,
+                      case when Age >=40 and Age <= 59 then '40-59' when 
+                      Age >59 and Age <= 69 then '60-69'when
+                      Age >69 and Age <= 79 then '70-79' 
+                      else '80+' end")
+names(dataset_1sql)[2]<-"agegrp"
+join_data1_sql <- sqldf("SELECT * FROM dataset_1 JOIN dataset_1sql on dataset_1.ID=dataset_1sql.ID")
+
+#age check 
+age_ds1 <- select(join_data1_sql,"Age","agegrp")
+
+joined_data <- sqldf("SELECT * FROM new_sample JOIN GDC on new_sample.case_id=GDC.case_id")
+view(joined_data)
+dim(joined_data)
+
+
+```
+
+extracting numeric digits as text mining 
+
+```{r}
+z <- substr(joined_data$Age.at.diagnosis, 1,2)
+z
+joined_data$Age <- cbind(z)
+joined_data$Age <- as.numeric(joined_data$Age)
+joined_data[36] <- NULL
+view(joined_data)
+joined_data <- rename(joined_data, ID=case_id)
+
+```
+
+
+```{r}
+
+cols_dups <- c()
+
+for(i in 1:ncol(joined_data)){
+  if(length(unique(joined_data[,i])) <= 1){
+    cols_dups[length(cols_dups) + 1] <- i
+  }
+}
+
+print(cols_dups)
+```
+```{r}
+remove_dups <- joined_data[,-cols_dups]
+dim(remove_dups)
+View(remove_dups)
+## removing some duplicated manually 
+remove_dups[52]<-NULL #removes the ethnicity duplicate 
+remove_dups[52] <- NULL #removes the age duplicate 
+dim(remove_dups)
+```
+
+```{r}
+dataset_2 <- remove_dups
+dataset_2sql <- sqldf("SELECT ID, case when Age >=40 and Age <= 59 then '40-59' when Age >59 and Age <= 69 then '60-69'when Age >69 and Age <= 79 then '70-79' else '80+' end  FROM remove_dups GROUP BY ID,
+                      case when Age >=40 and Age <= 59 then '40-59' when 
+                      Age >59 and Age <= 69 then '60-69'when
+                      Age >69 and Age <= 79 then '70-79' 
+                      else '80+' end")
+names(dataset_2sql)[2]<-"agegrp"
+dataset_2$agegrp <- cbind(dataset_2sql[2])
+view(dataset_2)
+
+```
+
+
+```{r}
+ggplot(data.frame(dataset_2), aes(x=Age)) +
+  geom_histogram(colour="black",fill="lightskyblue") 
+  
+summary(dataset_2$Age)
+  
+ggplot(data.frame(dataset_1), aes(x=Age)) +
+  geom_histogram(colour="black",fill="lightsalmon")
+summary(dataset_1$Age)
+
+```
+
+
+```{r}
+freq_1treat <-join_data1_sql %>% group_by(agegrp,Prior.Treatment) %>% summarise(Freq=n())
+dat2 <- dataset_2
+dat2[dat2 == "'--"] <- NA
+dat2 <- dat2[!is.na(dat2$prior_treatment),]
+freq_2treat <- dat2 %>% group_by(agegrp,prior_treatment) %>% summarise(Freq=n())
+
+
+ggplot(data.frame(freq_1treat), aes(x=agegrp, y=Freq)) +
+  labs(x="Age Grouped by BJC paper levels", y="Frequency of Prior Treatment", ) +
+  geom_bar(aes(fill=Prior.Treatment),stat="identity",position="dodge") +
+  guides(fill=guide_legend(title="Prior Treatment"))+
+  scale_fill_brewer(palette="Oranges") +
+  theme_classic()
+
+x <- c("40-59","40-59","60-69","60-69","70-79","70-79","80+")
+freq_2treat$AGEgrp <- cbind(x)
+
+ggplot(data.frame(freq_2treat), aes(x=AGEgrp, y=Freq)) +
+  labs(x="Age Grouped by BJC paper levels", y="Frequency of Prior Treatment", ) +
+  geom_bar(aes(fill=prior_treatment),stat="identity",position="dodge") +
+  guides(fill=guide_legend(title="Prior Treatment"))+
+  scale_fill_brewer(palette="Paired") +
+  theme_classic()
+
+
+```
+
