@@ -19,7 +19,7 @@ Cleaning Our Data
 ```{r}
 #Load data downloaded from 
 #rawdat <- read.csv("/cloud/project/data/diseasedivadata.csv")
-rawdat<- read.csv("~/Documents/Dartmouth/Fall 2021/QBS 181/group project/Data .csv")
+rawdat<- read.csv("~/Desktop/QBS181/project/diseasedivadata.csv")
 ```
 
 ## Including Plots
@@ -73,199 +73,6 @@ remove_nonuniques <- complete_dat[,-cols_nonunique]
 ```
 
 
-Aim 1.1: Classify severity of cancer by site.
-
-I used the dplyr library for most of the data manipulation for Aim 1.1. To begin my analysis, I extracted the two columns of interest: "Center of sequencing", which has the locations of where each patient sample was sequenced, and "Tumor content", which contains the tumor content of each patient sample. Tumor content was classified as percentages that were defined by computational analysis, based on mutant allele variant fractions and zygosity shifts. I made a separate table using just these two columns from the filtered data and named it "aim_1_1".
-```{r}
-# Load dplyr library for data manipulation.
-library(dplyr)
-# Extract columns needed for Aim 1.1 and make subtable
-aim_1_1 = complete_dat %>%
-  select(Center.of.sequencing, tumor.content)
-```
-The next step in my analysis was to create a classification system for tumor content and categorize each patient sample as either low, medium, or high tumor content level. The study we downloaded our raw data from only included patient samples whose tumor content was greater than 20%, so I made a simple classification system in which 20-45% tumor content is considered low, 46-70% tumor content is considered medium, 71-100% tumor content is considered high. To add this classification to my dataframe, I created a new column named "TC_Level" and added each classification for patient sample as a factor using if-else statements.
-```{r}
-# 20 - 45 is low
-# 46 - 70 is medium 
-# 71 - 98 is high
-
-# Create and add classification system to dataframe
-aim_1_1$TC_level <- as.factor(ifelse(aim_1_1$tumor.content < 46, 'Low',
-                     ifelse(aim_1_1$tumor.content < 71, 'Medium', 'High')))
-```
-
-The next step in my analysis was to group sequencing centers (aka the "Center of sequencing" column) into geographic regions. Sequencing centers in our dataset included Dana-Farber Cancer Institute, Memorial Sloan Kettering Cancer Center, Karmanos Cancer Center, University of Michigan, University of Washington, and the Insitute of Cancer Research & The Royal Marsden. Geographic regions were grouped as shown below: 
-
-EAST COAST LOCATIONS:
-DFCI (Boston, MA)
-MSKCC (New York, NY)
-
-MIDWEST LOCATIONS:
-Karmanos (Detroit, MI)
-U Michigan (Ann Arbor, MI)
-
-WEST COAST LOCATIONS:
-U Washington (Seattle, WA)
-
-INTERNATIONAL LOCATIONS:
-RM-ICR (London, UK)
-
-To add the geographic regions to my dataframe, I followed the same step used to add the tumor content classifications to the dataframe -- I created a factor using if-else statements and added the region for each patient sample, as shown below
-```{r}
-# Add geographic region based on sequencing center
-aim_1_1$Site_region <- as.factor(ifelse(aim_1_1$Center.of.sequencing == 'DFCI' | aim_1_1$Center.of.sequencing == 'MSKCC', 'East Coast',
-                     ifelse(aim_1_1$Center.of.sequencing == 'Karmanos Cancer Insitute' | aim_1_1$Center.of.sequencing == 'U Michigan', 'Midwest',
-                     ifelse(aim_1_1$Center.of.sequencing == 'U Washington', 'West Coast', 'International'))))
-```
-
-Now that I have created a classification system for tumor content and grouped sequencing centers by geographic region, I started to look at the data numerically and visually. To get a better understanding of the distribution of the tumor content levels across the geographic region, I created a simple table looking at the mean tumor content across each sequencing region. I made this table using the dplyr and gtsummary packages. The gtsummary package contains the tbl_summary() function which is very helpful when trying to create tables with different types of statistical information. I used piping to select the proper data columns from my original aim_1_1 subtable, and then I used the gtsummary package to design the table as shown below.
-```{r}
-library(gtsummary)
-# Create numeric summary of mean tumor content by sequencing region
-raw_tc_tab = aim_1_1 %>% 
-  select(Site_region, tumor.content) %>%
-  tbl_summary(by=Site_region, statistic = list(all_continuous() ~ "{mean} ({sd})"), label = tumor.content ~ "Mean Tumor Content")  %>%
-  modify_spanning_header( all_stat_cols() ~ "**Sequencing Region**") %>% modify_header(label = "") 
-raw_tc_tab
-```
-From the table created above, I can see that the mean tumor content seems to be fairly equal among the geographic regions covered in the data. The mean tumor content ranges from 58% in the West Coast/internationally to 63% on the East Coast. Additionally, the standard deviations are also relatively similar across the regions, ranging from 18% to 21%. 
-
-Next, I tried to look at the data visually. I decided to make a bar plot to visually assess the distribution of the mean tumor content percentages across sequencing regions. In order to create my plot, I first used the tidyverse package to group my data by sequencing region, and then get the mean tumor content levels for each group. I made a new table, "raw_tc_df", which contains the mean tumor content level by sequencing region that I could feed into ggplot to create my visualization. 
-
-Then, I used ggplot to create my boxplot. Using the data from "raw_tc_df", I plotted the mean tumor content on the y axis against the sequencing regions on the x axis. I then used several features (geom_text, scale_fill_brewer, theme, just to name a few) to improve the aesthetics of the plot.
-```{r}
-library(tidyverse)
-# Create subtable which contains mean tumor content levels by sequencing region
-raw_tc_df = aim_1_1 %>%
-  group_by(Site_region) %>%
-  summarise_at(vars(tumor.content), list(name = mean))
-raw_tc_df <- raw_tc_df %>%
-  rename(mean.tumor.content=name)
-
-# Plot mean tumor content levels for each sequencing region
-ggplot(data=raw_tc_df, mapping=aes(x=Site_region, y=mean.tumor.content, fill=Site_region)) +
-  ggtitle("Mean Tumor Content by Region") + # Set title
-  # Add mean tumor content values to the bars
-  geom_text(aes(label = as.integer(mean.tumor.content)), vjust = -0.2, size = 3, position = position_dodge(0.9), colour="black", family="Courier") +
-  geom_bar(stat='identity')+
-  # Set color palette
-  scale_fill_brewer(palette = "Spectral") +
-  # Set legend title
-  guides(fill=guide_legend(title="Sequencing Region")) +
-  # Remove background grid, change fonts, make it pretty
-  theme(panel.background = element_blank(), axis.line = element_line(colour="black"), plot.title = element_text(hjust=0.5, family="Courier"), axis.title.x = element_text(family="Courier"), axis.title.y = element_text(family="Courier")) +
-  xlab("Sequencing Region") + ylab("Mean Tumor Content (%)")
-```
-
-After visually assessing the mean tumor content levels by region, I can see that the tumor content levels do seem to be fairly equal among the geographic regions. Next, I decided to look at the distributions of tumor content levels (using my classification system) by center of sequencing. I made this table using the gtsummary package again. I also ran a Fisher's exact test and obtained a p-value of 0.9, suggesting that there is not a significant association between Sequencing Site and tumor content level. 
-```{r}
-# Make a table to look at tumor content levels across sequencing site
-p1 = aim_1_1 %>% 
-  select(Center.of.sequencing, TC_level) %>%
-  tbl_summary(by = TC_level,
-                        label = Center.of.sequencing ~ "Sequencing Site") %>% 
-  add_p() %>%
-  modify_header(label = "") %>%
-  modify_spanning_header(all_stat_cols() ~ "Tumor Content Level") %>%
-  bold_labels() 
-
-p1
-```
-
-To get a better visual assessment of the tumor content levels by sequencing sites, I made a grouped bar plot using ggplot:
-```{r}
-mid_tab=table(aim_1_1$TC_level, aim_1_1$Center.of.sequencing)
-mid_df = data.frame(mid_tab)
-mid_df
-
-grouped_plot_a = ggplot(data = mid_df, mapping = aes(x=Var2, y=Freq, fill=Var1)) +
-  geom_bar(stat="identity", position = "dodge") + 
-  geom_text(aes(label = Freq), vjust = 0.5, size = 3, position = position_dodge(0.9), colour="black", family="Courier") +
-  scale_fill_brewer(palette = "Set2") + ggtitle("Tumor Content Level by Sequencing Site") +
-  theme(panel.background = element_blank(), 
-        axis.line = element_line(colour="black"), 
-        plot.title = element_text(hjust=0.5, family="Courier"), 
-        axis.title.x = element_text(family="Courier"), 
-        axis.title.y = element_text(family="Courier"),
-        axis.text.x = element_text(family="Courier",angle = 45, vjust = 1, hjust = 1), 
-        axis.text.y = element_text(family="Courier"),
-        legend.text=element_text(family="Courier"),
-        legend.title=element_text(family="Courier")) + 
-  guides(fill=guide_legend(title="Tumor Content Level")) + xlab("Sequencing Site") + ylab("Level Frequency")
-grouped_plot_a
-```
-
-I then realized that this table might be misleading since some sequencing sites have a much larger sample size than others, so I decided to look at the tumor content levels by sequencing site region instead. This table was also made using gtsummary. 
-```{r}
-# Create a table to compare tumor content levels across sequencing site regions
-library(dplyr)
-aim_1_1 %>%
-  tbl_cross(
-    row = TC_level,
-    col = Site_region,
-    percent = "cell", label = TC_level ~ "Tumor Content"
-  ) %>% modify_header(label = "") %>% modify_spanning_header(all_stat_cols() ~ "Sequencing Region") %>%
-  add_p() %>% bold_labels()
-```
-
-
-My next visualization is a boxplot comparing tumor content by sequencing site. I used the theme feature in ggplot to change the fonts and colors in the plot. 
-```{r}
-# Plot the tumor content percentages across sequencing site
-aim_1_1 %>% select(Center.of.sequencing, tumor.content) %>%
-  tbl_summary(by = Center.of.sequencing)
-xlabs <- paste(levels(aim_1_1$Center.of.sequencing),"\n(N=",table(aim_1_1$Center.of.sequencing),")",sep="")
-
-raw_plot = ggplot(data = aim_1_1, mapping = aes(x=Center.of.sequencing, y=tumor.content, fill=Center.of.sequencing)) +
-  theme(panel.background = element_blank(), 
-        axis.line = element_line(colour="black"), 
-        plot.title = element_text(hjust=0.5, family="Courier"), 
-        axis.title.x = element_text(family="Courier"), 
-        axis.title.y = element_text(family="Courier"),
-        axis.text.x=element_blank(), 
-        axis.text.y = element_text(family="Courier"),
-        legend.text=element_text(family="Courier"),
-        legend.title=element_text(family="Courier")) + 
-  scale_fill_brewer(palette = "Set3") + 
-  guides(fill=guide_legend(title="Sequencing Center")) +
-  xlab("Sequencing Center") + ylab("Tumor Content") + 
-  ggtitle("Tumor Content by Sequencing Site") +geom_boxplot() +geom_jitter(shape=16, position=position_jitter(0.2))
-
-raw_plot
-```
-
-
-Lastly, I plotted the tumor content levels by sequencing site region. I first made a subtable to count the frequencies of tumor content levels by site region, and then fed this table into ggplot. Once again, I utilized the theme feature to add labels to each bar and customize the fonts and colors in the graph.
-```{r}
-# Make table to count frequencies of tumor content levels by site region
-table(aim_1_1$TC_level, aim_1_1$Site_region)
-tab1 = data.frame(tab)
-
-# Stacked barplot
-#barplot(tab, legend = TRUE, args.legend = list(x = "topleft",
-#                           inset = c(0.07, -0.1)))
-
-# Grouped Barplot
-grouped_plot = ggplot(data = tab1, mapping = aes(x=Var2, y=Freq, fill=Var1)) +
-  geom_bar(stat="identity", position = "dodge") + 
-  geom_text(aes(label = Freq), vjust = 0.5, size = 3, position = position_dodge(0.9), colour="black", family="Courier") +
-  scale_fill_brewer(palette = "Pastel2") + ggtitle("Tumor Content Level by Sequencing Region") +
-  theme(panel.background = element_blank(), 
-        axis.line = element_line(colour="black"), 
-        plot.title = element_text(hjust=0.5, family="Courier"), 
-        axis.title.x = element_text(family="Courier"), 
-        axis.title.y = element_text(family="Courier"),
-        axis.text.x = element_text(family="Courier"), 
-        axis.text.y = element_text(family="Courier"),
-        legend.text=element_text(family="Courier"),
-        legend.title=element_text(family="Courier")) + 
-  guides(fill=guide_legend(title="Tumor Content Level")) + xlab("Sequencing Region") + ylab("Level Frequency")
-grouped_plot
-```
-
-And that completes the analysis for aim 1.1!
-
-## END AIM 1.1
 ```{r}
 #subset the data 
 library(tidyverse)
@@ -299,8 +106,6 @@ ggplot(freq_gt1, aes(agegrp,`Count of Tumors`)) +
   
 ```
 Aim(3.1)-Assign classifications of “high”, “medium” or “low” based on the intensity of tumor content
-
-Now we will be taking the datasets and checking on the `tumor.content` variable , the tumor content variable has the numeric value of the amount of tumor present in out subject , so based on this we can seperate our subjects. So basically now we will be taking our `tumor content` variable and be dividing them into three seperate category, say below 20 , in between 30 & 70 , then 70-100. The lowest set is the low severity regions , the the moderate and the high.We can noe create a seperate column and that has the severity levels.
 ```{r}
 finaldata<-remove_nonuniques
 range(finaldata$tumor.content) ##checking the range of the content
@@ -313,14 +118,9 @@ unique(finaldata$Severity)
 
 ```
 Aim3.3-Are these then related to biopsy sites?  (we need to add more to this)
-
-Now we have to check if they are related to the biopsy site , for this we can group by the severiry contenmt and the site where they have the tumor and get the exact count of the severity level and the zone where they are localized.
 ```{r}
 finaldata%>%group_by(Severity,`Tumor.Site`)%>%summarise(count=n())#number of subjects in each level
 ```
-We got the required count and the zones, new we need tyo plot the zone. For plotting the severity on a human graph we can use the package ,gganatogram: An R package for modular visualisation of anatograms and tissues based on ggplot2.Here we will be displaying data onto anatomical structures is a convenient technique to quickly observe tissue related severity, which is based on ghe tissue severity that we calculated before.
-
-Initally we need to make a dataframe , in a order by nameing the organs exactly as built in the package "gganatogram".Then assign them value based on the seberity levels.
 ```{r}
 #source("https://neuroconductor.org/neurocLite.R")
 #neuro_install("gganatogram")
@@ -330,20 +130,19 @@ library(gridExtra)
 #making a dataframe with the required values to plot
 organPlot <- data.frame(organ = c("bone_marrow", "lymph_node", "prostate", "gall_bladder", "liver", "penis","smooth_muscle", "bone","throat","heart","stomach","urinary_bladder"), 
  colour = c("red", "red", "red", "red", "red", "red","red", "red","yellow","green","yellow","green"), 
- value = c(10, 10, 10, 10, 10,10, 10, 10,5,1,5,1), 
+ value = c(10, 5, 1, 8, 2,5, 5, 5,2,2,2,1), 
  stringsAsFactors=F)
 
-gganatogram(data=organPlot, organism='human', sex='male', fill="value")+ theme_void() +
- ggtitle("The Severity zones")
+gganatogram(data=organPlot, organism='human', sex='male', fill="colour")
 
 ```
-Next we will be doing the same as before but this time its the biopsysite which is also determined by the tumor contect, so maximum biopsy is done on sites where the tumor contn is high.
+
 
 ```{r}
 biopsies <- data.frame(biopsy = c("bone_marrow", "lymph_node", "prostate", "gall_bladder", "liver", "penis","smooth_muscle", "bone","throat","heart","stomach","urinary_bladder"),
- x = c(10, 10, 10, 10, 10,10, 10, 10,5,1,5,1),
- y = c(10, 10, 10, 10, 10,10, 10, 10,5,1,5,1),
- value = c(10, 10, 10, 10, 10,10, 10, 10,5,1,5,1))
+ x = c(10, 5, 1, 8, 2,5, 5, 5,2,2,2,1),
+ y = c(10, 5, 1, 8, 2,5, 5, 5,2,2,2,1),
+ value = c(10, 5, 1, 8, 2,5, 5, 5,2,2,2,1))
 p <- hgMale_key %>%
  dplyr::filter(organ %in% c("bone_marrow", "lymph_node", "prostate", "gall_bladder", "liver", "penis","smooth_muscle", "bone","throat","heart","stomach","urinary_bladder")) %>%
  gganatogram(fillOutline="lightgray", organism="human", sex="male",
@@ -354,7 +153,9 @@ p2 <- hgMale_key%>%
  dplyr::filter(organ %in% c("bone_marrow", "lymph_node", "prostate", "gall_bladder", "liver", "penis","smooth_muscle", "bone","throat","heart","stomach","urinary_bladder"))%>%
  gganatogram(fillOutline="lightgray", organism="human", sex="male", 
  fill="value") + theme_void() +
- ggtitle("Value␣of␣biopsies")
+ ggtitle("Value␣of␣biopsies")+
+ geom_point(data = biopsies, pch=21, size=3, aes(x =x, y = -y,
+ fill = value), colour="red")
         
 lay <- rbind(c(1,2), c(1,2), c(3, NULL))
 grid.arrange(p, p2, layout_matrix = lay)
@@ -388,20 +189,10 @@ grid.arrange(p, p2, layout_matrix = lay)
 
 #getting in the cleaned dataset  (you guys can comment this line off)
 ```{r}
-SampleRevised<-read_csv("/Users/parinithakompala/Documents/Data-Wrangling-Project/cleanedsample.csv")
-```
-
-```{r}
-class(SampleRevised$Diagnosis.Age)
+SampleRevised<-read_csv("/Users/parinithakompala/Documents/GitHub/Data-Wrangling-Project/SampleRevised.csv")
 ```
 
 
-```{r}
-SampleRevised$`Diagnosis.Age`<- 2021-(SampleRevised$year_of_birth)
-```
 
-```{r}
-
-```
 
 
