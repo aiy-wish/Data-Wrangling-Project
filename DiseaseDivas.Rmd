@@ -22,16 +22,12 @@ Cleaning Our Data
 rawdat<- read.csv("diseasedivadata.csv")
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
 
 ```{r pressure, echo=FALSE}
 #Summarize
 summary(rawdat)
 ```
-`
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
 ```{r}
 #Remove NAs
 complete_dat <- na.omit(rawdat)
