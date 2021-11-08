@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-11-08T15:23:46.695Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36" etag="OFgbyoiDrZKcTSoWtVF2" version="15.7.0" type="github">
+<mxfile host="app.diagrams.net" modified="2021-11-08T21:14:11.682Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36" etag="CS7aj_FbYwroI9RVXW-R" version="15.6.8" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="1234" dy="696" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1303" dy="642" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
@@ -12,190 +12,201 @@
         </mxCell>
         <mxCell id="jva05bBIhXNDkV-Z3Rs0-19" value="" style="endArrow=classic;html=1;rounded=0;fontSize=16;fillColor=#f8cecc;strokeColor=#b85450;" parent="jva05bBIhXNDkV-Z3Rs0-0" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="210" y="350" as="sourcePoint" />
-            <mxPoint x="231.42857142857156" y="350.0173611111111" as="targetPoint" />
+            <mxPoint x="213" y="392" as="sourcePoint" />
+            <mxPoint x="234.42857142857156" y="392.0173611111111" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="jva05bBIhXNDkV-Z3Rs0-20" value="" style="endArrow=classic;html=1;rounded=0;fontSize=16;fillColor=#f8cecc;strokeColor=#b85450;" parent="jva05bBIhXNDkV-Z3Rs0-0" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="210" y="409.28" as="sourcePoint" />
-            <mxPoint x="231.42857142857156" y="409.29736111111106" as="targetPoint" />
+            <mxPoint x="213" y="451.28" as="sourcePoint" />
+            <mxPoint x="234.42857142857156" y="451.29736111111106" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="jva05bBIhXNDkV-Z3Rs0-21" value="" style="endArrow=classic;html=1;rounded=0;fontSize=16;fillColor=#f8cecc;strokeColor=#b85450;" parent="jva05bBIhXNDkV-Z3Rs0-0" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="210" y="478.94" as="sourcePoint" />
-            <mxPoint x="231.42857142857156" y="478.9573611111111" as="targetPoint" />
+            <mxPoint x="213" y="520.94" as="sourcePoint" />
+            <mxPoint x="234.42857142857156" y="520.9573611111111" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="jva05bBIhXNDkV-Z3Rs0-37" value="" style="group" parent="jva05bBIhXNDkV-Z3Rs0-0" vertex="1" connectable="0">
           <mxGeometry x="-9.07" width="393.07" height="519.4444444444445" as="geometry" />
         </mxCell>
-        <mxCell id="WIyWlLk6GJQsqaUBKTNV-3" value="Raw data" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;fillColor=#FFFFFF;strokeColor=#6c8ebf;" parent="jva05bBIhXNDkV-Z3Rs0-37" vertex="1">
-          <mxGeometry x="45.712857142857146" width="154.2857142857143" height="48.88888888888889" as="geometry" />
-        </mxCell>
-        <mxCell id="LTJ8HYo8QJe674u0WcUs-32" value="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;u&gt;Aim 1&lt;/u&gt;:&amp;nbsp;&lt;br style=&quot;font-size: 16px&quot;&gt;&lt;span id=&quot;docs-internal-guid-bc889f9e-7fff-4419-e0c3-1be9c9a6d337&quot; style=&quot;font-size: 16px&quot;&gt;&lt;span style=&quot;font-family: &amp;#34;arial&amp;#34; ; color: rgb(0 , 0 , 0) ; background-color: transparent ; vertical-align: baseline ; font-size: 16px&quot;&gt;Center of &lt;br&gt;Sequencing&lt;br&gt;&amp;nbsp;Analysis&lt;/span&gt;&lt;/span&gt;&lt;/font&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;fontSize=16;fillColor=#FFFFFF;align=center;strokeColor=#82b366;verticalAlign=middle;rounded=1;" parent="jva05bBIhXNDkV-Z3Rs0-37" vertex="1">
-          <mxGeometry x="19.99857142857143" y="110.00000000000001" width="195.55555555555557" height="195.55555555555557" as="geometry" />
-        </mxCell>
-        <mxCell id="jva05bBIhXNDkV-Z3Rs0-10" value="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;u&gt;Aim 2&lt;/u&gt;:&amp;nbsp;&lt;br&gt;Mutation Count&lt;br&gt;&lt;span id=&quot;docs-internal-guid-d7643628-7fff-0ea7-7dd4-fb121b0baa99&quot;&gt;&lt;span style=&quot;font-family: &amp;#34;arial&amp;#34; ; background-color: transparent ; vertical-align: baseline&quot;&gt;Classification System&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/font&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;fontSize=12;fillColor=#FFFFFF;align=center;fontStyle=0;strokeColor=#82b366;rounded=1;" parent="jva05bBIhXNDkV-Z3Rs0-37" vertex="1">
-          <mxGeometry x="19.99857142857143" y="323.8888888888889" width="195.55555555555557" height="195.55555555555557" as="geometry" />
-        </mxCell>
-        <mxCell id="jva05bBIhXNDkV-Z3Rs0-23" value="" style="endArrow=classic;html=1;rounded=0;fontSize=16;fillColor=#60a917;strokeColor=#2D7600;" parent="jva05bBIhXNDkV-Z3Rs0-37" edge="1">
+        <mxCell id="jva05bBIhXNDkV-Z3Rs0-23" value="" style="endArrow=classic;html=1;rounded=0;fontSize=16;fillColor=#dae8fc;strokeColor=#B3B3B3;strokeWidth=2;" parent="jva05bBIhXNDkV-Z3Rs0-37" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="99.07" y="54" as="sourcePoint" />
-            <mxPoint x="99.07" y="104" as="targetPoint" />
+            <mxPoint x="118.07" y="36" as="sourcePoint" />
+            <mxPoint x="118.07" y="76" as="targetPoint" />
+            <Array as="points" />
           </mxGeometry>
         </mxCell>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-3" value="Raw data" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;fillColor=#cce5ff;strokeColor=#36393d;gradientColor=#ffffff;" parent="jva05bBIhXNDkV-Z3Rs0-37" vertex="1">
+          <mxGeometry x="45.71" width="154.29" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LTJ8HYo8QJe674u0WcUs-32" value="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;u&gt;Aim 1&lt;/u&gt;:&amp;nbsp;&lt;br style=&quot;font-size: 16px&quot;&gt;&lt;span id=&quot;docs-internal-guid-bc889f9e-7fff-4419-e0c3-1be9c9a6d337&quot; style=&quot;font-size: 16px&quot;&gt;&lt;span style=&quot;font-family: &amp;#34;arial&amp;#34; ; color: rgb(0 , 0 , 0) ; background-color: transparent ; vertical-align: baseline ; font-size: 16px&quot;&gt;Center of &lt;br&gt;Sequencing&lt;br&gt;&amp;nbsp;Analysis&lt;/span&gt;&lt;/span&gt;&lt;/font&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;fontSize=16;fillColor=#cdeb8b;align=center;strokeColor=#36393d;verticalAlign=middle;rounded=1;gradientColor=#ffffff;" parent="jva05bBIhXNDkV-Z3Rs0-37" vertex="1">
+          <mxGeometry x="28.07857142857143" y="156" width="195.55555555555557" height="195.55555555555557" as="geometry" />
+        </mxCell>
+        <mxCell id="jva05bBIhXNDkV-Z3Rs0-10" value="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;u&gt;Aim 2&lt;/u&gt;:&amp;nbsp;&lt;br&gt;Mutation Count&lt;br&gt;&lt;span id=&quot;docs-internal-guid-d7643628-7fff-0ea7-7dd4-fb121b0baa99&quot;&gt;&lt;span style=&quot;font-family: &amp;#34;arial&amp;#34; ; background-color: transparent ; vertical-align: baseline&quot;&gt;Classification System&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/font&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;fontSize=12;fillColor=#cdeb8b;align=center;fontStyle=0;strokeColor=#36393d;rounded=1;gradientColor=#ffffff;" parent="jva05bBIhXNDkV-Z3Rs0-37" vertex="1">
+          <mxGeometry x="22.99857142857143" y="365.8888888888889" width="195.55555555555557" height="195.55555555555557" as="geometry" />
+        </mxCell>
         <mxCell id="jva05bBIhXNDkV-Z3Rs0-28" value="&lt;span style=&quot;color: rgb(0 , 0 , 0)&quot;&gt;Aim 1.1:&amp;nbsp;&lt;/span&gt;&lt;br style=&quot;color: rgb(0 , 0 , 0)&quot;&gt;&lt;span id=&quot;docs-internal-guid-32b5493a-7fff-44e1-2a43-0ddc0aedb55e&quot; style=&quot;color: rgb(0 , 0 , 0)&quot;&gt;&lt;span style=&quot;font-family: &amp;#34;arial&amp;#34; ; background-color: transparent ; vertical-align: baseline&quot;&gt;Classify severity of cancer by site&amp;nbsp;&lt;/span&gt;&lt;/span&gt;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=1;fontSize=13;verticalAlign=middle;fillColor=#FFFFFF;strokeColor=#b85450;" parent="jva05bBIhXNDkV-Z3Rs0-37" vertex="1">
-          <mxGeometry x="233.07" y="122.39" width="152" height="80" as="geometry" />
+          <mxGeometry x="236.07" y="164.39" width="152" height="80" as="geometry" />
         </mxCell>
         <mxCell id="jva05bBIhXNDkV-Z3Rs0-32" value="&lt;span style=&quot;color: rgb(0 , 0 , 0)&quot;&gt;Aim 1.2:&amp;nbsp;&lt;/span&gt;&lt;br style=&quot;color: rgb(0 , 0 , 0)&quot;&gt;&lt;span id=&quot;docs-internal-guid-430a61ab-7fff-0e5c-0323-d102c36e70b5&quot; style=&quot;color: rgb(0 , 0 , 0)&quot;&gt;&lt;span style=&quot;font-family: &amp;#34;arial&amp;#34; ; background-color: transparent ; vertical-align: baseline&quot;&gt;Classify by exposure status&lt;/span&gt;&lt;/span&gt;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=1;fontSize=13;verticalAlign=middle;fillColor=#FFFFFF;strokeColor=#b85450;" parent="jva05bBIhXNDkV-Z3Rs0-37" vertex="1">
-          <mxGeometry x="229.07" y="214" width="160" height="80" as="geometry" />
+          <mxGeometry x="232.07" y="256" width="160" height="80" as="geometry" />
         </mxCell>
         <mxCell id="jva05bBIhXNDkV-Z3Rs0-33" value="&lt;span style=&quot;font-size: 11px&quot;&gt;Aim 2.1:&amp;nbsp;&lt;/span&gt;&lt;br style=&quot;font-size: 11px&quot;&gt;&lt;span id=&quot;docs-internal-guid-32b5493a-7fff-44e1-2a43-0ddc0aedb55e&quot; style=&quot;font-size: 11px&quot;&gt;&lt;span style=&quot;font-family: &amp;#34;arial&amp;#34; ; background-color: transparent ; vertical-align: baseline&quot;&gt;Create mutation count classification system&lt;/span&gt;&lt;/span&gt;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=1;fontSize=13;verticalAlign=middle;fillColor=default;strokeColor=#b85450;" parent="jva05bBIhXNDkV-Z3Rs0-37" vertex="1">
-          <mxGeometry x="233.07" y="330" width="160" height="45.22" as="geometry" />
+          <mxGeometry x="236.07" y="372" width="160" height="45.22" as="geometry" />
         </mxCell>
         <mxCell id="jva05bBIhXNDkV-Z3Rs0-34" value="&lt;span style=&quot;font-size: 10px&quot;&gt;Aim 2.2:&amp;nbsp;&lt;/span&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;&lt;span id=&quot;docs-internal-guid-430a61ab-7fff-0e5c-0323-d102c36e70b5&quot; style=&quot;font-size: 10px&quot;&gt;&lt;span style=&quot;font-family: &amp;#34;arial&amp;#34; ; background-color: transparent ; vertical-align: baseline&quot;&gt;Link in exposure status&lt;br&gt;&amp;nbsp;and patient characteristics&lt;br&gt;&lt;/span&gt;&lt;/span&gt;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=1;fontSize=13;verticalAlign=middle;fillColor=#FFFFFF;strokeColor=#b85450;" parent="jva05bBIhXNDkV-Z3Rs0-37" vertex="1">
-          <mxGeometry x="233.07" y="379" width="160" height="66" as="geometry" />
+          <mxGeometry x="236.07" y="421" width="160" height="66" as="geometry" />
         </mxCell>
         <mxCell id="jva05bBIhXNDkV-Z3Rs0-35" value="&lt;span style=&quot;font-size: 10px&quot;&gt;Aim 2.3:&amp;nbsp;&lt;/span&gt;&lt;br style=&quot;font-size: 10px&quot;&gt;&lt;span id=&quot;docs-internal-guid-430a61ab-7fff-0e5c-0323-d102c36e70b5&quot; style=&quot;font-size: 10px&quot;&gt;&lt;span style=&quot;font-family: &amp;#34;arial&amp;#34; ; background-color: transparent ; vertical-align: baseline&quot;&gt;Is exposure status &amp;amp;&lt;br&gt;&amp;nbsp;fraction of altered genome&lt;br&gt;&amp;nbsp;related to biopsy sites?&lt;/span&gt;&lt;/span&gt;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=1;fontSize=13;verticalAlign=middle;fillColor=#FFFFFF;strokeColor=#b85450;" parent="jva05bBIhXNDkV-Z3Rs0-37" vertex="1">
-          <mxGeometry x="233.07" y="450" width="160" height="60" as="geometry" />
+          <mxGeometry x="236.07" y="492" width="160" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="jva05bBIhXNDkV-Z3Rs0-30" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;fontSize=13;verticalAlign=middle;fillColor=#0050ef;strokeColor=#001DBC;fontColor=#ffffff;" parent="jva05bBIhXNDkV-Z3Rs0-37" vertex="1">
-          <mxGeometry width="20" height="104" as="geometry" />
+        <mxCell id="jva05bBIhXNDkV-Z3Rs0-30" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;fontSize=13;verticalAlign=middle;fillColor=#7EA6E0;strokeColor=#7EA6E0;fontColor=#ffffff;" parent="jva05bBIhXNDkV-Z3Rs0-37" vertex="1">
+          <mxGeometry width="20" height="140" as="geometry" />
         </mxCell>
         <mxCell id="UrIfdFHcw9ySpkhSnF8r-1" value="" style="endArrow=classic;html=1;rounded=0;fontSize=16;fillColor=#f8cecc;strokeColor=#b85450;" parent="jva05bBIhXNDkV-Z3Rs0-37" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="219.07" y="250" as="sourcePoint" />
-            <mxPoint x="240.49857142857155" y="250.0173611111111" as="targetPoint" />
+            <mxPoint x="222.07" y="292" as="sourcePoint" />
+            <mxPoint x="243.49857142857155" y="292.0173611111111" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="UrIfdFHcw9ySpkhSnF8r-2" value="" style="endArrow=classic;html=1;rounded=0;fontSize=16;fillColor=#f8cecc;strokeColor=#b85450;" parent="jva05bBIhXNDkV-Z3Rs0-37" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="221.07" y="160" as="sourcePoint" />
-            <mxPoint x="242.49857142857155" y="160.0173611111111" as="targetPoint" />
+            <mxPoint x="224.07" y="202" as="sourcePoint" />
+            <mxPoint x="245.49857142857155" y="202.0173611111111" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fbxLGO5AVqaTQdbHGjEv-2" value="Cleaning the cBioPortal data in R" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#36393d;fillColor=#cce5ff;gradientColor=#ffffff;" vertex="1" parent="jva05bBIhXNDkV-Z3Rs0-37">
+          <mxGeometry x="45.71" y="86" width="154.29" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="fbxLGO5AVqaTQdbHGjEv-8" value="" style="endArrow=classic;html=1;rounded=0;fontSize=16;fillColor=#dae8fc;strokeColor=#B3B3B3;strokeWidth=2;" edge="1" parent="jva05bBIhXNDkV-Z3Rs0-37" source="fbxLGO5AVqaTQdbHGjEv-2" target="LTJ8HYo8QJe674u0WcUs-32">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="128.07" y="146" as="sourcePoint" />
+            <mxPoint x="128.07" y="86" as="targetPoint" />
+            <Array as="points" />
           </mxGeometry>
         </mxCell>
         <mxCell id="jva05bBIhXNDkV-Z3Rs0-59" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;fontSize=13;strokeColor=#56517e;fillColor=#d0cee2;verticalAlign=middle;" parent="jva05bBIhXNDkV-Z3Rs0-0" vertex="1">
-          <mxGeometry x="-9.07" y="114" width="20" height="616" as="geometry" />
+          <mxGeometry x="-6.07" y="156" width="20" height="616" as="geometry" />
         </mxCell>
-        <mxCell id="jva05bBIhXNDkV-Z3Rs0-39" value="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;u&gt;Bonus Aim&lt;/u&gt;:&amp;nbsp;&lt;br&gt;&lt;span id=&quot;docs-internal-guid-02cd7383-7fff-e907-d800-ce4748073192&quot;&gt;&lt;span style=&quot;font-size: 10.9091pt ; font-family: &amp;#34;arial&amp;#34; ; background-color: transparent ; vertical-align: baseline&quot;&gt;Association Between Diagnosis Age and Tumor Site&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/font&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;fontSize=12;fillColor=#FFFFFF;align=center;fontStyle=0;strokeColor=#82b366;rounded=1;" parent="jva05bBIhXNDkV-Z3Rs0-0" vertex="1">
-          <mxGeometry x="10.92857142857143" y="533.448888888889" width="195.55555555555557" height="195.55555555555557" as="geometry" />
+        <mxCell id="jva05bBIhXNDkV-Z3Rs0-39" value="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;u&gt;Bonus Aim&lt;/u&gt;:&amp;nbsp;&lt;br&gt;&lt;span id=&quot;docs-internal-guid-02cd7383-7fff-e907-d800-ce4748073192&quot;&gt;&lt;span style=&quot;font-size: 10.9091pt ; font-family: &amp;#34;arial&amp;#34; ; background-color: transparent ; vertical-align: baseline&quot;&gt;Association Between Diagnosis Age and Tumor Site&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/font&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;fontSize=12;fillColor=#cdeb8b;align=center;fontStyle=0;strokeColor=#36393d;rounded=1;gradientColor=#ffffff;" parent="jva05bBIhXNDkV-Z3Rs0-0" vertex="1">
+          <mxGeometry x="13.92857142857143" y="575.448888888889" width="195.55555555555557" height="195.55555555555557" as="geometry" />
         </mxCell>
         <mxCell id="UrIfdFHcw9ySpkhSnF8r-3" value="Extract tumor&lt;br&gt;&amp;nbsp;content and &lt;br&gt;sequencing site &lt;br&gt;columns" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=1;fontSize=13;verticalAlign=middle;fillColor=#FFFFFF;strokeColor=#b85450;" parent="jva05bBIhXNDkV-Z3Rs0-0" vertex="1">
-          <mxGeometry x="385" y="120" width="152" height="80" as="geometry" />
+          <mxGeometry x="388" y="162" width="152" height="80" as="geometry" />
         </mxCell>
         <mxCell id="UrIfdFHcw9ySpkhSnF8r-7" value="" style="endArrow=classic;html=1;rounded=0;fontSize=16;fillColor=#f8cecc;strokeColor=#b85450;" parent="jva05bBIhXNDkV-Z3Rs0-0" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="377" y="159.5" as="sourcePoint" />
-            <mxPoint x="398.42857142857156" y="159.5173611111111" as="targetPoint" />
+            <mxPoint x="380" y="201.5" as="sourcePoint" />
+            <mxPoint x="401.42857142857156" y="201.5173611111111" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="dsIt64HnXnaKbnJkgqfY-0" value="Extract the&lt;br&gt;&amp;nbsp;tumor content&lt;br&gt;&amp;nbsp;range" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=1;fillColor=#FFFFFF;strokeColor=#b85450;" parent="jva05bBIhXNDkV-Z3Rs0-0" vertex="1">
-          <mxGeometry x="397" y="328" width="129" height="50" as="geometry" />
+          <mxGeometry x="400" y="370" width="129" height="50" as="geometry" />
         </mxCell>
         <mxCell id="dsIt64HnXnaKbnJkgqfY-1" value="" style="endArrow=classic;html=1;rounded=0;fontSize=16;fillColor=#f8cecc;strokeColor=#b85450;" parent="jva05bBIhXNDkV-Z3Rs0-0" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="385" y="354.5" as="sourcePoint" />
-            <mxPoint x="406.42857142857156" y="354.5173611111111" as="targetPoint" />
+            <mxPoint x="388" y="396.5" as="sourcePoint" />
+            <mxPoint x="409.42857142857156" y="396.5173611111111" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="dsIt64HnXnaKbnJkgqfY-6" value="&lt;font style=&quot;font-size: 9px&quot;&gt;Group by&lt;br&gt;tumor site and prev.&lt;br&gt;&amp;nbsp;calculated severity&amp;nbsp;&lt;/font&gt;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=1;fillColor=#FFFFFF;strokeColor=#b85450;" parent="jva05bBIhXNDkV-Z3Rs0-0" vertex="1">
-          <mxGeometry x="397" y="456" width="129" height="50" as="geometry" />
+          <mxGeometry x="400" y="498" width="129" height="50" as="geometry" />
         </mxCell>
         <mxCell id="dsIt64HnXnaKbnJkgqfY-7" value="" style="endArrow=classic;html=1;rounded=0;fontSize=16;fillColor=#f8cecc;strokeColor=#b85450;" parent="jva05bBIhXNDkV-Z3Rs0-0" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="385" y="482.5" as="sourcePoint" />
-            <mxPoint x="406.42857142857156" y="482.5173611111111" as="targetPoint" />
+            <mxPoint x="388" y="524.5" as="sourcePoint" />
+            <mxPoint x="409.42857142857156" y="524.5173611111111" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="UrIfdFHcw9ySpkhSnF8r-6" value="" style="endArrow=classic;html=1;rounded=0;fontSize=16;fillColor=#f8cecc;strokeColor=#b85450;" parent="jva05bBIhXNDkV-Z3Rs0-0" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="538.57" y="159.5" as="sourcePoint" />
-            <mxPoint x="559.9985714285716" y="159.5173611111111" as="targetPoint" />
+            <mxPoint x="541.57" y="201.5" as="sourcePoint" />
+            <mxPoint x="562.9985714285716" y="201.5173611111111" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="A9-u4E476JNnXryJL63V-2" value="&lt;font style=&quot;font-size: 8px&quot;&gt;Extract fraction genome altered, mutation count and tumor content&lt;/font&gt;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=1;fontSize=13;verticalAlign=middle;fillColor=#FFFFFF;strokeColor=#b85450;" vertex="1" parent="jva05bBIhXNDkV-Z3Rs0-0">
-          <mxGeometry x="397" y="390" width="133" height="52.5" as="geometry" />
+        <mxCell id="A9-u4E476JNnXryJL63V-2" value="&lt;font style=&quot;font-size: 8px&quot;&gt;Extract fraction genome altered, mutation count and tumor content&lt;/font&gt;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=1;fontSize=13;verticalAlign=middle;fillColor=#FFFFFF;strokeColor=#b85450;" parent="jva05bBIhXNDkV-Z3Rs0-0" vertex="1">
+          <mxGeometry x="400" y="432" width="133" height="52.5" as="geometry" />
         </mxCell>
-        <mxCell id="A9-u4E476JNnXryJL63V-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fillColor=#f8cecc;strokeColor=#B85450;" edge="1" parent="jva05bBIhXNDkV-Z3Rs0-0" source="jva05bBIhXNDkV-Z3Rs0-34">
+        <mxCell id="A9-u4E476JNnXryJL63V-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fillColor=#f8cecc;strokeColor=#B85450;" parent="jva05bBIhXNDkV-Z3Rs0-0" source="jva05bBIhXNDkV-Z3Rs0-34" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="409" y="416" as="targetPoint" />
+            <mxPoint x="412" y="458" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="399" y="416" />
-              <mxPoint x="399" y="416" />
+              <mxPoint x="402" y="458" />
+              <mxPoint x="402" y="458" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="jva05bBIhXNDkV-Z3Rs0-24" value="Clean &amp;amp; Filter" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=#FFFFFF;fontSize=13;rotation=-90;fontColor=#0000FF;" parent="jva05bBIhXNDkV-Z3Rs0-38" vertex="1">
-          <mxGeometry x="-23" y="42" width="90" height="20" as="geometry" />
+        <mxCell id="jva05bBIhXNDkV-Z3Rs0-24" value="&lt;font color=&quot;#7ea6e0&quot;&gt;&lt;b&gt;Clean &amp;amp; Filter&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=#FFFFFF;fontSize=13;rotation=-90;fontColor=#0000FF;" parent="jva05bBIhXNDkV-Z3Rs0-38" vertex="1">
+          <mxGeometry x="-28" y="66" width="100" height="20" as="geometry" />
         </mxCell>
         <mxCell id="jva05bBIhXNDkV-Z3Rs0-60" value="Data Analysis" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=#FFFFFF;fontSize=13;rotation=-90;fontColor=#A680B8;" parent="jva05bBIhXNDkV-Z3Rs0-38" vertex="1">
-          <mxGeometry x="-23" y="410" width="90" height="20" as="geometry" />
+          <mxGeometry x="-20" y="452" width="90" height="20" as="geometry" />
         </mxCell>
         <mxCell id="UrIfdFHcw9ySpkhSnF8r-8" value="Numerically and&lt;br&gt;&amp;nbsp;visually summarize&lt;br&gt;&amp;nbsp;tumor content &lt;br&gt;in relation to &lt;br&gt;sequencing site&amp;nbsp;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=1;fontSize=13;verticalAlign=middle;fillColor=#FFFFFF;strokeColor=#b85450;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="601" y="145" width="152" height="80" as="geometry" />
+          <mxGeometry x="604" y="187" width="152" height="80" as="geometry" />
         </mxCell>
         <mxCell id="dsIt64HnXnaKbnJkgqfY-2" value="&lt;font style=&quot;font-size: 9px&quot;&gt;Fix a threshold and&lt;br&gt;classify,&amp;nbsp;if they are &lt;br&gt;(high, medium or low)&lt;/font&gt;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=1;fillColor=#FFFFFF;strokeColor=#b85450;fontSize=10;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="592" y="350" width="128" height="50" as="geometry" />
+          <mxGeometry x="595" y="392" width="128" height="50" as="geometry" />
         </mxCell>
         <mxCell id="dsIt64HnXnaKbnJkgqfY-3" value="" style="endArrow=classic;html=1;rounded=0;fontSize=16;fillColor=#f8cecc;strokeColor=#b85450;" parent="WIyWlLk6GJQsqaUBKTNV-1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="580" y="376.5" as="sourcePoint" />
-            <mxPoint x="601.4285714285716" y="376.5173611111111" as="targetPoint" />
+            <mxPoint x="583" y="418.5" as="sourcePoint" />
+            <mxPoint x="604.4285714285716" y="418.5173611111111" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="dsIt64HnXnaKbnJkgqfY-4" value="Add classification&lt;br&gt;&amp;nbsp;to &lt;br&gt;the dataset" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=1;fillColor=#FFFFFF;strokeColor=#b85450;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="732" y="350" width="129" height="50" as="geometry" />
+          <mxGeometry x="735" y="392" width="129" height="50" as="geometry" />
         </mxCell>
         <mxCell id="dsIt64HnXnaKbnJkgqfY-5" value="" style="endArrow=classic;html=1;rounded=0;fontSize=16;fillColor=#f8cecc;strokeColor=#b85450;" parent="WIyWlLk6GJQsqaUBKTNV-1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="720" y="376.5" as="sourcePoint" />
-            <mxPoint x="741.4285714285716" y="376.5173611111111" as="targetPoint" />
+            <mxPoint x="723" y="418.5" as="sourcePoint" />
+            <mxPoint x="744.4285714285716" y="418.5173611111111" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="dsIt64HnXnaKbnJkgqfY-8" value="&lt;span style=&quot;font-size: 9px&quot;&gt;Get counts of severity &lt;br&gt;by tumor site&lt;/span&gt;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=1;fillColor=#FFFFFF;strokeColor=#b85450;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="591" y="480" width="129" height="50" as="geometry" />
+          <mxGeometry x="594" y="522" width="129" height="50" as="geometry" />
         </mxCell>
         <mxCell id="dsIt64HnXnaKbnJkgqfY-9" value="" style="endArrow=classic;html=1;rounded=0;fontSize=16;fillColor=#f8cecc;strokeColor=#b85450;" parent="WIyWlLk6GJQsqaUBKTNV-1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="579" y="506.5" as="sourcePoint" />
-            <mxPoint x="600.4285714285716" y="506.5173611111111" as="targetPoint" />
+            <mxPoint x="582" y="548.5" as="sourcePoint" />
+            <mxPoint x="603.4285714285716" y="548.5173611111111" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="dsIt64HnXnaKbnJkgqfY-10" value="&lt;font size=&quot;1&quot;&gt;Set organ values&lt;br&gt;&amp;nbsp;and plot&lt;/font&gt;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=1;fillColor=#FFFFFF;strokeColor=#b85450;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="732" y="480" width="129" height="50" as="geometry" />
+          <mxGeometry x="735" y="522" width="129" height="50" as="geometry" />
         </mxCell>
         <mxCell id="dsIt64HnXnaKbnJkgqfY-11" value="" style="endArrow=classic;html=1;rounded=0;fontSize=16;fillColor=#f8cecc;strokeColor=#b85450;" parent="WIyWlLk6GJQsqaUBKTNV-1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="720" y="506.5" as="sourcePoint" />
-            <mxPoint x="741.4285714285716" y="506.5173611111111" as="targetPoint" />
+            <mxPoint x="723" y="548.5" as="sourcePoint" />
+            <mxPoint x="744.4285714285716" y="548.5173611111111" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="dsIt64HnXnaKbnJkgqfY-12" value="&lt;span style=&quot;font-size: 9px&quot;&gt;Get biopsy site &lt;br&gt;frequencies and plot&lt;/span&gt;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=1;fillColor=#FFFFFF;strokeColor=#b85450;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="873" y="480" width="129" height="50" as="geometry" />
+          <mxGeometry x="876" y="522" width="129" height="50" as="geometry" />
         </mxCell>
         <mxCell id="dsIt64HnXnaKbnJkgqfY-13" value="" style="endArrow=classic;html=1;rounded=0;fontSize=16;fillColor=#f8cecc;strokeColor=#b85450;" parent="WIyWlLk6GJQsqaUBKTNV-1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="861" y="506.5" as="sourcePoint" />
-            <mxPoint x="882.4285714285716" y="506.5173611111111" as="targetPoint" />
+            <mxPoint x="864" y="548.5" as="sourcePoint" />
+            <mxPoint x="885.4285714285716" y="548.5173611111111" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="A9-u4E476JNnXryJL63V-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=8;strokeColor=#B85450;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="A9-u4E476JNnXryJL63V-5">
+        <mxCell id="A9-u4E476JNnXryJL63V-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=8;strokeColor=#B85450;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="A9-u4E476JNnXryJL63V-5" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="740" y="440" as="targetPoint" />
+            <mxPoint x="743" y="482" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="A9-u4E476JNnXryJL63V-5" value="&lt;font style=&quot;font-size: 7px&quot;&gt;Classify groups as exposed &lt;br&gt;or non-exposed&lt;/font&gt;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=1;fontSize=13;verticalAlign=middle;fillColor=#FFFFFF;strokeColor=#b85450;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
-          <mxGeometry x="601" y="414" width="119" height="52.5" as="geometry" />
+        <mxCell id="A9-u4E476JNnXryJL63V-5" value="&lt;font style=&quot;font-size: 7px&quot;&gt;Classify groups as exposed &lt;br&gt;or non-exposed&lt;/font&gt;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=1;fontSize=13;verticalAlign=middle;fillColor=#FFFFFF;strokeColor=#b85450;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="604" y="456" width="119" height="52.5" as="geometry" />
         </mxCell>
-        <mxCell id="A9-u4E476JNnXryJL63V-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#B85450;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="A9-u4E476JNnXryJL63V-2">
+        <mxCell id="A9-u4E476JNnXryJL63V-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#B85450;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="A9-u4E476JNnXryJL63V-2" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="610" y="440" as="targetPoint" />
+            <mxPoint x="613" y="482" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="A9-u4E476JNnXryJL63V-8" value="&lt;span style=&quot;font-size: 7px&quot;&gt;Visualize and analyze &lt;br&gt;comparison between &lt;br&gt;groups&amp;nbsp;&amp;nbsp;&lt;/span&gt;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=1;fontSize=13;verticalAlign=middle;fillColor=#FFFFFF;strokeColor=#b85450;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
-          <mxGeometry x="732" y="414" width="119" height="52.5" as="geometry" />
+        <mxCell id="A9-u4E476JNnXryJL63V-8" value="&lt;span style=&quot;font-size: 7px&quot;&gt;Visualize and analyze &lt;br&gt;comparison between &lt;br&gt;groups&amp;nbsp;&amp;nbsp;&lt;/span&gt;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=1;fontSize=13;verticalAlign=middle;fillColor=#FFFFFF;strokeColor=#b85450;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="735" y="456" width="119" height="52.5" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
