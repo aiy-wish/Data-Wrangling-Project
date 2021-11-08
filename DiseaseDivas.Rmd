@@ -106,6 +106,8 @@ ggplot(freq_gt1, aes(agegrp,`Count of Tumors`)) +
   
 ```
 Aim(3.1)-Assign classifications of “high”, “medium” or “low” based on the intensity of tumor content
+
+Now we will be taking the datasets and checking on the `tumor.content` variable , the tumor content variable has the numeric value of the amount of tumor present in out subject , so based on this we can seperate our subjects. So basically now we will be taking our `tumor content` variable and be dividing them into three seperate category, say below 20 , in between 30 & 70 , then 70-100. The lowest set is the low severity regions , the the moderate and the high.We can noe create a seperate column and that has the severity levels.
 ```{r}
 finaldata<-remove_nonuniques
 range(finaldata$tumor.content) ##checking the range of the content
@@ -118,9 +120,14 @@ unique(finaldata$Severity)
 
 ```
 Aim3.3-Are these then related to biopsy sites?  (we need to add more to this)
+
+Now we have to check if they are related to the biopsy site , for this we can group by the severiry contenmt and the site where they have the tumor and get the exact count of the severity level and the zone where they are localized.
 ```{r}
 finaldata%>%group_by(Severity,`Tumor.Site`)%>%summarise(count=n())#number of subjects in each level
 ```
+We got the required count and the zones, new we need tyo plot the zone. For plotting the severity on a human graph we can use the package ,gganatogram: An R package for modular visualisation of anatograms and tissues based on ggplot2.Here we will be displaying data onto anatomical structures is a convenient technique to quickly observe tissue related severity, which is based on ghe tissue severity that we calculated before.
+
+Initally we need to make a dataframe , in a order by nameing the organs exactly as built in the package "gganatogram".Then assign them value based on the seberity levels.
 ```{r}
 #source("https://neuroconductor.org/neurocLite.R")
 #neuro_install("gganatogram")
@@ -130,19 +137,20 @@ library(gridExtra)
 #making a dataframe with the required values to plot
 organPlot <- data.frame(organ = c("bone_marrow", "lymph_node", "prostate", "gall_bladder", "liver", "penis","smooth_muscle", "bone","throat","heart","stomach","urinary_bladder"), 
  colour = c("red", "red", "red", "red", "red", "red","red", "red","yellow","green","yellow","green"), 
- value = c(10, 5, 1, 8, 2,5, 5, 5,2,2,2,1), 
+ value = c(10, 10, 10, 10, 10,10, 10, 10,5,1,5,1), 
  stringsAsFactors=F)
 
-gganatogram(data=organPlot, organism='human', sex='male', fill="colour")
+gganatogram(data=organPlot, organism='human', sex='male', fill="value")+ theme_void() +
+ ggtitle("The Severity zones")
 
 ```
-
+Next we will be doing the same as before but this time its the biopsysite which is also determined by the tumor contect, so maximum biopsy is done on sites where the tumor contn is high.
 
 ```{r}
 biopsies <- data.frame(biopsy = c("bone_marrow", "lymph_node", "prostate", "gall_bladder", "liver", "penis","smooth_muscle", "bone","throat","heart","stomach","urinary_bladder"),
- x = c(10, 5, 1, 8, 2,5, 5, 5,2,2,2,1),
- y = c(10, 5, 1, 8, 2,5, 5, 5,2,2,2,1),
- value = c(10, 5, 1, 8, 2,5, 5, 5,2,2,2,1))
+ x = c(10, 10, 10, 10, 10,10, 10, 10,5,1,5,1),
+ y = c(10, 10, 10, 10, 10,10, 10, 10,5,1,5,1),
+ value = c(10, 10, 10, 10, 10,10, 10, 10,5,1,5,1))
 p <- hgMale_key %>%
  dplyr::filter(organ %in% c("bone_marrow", "lymph_node", "prostate", "gall_bladder", "liver", "penis","smooth_muscle", "bone","throat","heart","stomach","urinary_bladder")) %>%
  gganatogram(fillOutline="lightgray", organism="human", sex="male",
@@ -153,9 +161,7 @@ p2 <- hgMale_key%>%
  dplyr::filter(organ %in% c("bone_marrow", "lymph_node", "prostate", "gall_bladder", "liver", "penis","smooth_muscle", "bone","throat","heart","stomach","urinary_bladder"))%>%
  gganatogram(fillOutline="lightgray", organism="human", sex="male", 
  fill="value") + theme_void() +
- ggtitle("Value␣of␣biopsies")+
- geom_point(data = biopsies, pch=21, size=3, aes(x =x, y = -y,
- fill = value), colour="red")
+ ggtitle("Value␣of␣biopsies")
         
 lay <- rbind(c(1,2), c(1,2), c(3, NULL))
 grid.arrange(p, p2, layout_matrix = lay)
@@ -189,10 +195,20 @@ grid.arrange(p, p2, layout_matrix = lay)
 
 #getting in the cleaned dataset  (you guys can comment this line off)
 ```{r}
-SampleRevised<-read_csv("/Users/parinithakompala/Documents/GitHub/Data-Wrangling-Project/SampleRevised.csv")
+SampleRevised<-read_csv("/Users/parinithakompala/Documents/Data-Wrangling-Project/cleanedsample.csv")
+```
+
+```{r}
+class(SampleRevised$Diagnosis.Age)
 ```
 
 
+```{r}
+SampleRevised$`Diagnosis.Age`<- 2021-(SampleRevised$year_of_birth)
+```
 
+```{r}
+
+```
 
 
