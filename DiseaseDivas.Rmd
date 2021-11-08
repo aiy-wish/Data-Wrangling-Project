@@ -360,6 +360,67 @@ lay <- rbind(c(1,2), c(1,2), c(3, NULL))
 grid.arrange(p, p2, layout_matrix = lay)
 ```
 
+## Aim 3.2
+
+This data set included a recording of patient exposure to Abiraterone and Enzalutamide (ABI and ENZA). ABI and ENZA are drugs commonly used in the treatment of prostate cancer. Both medications work as an anti-androgen drugs; ABI is an androgen synthase inhibitor, and ENZA inhibits androgen proceses in the cell. Close to half of the participants in the study were either exposed or not exposed to ABI and ENZA in the fashion of a randomized control trial. In this aim we are trying to see if the participants in each are of the study (exposed or not exposed) share similar characteristics, particularly among the Mutation Count, Fraction Genome Altered, and Tumor Content variables. To explore these characteristics of the data set, the data must first be split into those rows corresponding to participants who were exposed to ABI and ENZA and those who were not. 
+
+```{r}
+#Convert exposure status to numeric binary variable.
+exposure_data <- remove_nonuniques
+binary_exposure <- remove_nonuniques$Abiraterone..ABI..and.Enzalutamide..ENZA..Exposure.Status
+
+binary_exposure[binary_exposure == "Yes"] = 1
+binary_exposure[binary_exposure == "No"] = 0
+
+exposure_data$Binary.Exposure <- binary_exposure
+
+exposed <- which(binary_exposure == 1)
+non_exposed <- which(binary_exposure == 0)
+
+exposed_dat <- exposure_data[exposed,]
+nonexposed_dat <- exposure_data[non_exposed,]
+```
+
+Next, the participants can be compared across the two groups. 
+
+```{r}
+emc <- exposed_dat %>% select(c("Mutation.Count", "Fraction.Genome.Altered", "tumor.content"))
+nemc <- nonexposed_dat %>% select(c("Mutation.Count", "Fraction.Genome.Altered", "tumor.content"))
+
+emc$Exposed <- "Exposed"
+nemc$Exposed <- "Non-Exposed"
+
+amc <- rbind(emc, nemc)
+
+ggplot(amc,aes(x=Mutation.Count)) + 
+    geom_histogram(data=subset(amc,Exposed == 'Exposed'),fill = "red", alpha = 0.2) +
+    geom_histogram(data=subset(amc,Exposed == 'Non-Exposed'),fill = "blue", alpha = 0.2) +
+    xlab("Mutation Count by Exposure Group")
+    ylab("Frequency")+
+    theme_minimal()
+
+ggplot(amc,aes(x=Fraction.Genome.Altered)) + 
+    geom_histogram(data=subset(amc,Exposed == 'Exposed'),fill = "red", alpha = 0.2) +
+    geom_histogram(data=subset(amc,Exposed == 'Non-Exposed'),fill = "blue", alpha = 0.2) +
+    xlab("Fraction Genome Altered by Exposure Group")
+    ylab("Frequency")+
+    theme_minimal()
+    
+ggplot(amc,aes(x=tumor.content)) + 
+    geom_histogram(data=subset(amc,Exposed == 'Exposed'),fill = "red", alpha = 0.2) +
+    geom_histogram(data=subset(amc,Exposed == 'Non-Exposed'),fill = "blue", alpha = 0.2) +
+    xlab("Tumor Content by Exposure Group")
+    ylab("Frequency")+
+    theme_minimal()
+    
+colnames(amc) <- c("Mutation Count", "Fraction Genome Altered", "Tumor Content", "Exposed")
+
+amc %>% 
+  tbl_summary(by = Exposed, label = Exposed ~ "Exposed") %>% add_p(test=everything()~"t.test")   
+    
+```
+
+These visualizations and results show that the groups differ by values that are reasonably expected under random chance.
 
 ##reading in the cleaned second dataset 
 ```{r}
