@@ -534,6 +534,67 @@ amc %>%
 
 These visualizations and results show that the groups differ by values that are reasonably expected under random chance.
 
+##Natural Language Processing
+There is no actual natural language in these data sets to process, but the principles and tools of natural language processing can be utilized to extract more information from the data. The second data has four columns corresponding to the AJCC staging classification of each patient in the data set. To help better understand what these classifications mean, we are adding a new column that includes a written description of each of the AJCC staging classifications that are provided. To do this, we can use Regex to identify AJCC stage patterns to match them to their written description. The written descriptions of each stage come from this webpage: https://www.cancer.org/cancer/prostate-cancer/detection-diagnosis-staging/staging.html
+
+```{r}
+SampleRevised<-read.csv("/Users/alisatvorundunn/Downloads/Data-Wrangling-Project-main 2/SampleRevised.csv")
+```
+
+```{r}
+library(stringr)
+staging_dat <- SampleRevised
+#Extract relevant columns
+ajcc_cols <- staging_dat %>% select(c("ajcc_clinical_m", "ajcc_clinical_t", "ajcc_pathologic_n", "ajcc_pathologic_t"))
+
+#Combine classifiers into one string
+ajcc_cols$combined <- str_c(ajcc_cols$ajcc_clinical_m, ajcc_cols$ajcc_clinical_t, ajcc_cols$ajcc_pathologic_n, ajcc_cols$ajcc_pathologic_t, sep = " ")
+
+#Take out effective NAs
+ajcc_cols$combined <- str_remove(ajcc_cols$combined, "('--)++")
+
+
+#Classification descriptions (from website given above)
+classifications = c("The cancer has not spread to nearby lymph nodes or elsewhere in the body. The Grade Group is 1 , and the PSA level is less than 10.",
+                  "The cancer has not spread to nearby lymph nodes [N0] or elsewhere in the body [M0]. The Grade Group is 1. The PSA level is at least 10 but less than 20.",
+                  "The cancer has not spread to nearby lymph nodes [N0] or elsewhere in the body [M0]. The Grade Group is 2. The PSA level is less than 20.",
+                  "It has not spread to nearby lymph nodes [N0] or elsewhere in the body [M0]. The Grade Group is 1 to 4, and the PSA can be any value.",
+                  " The cancer has spread to nearby lymph nodes [N1] but has not spread elsewhere in the body [M0]. The Grade Group can be any value, and the PSA can be any value.",
+                  "It has spread to other parts of the body, such as distant lymph nodes, bones, or other organs [M1]. The Grade Group can be any value, and the PSA can be any value.",
+                  "Not classified")
+
+#Patterns to identify classification from AJCC info
+regs = c("M0.T[0|2a].*N0", "M0.T[12][abc].*N0", "M0.T[12].N0", "M0.T[34].N0", "M0.T.*N1", "M1.T.*N.*", ".*")
+
+
+#Label row indices with groups
+group1psa10 <- which(grepl(regs[1], ajcc_cols$combined))
+group1psa20 <- which(grepl(regs[2], ajcc_cols$combined))
+group2psa20 <- which(grepl(regs[3], ajcc_cols$combined))
+groups14 <- which(grepl(regs[4], ajcc_cols$combined))
+nodegroup <- which(grepl(regs[5], ajcc_cols$combined))
+metastizedgroup <- which(grepl(regs[6], ajcc_cols$combined))
+nogroup <- which(grepl(regs[7], ajcc_cols$combined))
+
+#Create a column containing group description
+ajcc_cols$AJCC_Stage_Description <- ajcc_cols$combined
+
+ajcc_cols$AJCC_Stage_Description[nogroup] <- classifications[7]
+ajcc_cols$AJCC_Stage_Description[metastizedgroup] <- classifications[6]
+ajcc_cols$AJCC_Stage_Description[nodegroup] <- classifications[5]
+ajcc_cols$AJCC_Stage_Description[groups14] <- classifications[4]
+ajcc_cols$AJCC_Stage_Description[group2psa20] <- classifications[3]
+ajcc_cols$AJCC_Stage_Description[group1psa20] <- classifications[2]
+ajcc_cols$AJCC_Stage_Description[group1psa10] <- classifications[1]
+
+#Lets view the first 6 classification descriptions.
+head(ajcc_cols$AJCC_Stage_Description)
+
+#Add this column to rest of data
+staging_dat$AJCC_Stage_Description <- ajcc_cols$AJCC_Stage_Description
+```
+
+
 ##reading in the cleaned second dataset 
 ```{r}
 #sample <- read.csv("SampleRevised.csv")
