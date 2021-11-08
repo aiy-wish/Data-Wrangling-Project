@@ -19,7 +19,7 @@ Cleaning Our Data
 ```{r}
 #Load data downloaded from 
 #rawdat <- read.csv("/cloud/project/data/diseasedivadata.csv")
-rawdat<- read.csv("~/Documents/Dartmouth/Fall 2021/QBS 181/group project/Data .csv")
+rawdat<- read.csv("diseasedivadata.csv")
 ```
 
 ## Including Plots
@@ -42,7 +42,6 @@ complete_dat <- na.omit(rawdat)
 ```{r}
 #Check for duplicates
 duplicated(complete_dat$Sample.ID)
-
 ```
 
 
@@ -73,7 +72,7 @@ remove_nonuniques <- complete_dat[,-cols_nonunique]
 ```
 
 
-Aim 1.1: Classify severity of cancer by site.
+## Aim 1.1: Classify severity of cancer by site.
 
 I used the dplyr library for most of the data manipulation for Aim 1.1. To begin my analysis, I extracted the two columns of interest: "Center of sequencing", which has the locations of where each patient sample was sequenced, and "Tumor content", which contains the tumor content of each patient sample. Tumor content was classified as percentages that were defined by computational analysis, based on mutant allele variant fractions and zygosity shifts. I made a separate table using just these two columns from the filtered data and named it "aim_1_1".
 ```{r}
@@ -266,6 +265,123 @@ grouped_plot
 And that completes the analysis for aim 1.1!
 
 ## END AIM 1.1
+
+## AIM 1.2: Classify by exposure status (abi column, group by prior treatment) (table) - AYUSH
+Just like in Aim 1.1, we are going to use the library `dplyer` to perform data manipulation for this Aim. In order to know more about the exposure status, we select two columns: `Abiraterone..ABI..and.Enzalutamide..ENZA..Exposure.Status` which is a binary column for a patient's exposure to Abiraterone and Enzalutamide (contains Yes's and No's)  and `Prior.Treatment` stores the information if the patient has ever received any prior taxane treatment or not.
+
+```{r}
+# Load dplyr library for data manipulation.
+library(dplyr)
+# Extract columns needed for Aim 1.1 and make subtable
+aim_1_2 = complete_dat %>%
+  select(Center.of.sequencing,Exposure.Status = Abiraterone..ABI..and.Enzalutamide..ENZA..Exposure.Status,Prior.Treatment) %>%
+  group_by(Prior.Treatment)
+
+# Renaming the Exposure Status column name
+
+head(aim_1_2,10)
+
+```
+
+
+
+In order to have few categories for finding the exposure status based on prior treatment found in different sequencing institutes, we need to club institutes into 4 main regions based on the data we have: East Coast, Midwest, West Coast and International. Similarly in Aim 1.1, we run the same ifelse code for Aim 1.2.
+```{r}
+aim_1_2$Site_region <- as.factor(ifelse(aim_1_2$Center.of.sequencing == 'DFCI' | aim_1_2$Center.of.sequencing == 'MSKCC', 'East Coast',
+                     ifelse(aim_1_2$Center.of.sequencing == 'Karmanos Cancer Insitute' | aim_1_2$Center.of.sequencing == 'U Michigan', 'Midwest',
+                     ifelse(aim_1_2$Center.of.sequencing == 'U Washington', 'West Coast', 'International'))))
+
+```
+
+Plotting the locations of the Center's of Sequencing on the Map.
+## Showing this on the map (WORK LATER ON THIS)
+
+```{r warning=FALSE}
+library(usmap)
+library(ggmap)
+library(tidyverse)
+library(sf)
+library("leaflet")
+
+
+# finding coordinates of the center of sequencing with the help of ggmap to geocode
+institutes = c('DFCI (Boston, MA)','MSKCC (New York, NY)','Karmanos (Detroit, MI)','U Michigan (Ann Arbor, MI)','U Washington (Seattle, WA)', 'RM-ICR (London,UK)')
+lat = c(42.337658509643305,40.76518827528495,42.35333328919597,42.284458000108245, 47.656547857753246, 51.34484519769561)
+long = c(-71.10811497373804, -73.95574795341078,-83.05719650854894, -83.73322289632657, -122.2991984615769, -0.18878884213938013 )
+institutes.coordinates <- data.frame(institutes, lat, long)
+institutes.coordinates
+
+temp <- aim_1_2
+
+temp %>% 
+  leaflet() %>%
+  addProviderTiles(providers$Stamen.TonerLite, group = "Toner Lite") %>%
+  addLayersControl(baseGroups = c("Toner Lite", "World Imagery")) %>%
+  
+  addMarkers(label = institutes,popup =institutes, institutes.coordinates$long, institutes.coordinates$lat)
+
+
+```
+
+We now have grouped the Exposure status by Prior Treatment and have added the Sequencing region column into the data frame `aim_1_2`. Next, we calculate the mean of the all `Exposure.Status` counts based on the Sequencing Region and grouped by `Prior.Treatment`
+
+```{r}
+library(gtsummary)
+# Create numeric summary of mean tumor content by sequencing region
+temp = aim_1_2 %>% 
+  select(Exposure.Status,Prior.Treatment,Site_region) %>%
+  tbl_summary(by=Site_region, statistic = list(all_continuous() ~ "{mean} ({sd})"), label = Exposure.Status ~ "Mean of Exposure Status")  %>%
+  modify_spanning_header( all_stat_cols() ~ "**Sequencing Region**") %>% modify_header(label = "Exposure Status, grouped by Prior Treatment") 
+temp
+```
+
+Next we perform visualizations on the same numbers we just got above and present the data in form of bar graphs with the help of `ggplot2` package and used `geom_bar` to plot the graph grouped by Prior.Treatment and have six graphs for six different `Center.of.sequencing` institutes. Furthermore, to plot the graph, we use the `janitor` and `dplyr` packages to store the tables based on these three variables. 
+```{r warning=FALSE}
+library(janitor)
+summary_table = tabyl(aim_1_2, Exposure.Status,Prior.Treatment, Center.of.sequencing)
+summary_table
+
+library(dplyr)
+my_summary <- aim_1_2 %>%
+  count(Center.of.sequencing,Exposure.Status,Prior.Treatment, sort = FALSE) 
+my_summary
+
+library(ggplot2)
+ggplot(my_summary, aes(Exposure.Status, n, fill = Prior.Treatment)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(facets = vars(Center.of.sequencing))
+```
+In order to get better visualization, i decided to congregate the institutes into region, and find the `Exposure.Status` grouped by the `Prior.Treatment` column based on the `Site_region`.
+```{r warning=FALSE}
+library(janitor)
+summary.table.region = tabyl(aim_1_2, Exposure.Status,Prior.Treatment, Site_region)
+summary.table.region
+
+library(dplyr)
+my.summary.region <- aim_1_2 %>%
+  count(Exposure.Status,Prior.Treatment, Site_region, sort = TRUE) 
+my.summary.region
+
+library(ggplot2)
+ggplot(my.summary.region, aes(Exposure.Status, n, fill = Prior.Treatment)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(facets = vars(Site_region))
+```
+As seen in the graphs and tables, the distribution seems to be not normal and hence i decided to perform Fisher's exact test to calculate the p-value. We see that the p-value is less than 0.001, which means it is statistically significant across all confidence levels and hence there is an significant association between Sequencing Site and Exposure Status. Similarly we also get p-value less than 0.001 for Prior.Treatment and Exposure Status, which means they are statistically significant.  
+```{r}
+p.test = aim_1_2 %>% 
+  select(Center.of.sequencing, Exposure.Status, Prior.Treatment) %>%
+  tbl_summary(by = Exposure.Status, label = Center.of.sequencing ~ "Sequencing Site") %>% 
+  add_p() %>%
+  modify_header(label = "") %>%
+  modify_spanning_header(all_stat_cols() ~ "Exposure Status") %>%
+  bold_labels() 
+p.test
+```
+
+
+
+## AIM 3.1
 ```{r}
 #subset the data 
 library(tidyverse)
@@ -298,7 +414,7 @@ ggplot(freq_gt1, aes(agegrp,`Count of Tumors`)) +
   scale_fill_viridis_d(option  = "mako") 
   
 ```
-Aim(3.1)-Assign classifications of “high”, “medium” or “low” based on the intensity of tumor content
+## Aim(3.1)-Assign classifications of “high”, “medium” or “low” based on the intensity of tumor content
 
 Now we will be taking the datasets and checking on the `tumor.content` variable , the tumor content variable has the numeric value of the amount of tumor present in out subject , so based on this we can seperate our subjects. So basically now we will be taking our `tumor content` variable and be dividing them into three seperate category, say below 20 , in between 30 & 70 , then 70-100. The lowest set is the low severity regions , the the moderate and the high.We can noe create a seperate column and that has the severity levels.
 ```{r}
@@ -312,7 +428,7 @@ finaldata%>%mutate(Severity=ifelse(`tumor.content`>70 & `tumor.content`<=100 ,"H
 unique(finaldata$Severity)
 
 ```
-Aim3.3-Are these then related to biopsy sites?  (we need to add more to this)
+## Aim3.3-Are these then related to biopsy sites?  (we need to add more to this)
 
 Now we have to check if they are related to the biopsy site , for this we can group by the severiry contenmt and the site where they have the tumor and get the exact count of the severity level and the zone where they are localized.
 ```{r}
