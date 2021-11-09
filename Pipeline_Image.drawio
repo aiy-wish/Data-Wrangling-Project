@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-11-09T22:01:16.645Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36" etag="Ry9yIrBWOAl4XAu4j6rg" version="15.7.0" type="github">
+<mxfile host="app.diagrams.net" modified="2021-11-09T22:10:54.531Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36" etag="DZjCqJB-STvOZV01biwm" version="15.7.0" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
     <mxGraphModel dx="946" dy="516" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -351,6 +351,11 @@
         <mxCell id="vI-df_wn8zXR9mLXB440-21" value="remove empty&amp;nbsp;&lt;br&gt;columns &amp;amp;&amp;nbsp;&lt;br&gt;shift moved rows&amp;nbsp;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=12;strokeColor=default;rounded=1;fillColor=#e1d5e7;gradientColor=#ffffff;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="430" y="955" width="120" height="60" as="geometry" />
         </mxCell>
+        <mxCell id="vI-df_wn8zXR9mLXB440-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=12;strokeColor=#B3B3B3;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="vI-df_wn8zXR9mLXB440-23">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="710" y="985" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
         <mxCell id="vI-df_wn8zXR9mLXB440-23" value="concatenate&amp;nbsp;&lt;br&gt;treatment_type&lt;br&gt;&amp;amp; adjust columns" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=12;strokeColor=default;rounded=1;fillColor=#e1d5e7;gradientColor=#ffffff;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="570" y="955" width="120" height="60" as="geometry" />
         </mxCell>
@@ -380,6 +385,9 @@
             <mxPoint x="601" y="330" as="sourcePoint" />
             <mxPoint x="630" y="330" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="vI-df_wn8zXR9mLXB440-25" value="remove empty&lt;br&gt;columns&amp;nbsp;&lt;br&gt;from row shift" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=12;strokeColor=default;rounded=1;fillColor=#e1d5e7;gradientColor=#ffffff;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="707" y="955" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
