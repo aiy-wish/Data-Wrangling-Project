@@ -22,6 +22,16 @@ Cleaning Our Data
 rawdat<- read.csv("diseasedivadata.csv")
 ```
 
+```{r warning=FALSE}
+library(DiseaseDivas)
+rawdat1<- read.csv("diseasedivadata.csv")
+rawdat1
+
+df.updated = remove.nulls(rawdat1)
+df.updated
+
+
+```
 
 ```{r pressure, echo=FALSE}
 #Summarize

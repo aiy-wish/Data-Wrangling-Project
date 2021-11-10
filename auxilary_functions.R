@@ -1,36 +1,42 @@
+#install.packages(‘devtools’)
+
+
+
 
 remove.nulls <- function(df){
   for(i in 1:ncol(df)){
     for(j in 1:nrow(df[i])){
       if(is.na(df[i])){
-        new.df = df[-c(i)]
+        df = df[-c(i)]
       }
     }
   }
-  return(new.df)
+  return(df)
 }
 
 carbon.copy <- function(df){
   for(i in 1:ncol(df)){
     for(j in 1:nrow(df[i])){
       if(!(nrow(unique(df[i])) > 1)){
-        new.df = df[-c(i)]
+        df = df[-c(i)]
       }
     }
   }
-  return(new.df)
+  return(df)
 }
 
-v1 <- c(1,2,3,4,4,5,3,3,1,3)
-v2 <- c(1,1,1,1,1,1,1,1,1,1)
-v3 <- c(NA,NA,NA,NA,NA,NA,NA,NA,NA,NA)
-v4 <- c(1,2,3,4,NA,5,NA,3,1,8)
+#compare two columns
 
-rawdat = data.frame(v1,v2,v3,v4)
-rawdat
+#v1 <- c(1,2,3,4,4,5,3,3,1,3)
+#v2 <- c(1,1,1,1,1,1,1,1,1,1)
+#v3 <- c(NA,NA,NA,NA,NA,NA,NA,NA,NA,NA)
+#v4 <- c(1,2,3,4,NA,5,NA,3,1,8)
 
-df.updated = remove.nulls(rawdat)
-df.updated
+#rawdat1<- read.csv("diseasedivadata.csv")
+#rawdat1
 
-df.updated = carbon.copy(df.updated)
-df.updated
+#df.updated = remove.nulls(rawdat1)
+#df.updated
+
+#df.updated = carbon.copy(df.updated)
+#df.updated

@@ -10,6 +10,7 @@ remove.nulls <- function(df){
   return(new.df)
 }
 
+# Fix this by comparing two columns
 carbon.copy <- function(df){
   for(i in 1:ncol(df)){
     for(j in 1:nrow(df[i])){
@@ -21,16 +22,12 @@ carbon.copy <- function(df){
   return(new.df)
 }
 
-#v1 <- c(1,2,3,4,4,5,3,3,1,3)
-#v2 <- c(1,1,1,1,1,1,1,1,1,1)
-#v3 <- c(NA,NA,NA,NA,NA,NA,NA,NA,NA,NA)
-#v4 <- c(1,2,3,4,NA,5,NA,3,1,8)
-
-#rawdat = data.frame(v1,v2,v3,v4)
-#rawdat
-
-#df.updated = remove.nulls(rawdat)
-#df.updated
-
-#df.updated = carbon.copy(df.updated)
-#df.updated
+find_nonuniq <- function(dataset){
+  cols_nonunique <- c()
+  for(i in 1:ncol(dataset)){
+    if(length(unique(dataset[,i])) <= 1){
+      cols_nonunique[length(cols_nonunique) + 1] <- i #append the vector with the new columns
+    }
+  }
+  print(cols_nonunique) #print the vector
+}
