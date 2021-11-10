@@ -260,9 +260,7 @@ grouped_plot
 
 And that completes the analysis for aim 1.1!
 
-## END AIM 1.1
-
-## AIM 1.2: Classify by exposure status (abi column, group by prior treatment) (table) - AYUSH
+## AIM 1.2: Classify by exposure status (grouped by prior treatment) by site
 Just like in Aim 1.1, we are going to use the library `dplyer` to perform data manipulation for this Aim. In order to know more about the exposure status, we select two columns: `Abiraterone..ABI..and.Enzalutamide..ENZA..Exposure.Status` which is a binary column for a patient's exposure to Abiraterone and Enzalutamide (contains Yes's and No's)  and `Prior.Treatment` stores the information if the patient has ever received any prior taxane treatment or not.
 
 ```{r}
@@ -289,8 +287,8 @@ aim_1_2$Site_region <- as.factor(ifelse(aim_1_2$Center.of.sequencing == 'DFCI' |
 
 ```
 
+## Showing this on the map
 Plotting the locations of the Center's of Sequencing on the Map.
-## Showing this on the map (WORK LATER ON THIS)
 
 ```{r warning=FALSE}
 library(usmap)
@@ -298,6 +296,10 @@ library(ggmap)
 library(tidyverse)
 library(sf)
 library("leaflet")
+library(janitor)
+
+summary.table.region = tabyl(aim_1_2, Exposure.Status,Prior.Treatment, Site_region)
+summary.table.region
 
 
 # finding coordinates of the center of sequencing with the help of ggmap to geocode
@@ -314,7 +316,7 @@ temp %>%
   addProviderTiles(providers$Stamen.TonerLite, group = "Toner Lite") %>%
   addLayersControl(baseGroups = c("Toner Lite", "World Imagery")) %>%
   
-  addMarkers(label = institutes,popup =institutes, institutes.coordinates$long, institutes.coordinates$lat)
+  addMarkers(label = institutes,popup = institutes, institutes.coordinates$long, institutes.coordinates$lat)
 
 
 ```
@@ -347,8 +349,9 @@ ggplot(my_summary, aes(Exposure.Status, n, fill = Prior.Treatment)) +
   geom_bar(stat = "identity") +
   facet_wrap(facets = vars(Center.of.sequencing))
 ```
-In order to get better visualization, i decided to congregate the institutes into region, and find the `Exposure.Status` grouped by the `Prior.Treatment` column based on the `Site_region`.
+In order to get better visualization, I decided to congregate the institutes into region, and find the `Exposure.Status` grouped by the `Prior.Treatment` column based on the `Site_region`.
 ```{r warning=FALSE}
+
 library(janitor)
 summary.table.region = tabyl(aim_1_2, Exposure.Status,Prior.Treatment, Site_region)
 summary.table.region
@@ -363,6 +366,8 @@ ggplot(my.summary.region, aes(Exposure.Status, n, fill = Prior.Treatment)) +
   geom_bar(stat = "identity") +
   facet_wrap(facets = vars(Site_region))
 ```
+
+
 As seen in the graphs and tables, the distribution seems to be not normal and hence i decided to perform Fisher's exact test to calculate the p-value. We see that the p-value is less than 0.001, which means it is statistically significant across all confidence levels and hence there is an significant association between Sequencing Site and Exposure Status. Similarly we also get p-value less than 0.001 for Prior.Treatment and Exposure Status, which means they are statistically significant.  
 ```{r}
 p.test = aim_1_2 %>% 
@@ -374,8 +379,6 @@ p.test = aim_1_2 %>%
   bold_labels() 
 p.test
 ```
-
-
 
 ## AIM 3.1
 ```{r}
