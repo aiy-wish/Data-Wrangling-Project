@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-11-10T01:53:00.426Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36" etag="IQsqHgz0EsR5ElmrqSfj" version="15.7.1" type="github">
+<mxfile host="app.diagrams.net" modified="2021-11-10T02:39:59.629Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36" etag="fJIhkdtTCSCO-t0DauQX" version="15.7.1" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="1697" dy="957" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
+    <mxGraphModel dx="900" dy="589" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
@@ -392,87 +392,138 @@
         <mxCell id="vI-df_wn8zXR9mLXB440-43" value="Used SQLDF to&amp;nbsp;&lt;br&gt;group the ages&lt;br&gt;by BJC age bins" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=12;strokeColor=default;rounded=1;fillColor=#fff2cc;gradientColor=#ffffff;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="769" y="1284" width="138" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="HvwUQPjSHDaJZDcMO3cC-48" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontColor=#97D077;strokeColor=#B3B3B3;strokeWidth=2;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="HvwUQPjSHDaJZDcMO3cC-50">
+        <mxCell id="HvwUQPjSHDaJZDcMO3cC-48" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;fontColor=#97D077;strokeColor=#B3B3B3;strokeWidth=2;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="HvwUQPjSHDaJZDcMO3cC-50" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="165" y="950" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="HvwUQPjSHDaJZDcMO3cC-49" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=12;strokeColor=#B3B3B3;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="HvwUQPjSHDaJZDcMO3cC-50">
+        <mxCell id="HvwUQPjSHDaJZDcMO3cC-49" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=12;strokeColor=#B3B3B3;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="HvwUQPjSHDaJZDcMO3cC-50" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="290" y="875" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="HvwUQPjSHDaJZDcMO3cC-50" value="Raw Data&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;strokeColor=default;fillColor=#e1d5e7;align=center;gradientColor=#ffffff;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="HvwUQPjSHDaJZDcMO3cC-50" value="Raw Data&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;strokeColor=default;fillColor=#e1d5e7;align=center;gradientColor=#ffffff;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="60" y="840" width="210" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="HvwUQPjSHDaJZDcMO3cC-51" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontSize=14;fontColor=#A680B8;strokeColor=#B3B3B3;strokeWidth=2;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="HvwUQPjSHDaJZDcMO3cC-53">
+        <mxCell id="HvwUQPjSHDaJZDcMO3cC-51" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontSize=14;fontColor=#A680B8;strokeColor=#B3B3B3;strokeWidth=2;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="HvwUQPjSHDaJZDcMO3cC-53" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="165" y="1050" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="HvwUQPjSHDaJZDcMO3cC-52" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=12;strokeColor=#B3B3B3;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="HvwUQPjSHDaJZDcMO3cC-53">
+        <mxCell id="HvwUQPjSHDaJZDcMO3cC-52" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=12;strokeColor=#B3B3B3;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="HvwUQPjSHDaJZDcMO3cC-53" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="290" y="985" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="HvwUQPjSHDaJZDcMO3cC-53" value="&lt;span style=&quot;font-size: 14px&quot;&gt;Cleaning the NCI GDC data in Excel&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;strokeColor=default;fillColor=#e1d5e7;align=center;gradientColor=#ffffff;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="HvwUQPjSHDaJZDcMO3cC-53" value="&lt;span style=&quot;font-size: 14px&quot;&gt;Cleaning the NCI GDC data in Excel&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;strokeColor=default;fillColor=#e1d5e7;align=center;gradientColor=#ffffff;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="60" y="950" width="210" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="HvwUQPjSHDaJZDcMO3cC-54" value="&lt;font&gt;&lt;b&gt;Clean &amp;amp; Filter&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontSize=13;rotation=-90;fontColor=#A680B8;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="HvwUQPjSHDaJZDcMO3cC-54" value="&lt;font&gt;&lt;b&gt;Clean &amp;amp; Filter&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontSize=13;rotation=-90;fontColor=#A680B8;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="-18.000000000000004" y="975" width="100" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="HvwUQPjSHDaJZDcMO3cC-55" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;fontSize=14;strokeColor=#9673a6;fillColor=#e1d5e7;align=center;size=0.5;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="HvwUQPjSHDaJZDcMO3cC-55" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;fontSize=14;strokeColor=#9673a6;fillColor=#e1d5e7;align=center;size=0.5;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="40" y="840" width="20" height="303" as="geometry" />
         </mxCell>
-        <mxCell id="HvwUQPjSHDaJZDcMO3cC-56" value="&lt;span style=&quot;font-size: 11px&quot;&gt;convert the TSV&amp;nbsp;&lt;br&gt;extract to a CSV&lt;br&gt;extract in Excel&lt;br&gt;&lt;/span&gt;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=10;strokeColor=default;fillColor=#e1d5e7;align=center;rounded=1;gradientColor=#ffffff;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="HvwUQPjSHDaJZDcMO3cC-56" value="&lt;span style=&quot;font-size: 11px&quot;&gt;convert the TSV&amp;nbsp;&lt;br&gt;extract to a CSV&lt;br&gt;extract in Excel&lt;br&gt;&lt;/span&gt;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=10;strokeColor=default;fillColor=#e1d5e7;align=center;rounded=1;gradientColor=#ffffff;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="291.99999999999994" y="846" width="121.97" height="58" as="geometry" />
         </mxCell>
-        <mxCell id="HvwUQPjSHDaJZDcMO3cC-57" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=12;strokeColor=#B3B3B3;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="HvwUQPjSHDaJZDcMO3cC-58">
+        <mxCell id="HvwUQPjSHDaJZDcMO3cC-57" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=12;strokeColor=#B3B3B3;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="HvwUQPjSHDaJZDcMO3cC-58" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="440" y="985" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="HvwUQPjSHDaJZDcMO3cC-58" value="Determine empty&lt;br&gt;columns &amp;amp;&amp;nbsp;&lt;br&gt;missing values&amp;nbsp;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=12;strokeColor=default;rounded=1;fillColor=#e1d5e7;gradientColor=#ffffff;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="HvwUQPjSHDaJZDcMO3cC-58" value="Determine empty&lt;br&gt;columns &amp;amp;&amp;nbsp;&lt;br&gt;missing values&amp;nbsp;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=12;strokeColor=default;rounded=1;fillColor=#e1d5e7;gradientColor=#ffffff;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="292" y="955" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="HvwUQPjSHDaJZDcMO3cC-59" value="remove empty&amp;nbsp;&lt;br&gt;columns &amp;amp;&amp;nbsp;&lt;br&gt;shift moved rows&amp;nbsp;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=12;strokeColor=default;rounded=1;fillColor=#e1d5e7;gradientColor=#ffffff;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="HvwUQPjSHDaJZDcMO3cC-59" value="remove empty&amp;nbsp;&lt;br&gt;columns &amp;amp;&amp;nbsp;&lt;br&gt;shift moved rows&amp;nbsp;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=12;strokeColor=default;rounded=1;fillColor=#e1d5e7;gradientColor=#ffffff;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="430" y="955" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="HvwUQPjSHDaJZDcMO3cC-60" value="&lt;span style=&quot;font-size: 14px&quot;&gt;Defining a missing data pipeline in Excel and R&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;strokeColor=default;fillColor=#e1d5e7;align=center;gradientColor=#ffffff;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="HvwUQPjSHDaJZDcMO3cC-60" value="&lt;span style=&quot;font-size: 14px&quot;&gt;Defining a missing data pipeline in Excel and R&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=11;strokeColor=default;fillColor=#e1d5e7;align=center;gradientColor=#ffffff;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="60" y="1050" width="210" height="92.5" as="geometry" />
         </mxCell>
-        <mxCell id="HvwUQPjSHDaJZDcMO3cC-61" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=12;strokeColor=#B3B3B3;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="HvwUQPjSHDaJZDcMO3cC-61" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=12;strokeColor=#B3B3B3;" parent="WIyWlLk6GJQsqaUBKTNV-1" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="290" y="1095" as="targetPoint" />
             <mxPoint x="270" y="1095" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="HvwUQPjSHDaJZDcMO3cC-62" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;strokeColor=#B3B3B3;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="HvwUQPjSHDaJZDcMO3cC-63" target="HvwUQPjSHDaJZDcMO3cC-71">
+        <mxCell id="HvwUQPjSHDaJZDcMO3cC-62" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;strokeColor=#B3B3B3;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="HvwUQPjSHDaJZDcMO3cC-63" target="HvwUQPjSHDaJZDcMO3cC-71" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="HvwUQPjSHDaJZDcMO3cC-63" value="Using the filter &lt;br&gt;tool to find out &lt;br&gt;which columns &lt;br&gt;have “some”&lt;br&gt;&amp;nbsp;missing values &lt;br&gt;in Excel" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=12;strokeColor=default;rounded=1;fillColor=#e1d5e7;gradientColor=#ffffff;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="HvwUQPjSHDaJZDcMO3cC-63" value="Using the filter &lt;br&gt;tool to find out &lt;br&gt;which columns &lt;br&gt;have “some”&lt;br&gt;&amp;nbsp;missing values &lt;br&gt;in Excel" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=12;strokeColor=default;rounded=1;fillColor=#e1d5e7;gradientColor=#ffffff;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="425" y="1047.5" width="130" height="95" as="geometry" />
         </mxCell>
-        <mxCell id="HvwUQPjSHDaJZDcMO3cC-64" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;strokeColor=#B3B3B3;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="HvwUQPjSHDaJZDcMO3cC-65" target="HvwUQPjSHDaJZDcMO3cC-63">
+        <mxCell id="HvwUQPjSHDaJZDcMO3cC-64" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;strokeColor=#B3B3B3;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="HvwUQPjSHDaJZDcMO3cC-65" target="HvwUQPjSHDaJZDcMO3cC-63" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="HvwUQPjSHDaJZDcMO3cC-65" value="Import the&lt;br&gt;raw data&lt;br&gt;in Excel&amp;nbsp;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=12;strokeColor=default;rounded=1;fillColor=#e1d5e7;gradientColor=#ffffff;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="HvwUQPjSHDaJZDcMO3cC-65" value="Import the&lt;br&gt;raw data&lt;br&gt;in Excel&amp;nbsp;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=12;strokeColor=default;rounded=1;fillColor=#e1d5e7;gradientColor=#ffffff;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="282" y="1047.5" width="130" height="95" as="geometry" />
         </mxCell>
-        <mxCell id="HvwUQPjSHDaJZDcMO3cC-67" value="Removed cells &lt;br&gt;that contained &lt;br&gt;NA in R." style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=12;strokeColor=default;rounded=1;fillColor=#e1d5e7;gradientColor=#ffffff;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="HvwUQPjSHDaJZDcMO3cC-67" value="Removed cells &lt;br&gt;that contained &lt;br&gt;NA in R." style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=12;strokeColor=default;rounded=1;fillColor=#e1d5e7;gradientColor=#ffffff;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="840" y="1047.5" width="130" height="95" as="geometry" />
         </mxCell>
-        <mxCell id="HvwUQPjSHDaJZDcMO3cC-68" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#B3B3B3;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="HvwUQPjSHDaJZDcMO3cC-69" target="HvwUQPjSHDaJZDcMO3cC-67">
+        <mxCell id="HvwUQPjSHDaJZDcMO3cC-68" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#B3B3B3;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="HvwUQPjSHDaJZDcMO3cC-69" target="HvwUQPjSHDaJZDcMO3cC-67" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="HvwUQPjSHDaJZDcMO3cC-69" value="Convert all &lt;br&gt;null values &lt;br&gt;represented as &lt;br&gt;&#39;--&amp;nbsp; to NA in R" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=12;strokeColor=default;rounded=1;fillColor=#e1d5e7;gradientColor=#ffffff;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="HvwUQPjSHDaJZDcMO3cC-69" value="Convert all &lt;br&gt;null values &lt;br&gt;represented as &lt;br&gt;&#39;--&amp;nbsp; to NA in R" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=12;strokeColor=default;rounded=1;fillColor=#e1d5e7;gradientColor=#ffffff;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="700" y="1047.5" width="130" height="95" as="geometry" />
         </mxCell>
-        <mxCell id="HvwUQPjSHDaJZDcMO3cC-70" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#B3B3B3;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="HvwUQPjSHDaJZDcMO3cC-71" target="HvwUQPjSHDaJZDcMO3cC-69">
+        <mxCell id="HvwUQPjSHDaJZDcMO3cC-70" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#B3B3B3;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="HvwUQPjSHDaJZDcMO3cC-71" target="HvwUQPjSHDaJZDcMO3cC-69" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="HvwUQPjSHDaJZDcMO3cC-71" value="Removed columns where every &lt;br&gt;row was empty &lt;br&gt;in Excel" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=12;strokeColor=default;rounded=1;fillColor=#e1d5e7;gradientColor=#ffffff;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="HvwUQPjSHDaJZDcMO3cC-71" value="Removed columns where every &lt;br&gt;row was empty &lt;br&gt;in Excel" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=12;strokeColor=default;rounded=1;fillColor=#e1d5e7;gradientColor=#ffffff;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="560" y="1047.5" width="130" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="J-3r0EjMvxFmASJkxIa0-0" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontSize=12;strokeColor=#B3B3B3;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="163.5" y="1387" as="targetPoint" />
+            <mxPoint x="163.5" y="1357" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="J-3r0EjMvxFmASJkxIa0-1" value="GDC Portal vs cBioPortal Datasets&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;strokeColor=#0e8088;fillColor=#b0e3e6;align=center;gradientColor=#ffffff;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="59" y="1390" width="210" height="182" as="geometry" />
+        </mxCell>
+        <mxCell id="J-3r0EjMvxFmASJkxIa0-2" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;fontSize=14;strokeColor=#0e8088;fillColor=#b0e3e6;align=center;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="39" y="1381" width="20" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="J-3r0EjMvxFmASJkxIa0-3" value="&lt;b&gt;Comparing the&amp;nbsp;datasets&lt;br&gt;&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontSize=13;rotation=-90;fillColor=none;strokeColor=none;fontColor=#67AB9F;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="-47" y="1475" width="158" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="J-3r0EjMvxFmASJkxIa0-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=12;strokeColor=#B3B3B3;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="300" y="1478" as="targetPoint" />
+            <mxPoint x="270" y="1478" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="J-3r0EjMvxFmASJkxIa0-5" value="Extract the age group, &lt;br&gt;age at diagnosis, &lt;br&gt;and prior&lt;br&gt;&amp;nbsp;treatment status for &lt;br&gt;each dataset&amp;nbsp;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=12;strokeColor=#1F1F1F;rounded=1;fillColor=#b0e3e6;gradientColor=#ffffff;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="289" y="1432" width="158" height="94" as="geometry" />
+        </mxCell>
+        <mxCell id="J-3r0EjMvxFmASJkxIa0-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=12;strokeColor=#B3B3B3;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="477" y="1480" as="targetPoint" />
+            <mxPoint x="447" y="1480" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="J-3r0EjMvxFmASJkxIa0-7" value="Plot distributions &lt;br&gt;for age at diagnosis&lt;br&gt;&amp;nbsp;for both datasets&amp;nbsp;&lt;br&gt;(geom_hist)" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=12;strokeColor=#1F1F1F;rounded=1;fillColor=#b0e3e6;gradientColor=#ffffff;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="461" y="1434" width="158" height="94" as="geometry" />
+        </mxCell>
+        <mxCell id="J-3r0EjMvxFmASJkxIa0-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=12;strokeColor=#B3B3B3;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="650" y="1480" as="targetPoint" />
+            <mxPoint x="620" y="1480" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="J-3r0EjMvxFmASJkxIa0-9" value="Plot prior treatment &lt;br&gt;&amp;nbsp;status, grouped by &lt;br&gt;age stratum, for both&lt;br&gt;datasets" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=12;strokeColor=#1F1F1F;rounded=1;fillColor=#b0e3e6;gradientColor=#ffffff;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="633" y="1434" width="158" height="94" as="geometry" />
+        </mxCell>
+        <mxCell id="J-3r0EjMvxFmASJkxIa0-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=12;strokeColor=#B3B3B3;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="823" y="1480" as="targetPoint" />
+            <mxPoint x="793" y="1480" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="J-3r0EjMvxFmASJkxIa0-11" value="Compare age at &lt;br&gt;diagnosis distributions &lt;br&gt;for each dataset based &lt;br&gt;on prior treatment" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=12;strokeColor=#1F1F1F;rounded=1;fillColor=#b0e3e6;gradientColor=#ffffff;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="810" y="1434" width="158" height="94" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
