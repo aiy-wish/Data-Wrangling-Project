@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-11-09T22:21:08.453Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36" etag="moMNcAQeDj-0MOGhrakh" version="15.7.0" type="github">
+<mxfile host="app.diagrams.net" modified="2021-11-10T00:43:51.856Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36" etag="DUTeiL-z7TRuad4ffe8V" version="15.7.0" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="946" dy="516" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
+    <mxGraphModel dx="1113" dy="607" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
@@ -271,17 +271,27 @@
         <mxCell id="fbxLGO5AVqaTQdbHGjEv-42" value="&lt;font&gt;&lt;b&gt;Clean &amp;amp; Filter&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontSize=13;rotation=-90;fontColor=#A680B8;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="-18.000000000000004" y="930" width="100" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="fbxLGO5AVqaTQdbHGjEv-45" value="Raw Data&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;strokeColor=default;fillColor=#fff2cc;align=center;gradientColor=#ffffff;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+        <mxCell id="vI-df_wn8zXR9mLXB440-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=12;strokeColor=#B3B3B3;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="fbxLGO5AVqaTQdbHGjEv-45">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="299" y="1095" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vI-df_wn8zXR9mLXB440-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontSize=12;strokeColor=#B3B3B3;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="fbxLGO5AVqaTQdbHGjEv-45">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="165" y="1160" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fbxLGO5AVqaTQdbHGjEv-45" value="cBioPortal dataset&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;strokeColor=default;fillColor=#fff2cc;align=center;gradientColor=#ffffff;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="60" y="1060" width="210" height="70" as="geometry" />
         </mxCell>
         <mxCell id="fbxLGO5AVqaTQdbHGjEv-47" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;fontSize=14;strokeColor=#d6b656;fillColor=#fff2cc;align=center;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="40" y="1050" width="20" height="90" as="geometry" />
+          <mxGeometry x="40" y="1050" width="20" height="200" as="geometry" />
         </mxCell>
         <mxCell id="fbxLGO5AVqaTQdbHGjEv-48" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;fontSize=14;strokeColor=#9673a6;fillColor=#e1d5e7;align=center;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="40" y="840" width="20" height="190" as="geometry" />
         </mxCell>
-        <mxCell id="fbxLGO5AVqaTQdbHGjEv-50" value="&lt;b&gt;Data Relation&lt;br&gt;&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontSize=13;rotation=-90;fontColor=#CCAE52;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="-18.000000000000004" y="1085" width="100" height="20" as="geometry" />
+        <mxCell id="fbxLGO5AVqaTQdbHGjEv-50" value="&lt;b&gt;&amp;nbsp;Data Relation &amp;amp; SQL&lt;br&gt;&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontSize=13;rotation=-90;fontColor=#CCAE52;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="-43" y="1140" width="150" height="20" as="geometry" />
         </mxCell>
         <mxCell id="fbxLGO5AVqaTQdbHGjEv-51" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontSize=14;fontColor=#CCAE52;strokeColor=#B3B3B3;strokeWidth=2;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="jva05bBIhXNDkV-Z3Rs0-39" edge="1">
           <mxGeometry relative="1" as="geometry">
@@ -388,6 +398,55 @@
         </mxCell>
         <mxCell id="vI-df_wn8zXR9mLXB440-25" value="remove empty&lt;br&gt;columns&amp;nbsp;&lt;br&gt;from row shift" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=12;strokeColor=default;rounded=1;fillColor=#e1d5e7;gradientColor=#ffffff;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="707" y="955" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vI-df_wn8zXR9mLXB440-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=12;strokeColor=#B3B3B3;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="vI-df_wn8zXR9mLXB440-27">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="460" y="1095" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vI-df_wn8zXR9mLXB440-27" value="Used SQLDF to&amp;nbsp;&lt;br&gt;group the ages&lt;br&gt;by BJC age bins" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=12;strokeColor=default;rounded=1;fillColor=#fff2cc;gradientColor=#ffffff;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="292" y="1060" width="138" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="vI-df_wn8zXR9mLXB440-29" value="Appended the age&lt;br&gt;group to the data&amp;nbsp;&lt;br&gt;through join on&amp;nbsp;&lt;br&gt;Patient ID" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=12;strokeColor=default;rounded=1;fillColor=#fff2cc;gradientColor=#ffffff;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="456" y="1060" width="138" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="vI-df_wn8zXR9mLXB440-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=12;strokeColor=#B3B3B3;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="vI-df_wn8zXR9mLXB440-31">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="300" y="1204" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vI-df_wn8zXR9mLXB440-31" value="GDC Portal datasets (2)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;strokeColor=default;fillColor=#fff2cc;align=center;gradientColor=#ffffff;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="60" y="1169" width="210" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="vI-df_wn8zXR9mLXB440-44" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=12;fontColor=#FF8000;strokeColor=#B3B3B3;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="vI-df_wn8zXR9mLXB440-33">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="778" y="1204" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vI-df_wn8zXR9mLXB440-33" value="extracted numeric&amp;nbsp;&lt;br&gt;digits for age&lt;br&gt;&amp;nbsp;through text&lt;br&gt;mining&amp;nbsp;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=12;strokeColor=default;rounded=1;fillColor=#FFB570;gradientColor=#ffffff;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="620" y="1169" width="138" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="vI-df_wn8zXR9mLXB440-35" value="&lt;font color=&quot;#ff8000&quot;&gt;&lt;b&gt;NLP&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="669" y="1239" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="vI-df_wn8zXR9mLXB440-39" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=12;fontColor=#FF8000;strokeColor=#B3B3B3;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="vI-df_wn8zXR9mLXB440-36">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="459" y="1204" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vI-df_wn8zXR9mLXB440-36" value="joined the clean&amp;nbsp;&lt;br&gt;GDC data with&lt;br&gt;our Excel cleaned&lt;br&gt;file&amp;nbsp;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=12;strokeColor=default;rounded=1;fillColor=#fff2cc;gradientColor=#ffffff;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="301" y="1169" width="138" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="vI-df_wn8zXR9mLXB440-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=12;fontColor=#FF8000;strokeColor=#B3B3B3;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="vI-df_wn8zXR9mLXB440-38">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="620" y="1204" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vI-df_wn8zXR9mLXB440-38" value="removed duplicate&lt;br&gt;columns in the data" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=12;strokeColor=default;rounded=1;fillColor=#fff2cc;gradientColor=#ffffff;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="453" y="1169" width="147" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="vI-df_wn8zXR9mLXB440-43" value="Used SQLDF to&amp;nbsp;&lt;br&gt;group the ages&lt;br&gt;by BJC age bins" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=12;strokeColor=default;rounded=1;fillColor=#fff2cc;gradientColor=#ffffff;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="770" y="1169" width="138" height="70" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
