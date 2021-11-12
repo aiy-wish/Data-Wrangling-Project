@@ -844,4 +844,25 @@ ggplot(data.frame(freq_2treat), aes(x=AGEgrp, y=Freq)) +
 
 
 
+## CONCLUSION
 
+Our analysis aimed to understand the associations between patient characteristics and severity of prostate cancer through various data wrangling procedures we learned throughout the quarter. After utilizing three platforms for our cleaning and wrangling processes (R, SQL, and Excel), and creating numerical summaries along with visual representations of our data through R packages such as gtsummary and ggplot, we have come to the following conclusions:
+
+# Insert one-line summary for Afsha to join together later 
+Afsha: After visually assessing, numerically summarizing, and performing a Chi-squared test on the relationships between geographic location and severity of tumor content (%), the dataset provides no evidence of association between geographic location and severity of tumor content (%).
+Jess:
+Pari:
+Ayush:
+Alisa:
+
+# Next Steps
+(Afsha)
+
+# Limitations
+(Afsha)
+
+# Why we used a second dataset 
+(?)
+
+# Looking forward - clinical implications
+(?)
