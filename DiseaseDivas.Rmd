@@ -75,7 +75,7 @@ The first dataset was downloaded as a TSV file which required conversion in Exce
 ```{r}
 #Load data downloaded from 
 #rawdat <- read.csv("/cloud/project/data/diseasedivadata.csv")
-rawdat<- read.csv("diseasedivadata.csv")
+rawdat<- read.csv("~/Desktop/Data-Wrangling-Project/diseasedivadata.csv")
 ```
 
 ## DON'T KNOW WHAT THIS IS -- figure out later
@@ -137,7 +137,7 @@ find_nonuniq <- function(dataset){
   }
   print(cols_nonunique)
 }
-find_nonuniq(complete_dat)
+cols_nonunique=find_nonuniq(complete_dat)
 remove_nonuniques <- complete_dat[,-cols_nonunique]
 ```
 
@@ -691,7 +691,7 @@ The raw data contained 112 empty columns for which no data was available and 33 
 Exported the "Sample" data as a standalone CSV file. 
 
 ```{r}
-sample <- read.csv("cleanedsample.csv")
+sample <- read.csv("~/Downloads/cleanedsample.csv")
 ```
 
 ##Dealing with Missing Values 
@@ -709,6 +709,7 @@ temp.NA1
 
 ```
 ```{r}
+#install.packages("VIM")
 #explored the relationship between the missing variables sorted by Case ID 
 library(VIM)
 matrixplot(temp.NA1,sortby=1)
@@ -722,8 +723,9 @@ marginplot(temp.NA1[,c(1,20)])
 ```
 
 ```{r}
-install.packages("sqldf")
+#install.packages("sqldf")
 library(sqldf)
+library(tidyverse)
 new_sample <- read.csv("removed_dups.csv")
 new_sample <- subset(new_sample, select=-c(36:39))
 dim(new_sample)
@@ -802,7 +804,21 @@ view(dataset_2)
 ```
 
 
+## CONCLUSION
+
+Our analysis aimed to understand the associations between patient characteristics and severity of prostate cancer through various data wrangling procedures we learned throughout the quarter. After utilizing three platforms for our cleaning and wrangling processes (R, SQL, and Excel), and creating numerical summaries along with visual representations of our data through R packages such as gtsummary and ggplot, we have come to the following conclusions:
+
+# Insert one-line summary for Afsha to join together later 
+Afsha: After visually assessing, numerically summarizing, and performing a Chi-squared test on the relationships between geographic location and severity of tumor content (%), the dataset provides no evidence of association between geographic location and severity of tumor content (%).
+Jess:
+Pari:
+Ayush:
+Alisa:
+
+# Next Steps
+
 ```{r}
+# Plot age at diagnosis distributions for both datasets
 ggplot(data.frame(dataset_2), aes(x=Age)) +
   geom_histogram(colour="black",fill="lightskyblue") 
   
@@ -816,6 +832,8 @@ summary(dataset_1$Age)
 
 
 ```{r}
+# Plot prior treatment status for both datasets
+join_data1_sql[1] <- NULL
 freq_1treat <-join_data1_sql %>% group_by(agegrp,Prior.Treatment) %>% summarise(Freq=n())
 dat2 <- dataset_2
 dat2[dat2 == "'--"] <- NA
@@ -841,23 +859,6 @@ ggplot(data.frame(freq_2treat), aes(x=AGEgrp, y=Freq)) +
   theme_classic()
 
 ```
-
-
-
-## CONCLUSION
-
-Our analysis aimed to understand the associations between patient characteristics and severity of prostate cancer through various data wrangling procedures we learned throughout the quarter. After utilizing three platforms for our cleaning and wrangling processes (R, SQL, and Excel), and creating numerical summaries along with visual representations of our data through R packages such as gtsummary and ggplot, we have come to the following conclusions:
-
-# Insert one-line summary for Afsha to join together later 
-Afsha: After visually assessing, numerically summarizing, and performing a Chi-squared test on the relationships between geographic location and severity of tumor content (%), the dataset provides no evidence of association between geographic location and severity of tumor content (%).
-Jess:
-Pari:
-Ayush:
-Alisa:
-
-# Next Steps
-(Afsha)
-
 # Limitations
 (Afsha)
 
