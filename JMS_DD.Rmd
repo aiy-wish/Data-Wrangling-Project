@@ -18,7 +18,7 @@ A team of 73 researchers conducted a multi-institutional study that investigated
 
 The link to the publication can be found [here.](https://pubmed.ncbi.nlm.nih.gov/26000489/)
 
-Data was extracted from the cBioPortal, a public cancer genomics site hosted and mainted by the Memorial Sloan Kettering Cancer Center. The sample included 150 individuals with metastatic prostate cancer along with 17 data points per individual,  described below:
+Data was extracted from the cBioPortal, a public cancer genomics site hosted and maintained by the Memorial Sloan Kettering Cancer Center. The sample included 150 individuals with metastatic prostate cancer along with 17 data points per individual,  described below:
 -**Patient ID**: unique patient identifier (number)
 -**Sample ID**: unique biopsy sample identifier from clinical trial(number)
 -**Mutation Count**: mutation rate for mCRPC defined as mutations per megabase or mutations/Mb (number)
@@ -35,7 +35,7 @@ The National Cancer Institute (NCI) maintains a unified repository of genomic da
 
 More about the National Cancer Institute's Genomic Data Commons can be found [here.](https://gdc.cancer.gov/about-gdc)
 
-Data was extracted from GDC Portal's Exploration page. The "cleaned" version of the data sample included 493 individuals with metastatic prostrate cancer along with 24 data pointsper individual as described below: 
+Data was extracted from GDC Portal's Exploration page. The "cleaned" version of the data sample included 493 individuals with metastatic prostrate cancer along with 24 data points per individual as described below: 
 -**CaseUUID**: universally unique identifier assigned to every entity in the data model (string)
 -**CaseID**:specific individual cases using the submitter ID from the genomic cancer research program (string)
 -**Project**:The cancer research program from which the case originated from (string)
@@ -61,6 +61,7 @@ birth to the day they were diagnosed with cancer (string)
 -**Primary Diagnosis**:Their initial pathological diagnoses of cancer (string)
 -**Ethnicity**: "An individual's self-identified social and cultural category, particularly whether they identify as Hispanic or Latino" (string)
 -**Race**: "A taxonomic group that is a division of a species that is classified arbitrarily. It is characterized by shared heredity, physical attributes, and behavior, and in the case of humans, by common history, nationality, or geographic distribution" (string)
+
 
 ##Methods 
 
@@ -107,107 +108,120 @@ complete_dat[!complete_dat$Patient.ID %in% complete_dat$Sample.ID, ]
 
 The output above is empty indicating that all the Patient Ids are contained within the Sample Id. In other words the two columns are the same. 
 
-Several columns appeared to be populated by the same value for each row. For example, the Cancer.Type column was entirely populated by the value "Prostate Adenocarcinoma".  To determine whether this assumption was indeed true we created the following for loop that cycled through each column to check that the values contained in the column were unique. 
+Several columns appeared to be populated by the same value for each row. For example, the Cancer.Type column was entirely populated by the value "Prostate Adenocarcinoma".  To determine whether this assumption was indeed true we created the following function utilizing a for loop to cycle through each column to check that the values contained in the column were unique. 
 
 ```{r}
-find_nonuniq <- function(dataset){
-  cols_nonunique <- c()
-  for(i in 1:ncol(dataset)){
-    if(length(unique(dataset[,i])) <= 1){
-      cols_nonunique[length(cols_nonunique) + 1] <- i
+find_nonuniq <- function(dataset){ #defining the function 
+  cols_nonunique <- c() #set an empty vector to contain the results of the function
+  for(i in 1:ncol(dataset)){ #initiated the for loop to traverse all the columns
+    if(length(unique(dataset[,i])) <= 1){ #if the output of the unique function showed 1 or fewer values add that column index to the vector 
+      cols_nonunique[length(cols_nonunique) + 1] <- i #append the vector with the new columns 
     }
   }
-  print(cols_nonunique)
-}
-find_nonuniq(complete_dat)
+  print(cols_nonunique) #print the vector 
+} 
+cols_nonunique <- find_nonuniq(complete_dat) #run the function on the complete_dat dataframe 
 
 ```
+After, running this function the output indicated that 9 columns were found to contain the same repeated value for every row contained within that column. To verify that this was true we cross checked each column index against the "complete_dat" dataframe and found that indeed the values were repeated by row. We therefore removed each of those columns according to the index presented in the cols_nonunique output. 
 
 ```{r}
-cols_nonunique <- c() #set an empty vector to store the results of the for loop
-
-
-for(i in 1:ncol(complete_dat)){
-  if(length(unique(complete_dat[,i])) <= 1){
-    cols_nonunique[length(cols_nonunique) + 1] <- i
-  }
-}
-
-print(cols_nonunique)
-
+remove_nonuniques <- complete_dat[,-cols_nonunique] #removing the columns with repeated values 
 ```
 
-```{r}
+Consquently, after removal of the data columns with repeated values we were left with the "remove_nonuniques" dataframe which contained 147 rows and 11 columns. 
 
-remove_nonuniques <- complete_dat[,-cols_nonunique]
+##Bonus Aim 
+The last aim checks for an association between diagnosis age and tumor site. According to the Cleveland Clinic 1 in 6 men will be diagnosed with prostate cancer during the course of their lifetime. Research from the American Cancer Society suggests that 6 out of 10 cases of prostate cancer are diagnosed among men 65 years or older. As mentioned previously the mean age of diagnosis among this prospective cohort was 67 years of age. Prior research suggests that as men get older their risk of being diagnosed with prostate cancer increases. In addition, the publication in Cell suggests that bone tumors are the most common site of metastatic disease. This aim therefore intends to determine whether these two prior notions hold true among the data in question. 
 
-```
-
-
-
-```{r}
-#subset the data 
-library(tidyverse)
-age_tumor <- remove_nonuniques[c(4,11)]
+To conduct the analysis we subset the data columns Diagnosis.Age and Tumor.Site into a dataframe called age_tumor. The numeric index of these columns was 4 and 11 respectively. Before proceeding with any analysis we conducted an exploratory investigation to understand the quantity of unique tumor sites present in the data set along with the spread of age at diagnosis.  
+```{R}
+age_tumor <- remove_nonuniques[c(4,11)] #subset the data 
 age_tumor
-summary(age_tumor$Diagnosis.Age)
+summary(unique(age_tumor$Tumor.Site)) #look at unique values for tumor.site 
+```
 
+According to the aforementioned summary and unique command, 20 unique tumor sites are present within this data. Next, we explored the distribution of diagnosis age to determine min, max, mean and median ages for this prospective prostate cohort. 
+
+```{r}
+summary(age_tumor$Diagnosis.Age)
+```
+Given the minimum age at diagnosis was 40 and the maximum age at diagnosis was 85 we needed to come up with a way to age-stratify the data in order to compare the various tumor sites with age at diagnosis. TAn article published in the [British Journal of Cancer](https://www.nature.com/articles/bjc2013268#Tab1) described a methodology for stratifying age within a population based study investigating prostate cancer. The researchers stratified age according to the following groups "40-59", "60-69", "70-79" and "80+ years". Since this was a validated study we employed the same age-stratified bins for our analysis. 
+
+```{r}
+library(tidyverse) #load tidyverse to assist in analysis 
+#grouping the age by the BJC age-stratified bins using ifelse statements 
 age_tumor$agegrp <- ifelse(age_tumor$Diagnosis.Age >= 40 & age_tumor$Diagnosis.Age <=59, "40-59",
                   ifelse(age_tumor$Diagnosis.Age > 59 & age_tumor$Diagnosis.Age <= 69, "60-69",
                          ifelse(age_tumor$Diagnosis.Age > 69 & age_tumor$Diagnosis.Age <= 79, "70-79",
                                 ifelse(age_tumor$Diagnosis.Age >79,"80+", NA))))
-
-library(dplyr)
-install.packages("gtsummary")
-library(gtsummary)
-age_tumor %>% 
-  select(Tumor.Site, agegrp) %>%
-  tbl_summary(by = agegrp, label = Tumor.Site ~ "Tumor Site") %>% add_p(test=everything()~"kruskal.test")
 ```
 
+After stratifying the data, we created a summary table to assess the aggregated counts of tumors by site grouped by age. 
+
 ```{r}
+library(dplyr) #load dplyr to use gtsummary 
+#install.packages("gtsummary") #in order to create the graph you may need to install the gtsummary pkg
+library(gtsummary) #load gtsummary to create the summary table 
+age_tumor %>% 
+  select(Tumor.Site, agegrp) %>%
+  tbl_summary(by = agegrp, label = Tumor.Site ~ "Tumor Site") %>% #develop the table based on the selected input
+  add_p(test=everything()~"kruskal.test") #test for the differences among ranks 
+```
+As evidenced by the output of the table, several of the aggregate counts of tumors by site were either 0 or 1 in most cases, which is not that significant. Five sites however did demonstrate counts greater than 1 and those include, Bone, Liver, Lymph Node, Prostate and Soft Tissue. To assess whether the differences among the age stratified ranks were significant by tumor site we conducted a Kruskal-Wallis Rank Sum Test. The output of which can be found in the last column of this table. The value of p was reported as 0.9 and assuming an alpha significance level of 0.05 this value is not significant. Thus, we conclude that there is no significant difference exhibited among the age stratified ranks by tumor site. 
+
+We found the quantities of the aggregate counts for the following tumor sites: Bone, Liver, Lymph Node, Prostate and Soft Tissue to be interesting so we further subsetted the data to explore the distribution of tumors. Additionally, we wanted to further assess whether bone, as mentioned earlier, was indeed the site of greatest metastatic disease. 
+
+```{r}
+#calculate the frequency of tumors by age group 
 freq <- age_tumor %>% group_by(agegrp,Tumor.Site) %>% summarise(Freq=n())
-freq <- rename(freq, "Count of Tumors"=Freq)
-freq_gt1 <-freq[which(freq$`Count of Tumors`>1),]
-library(ggplot2)
-library(viridis)
+freq <- rename(freq, "Count of Tumors"=Freq) #rename the frequency column 
+freq_gt1 <-freq[which(freq$`Count of Tumors`>1),] #subset the data to include the five columns of interest 
+library(ggplot2) #load in ggplot to create graphical summary 
+library(viridis) #load in viridis for pretty color palette 
+#create a bar chart of the data 
 ggplot(freq_gt1, aes(agegrp,`Count of Tumors`)) +
   labs(x="Age Grouped by BJC paper levels", y="Frequency of Tumors") +
   geom_bar(aes(fill=`Tumor.Site`),stat="identity",position="dodge") +
   scale_fill_viridis_d(option  = "mako") 
-  
 ```
 
-```{r}
-aov.out <- aov(freq$`Count of Tumors`~freq$agegrp)
-summary(aov.out)
+Curiously enough, bone was not the most common site of metastatic disease among this prospective prostate cohort. In fact, the lymph nodes were shown to have a greater quantity of tumors amounting to 61 tumors across the entire cohort as opposed to 43 among bone. Here from this graph we can also see that the "60-69" and "70-79" groups experience the most tumors proportionally, as would  be expected given that as men age the likelihood of developing prostate cancer increases. If time permitted we would have further calculated the incident rate ratios per age group for the five tumor sites where frequency was greater than 1 to understand the proportional burden of disease experienced by each age group. 
+
+Overall, this aim confirms that as men age incidence of prostate cancer increases with metastasis of disease occurring more frequently in the lymph nodes and bone. This data was limited given that the population was a bit skewed toward the older age groups (60-79) with very few cases representing those older than 80. More information as to prognosis and vital status beyond age 80 would be beneficial in determining whether the assumption of age and incidence is valid. 
 
 
-```
 ##Extract the Data from National Cancer Institute 
 We downloaded the second cancer dataset from the National Cancer Institute GDC Data Portal for all the clinical cases including all the columns. 
 
 The link can be found [here.](https://portal.gdc.cancer.gov/exploration?cases_size=100&filters=%7B%22op%22%3A%22and%22%2C%22content%22%3A%5B%7B%22op%22%3A%22in%22%2C%22content%22%3A%7B%22field%22%3A%22cases.primary_site%22%2C%22value%22%3A%5B%22prostate%20gland%22%5D%7D%7D%2C%7B%22content%22%3A%7B%22field%22%3A%22cases.project.project_id%22%2C%22value%22%3A%5B%22TCGA-PRAD%22%5D%7D%2C%22op%22%3A%22in%22%7D%2C%7B%22content%22%3A%7B%22field%22%3A%22genes.is_cancer_gene_census%22%2C%22value%22%3A%5B%22true%22%5D%7D%2C%22op%22%3A%22in%22%7D%5D%7D&searchTableTab=cases)
 
 ##Excel Cleaning for Second Data Set 
-The data was downloaded as a TSV file so it needed to be imported into Excel to change the format to a CSV or .XLSX file. The raw data contained  960 rows and 156 columns. Upon further investigation it was evident that several of the columns were empty or had values missing. In order to determine the columns with no data present along with those which had missing values we used the Filter tool in Excel. Missing values were those marked as '-- in the cells. 
+The data was downloaded as a TSV file so it needed to be imported into Excel to change the format to a CSV or .XLSX file. The raw data contained  960 rows and 156 columns. Upon further investigation it was evident that several of the columns were empty or had values missing. In order to determine the columns with no data present along with those which had missing values we used the Filter tool in Excel. Missing values were those marked as '-- in the cells. We developed a key for the missing values called "Key for Missing Values Columns". 
 
-The raw data contained 112 empty columns for which no data was available and 33 columns with missing values. The 112 empty columns were then removed from the analysis by simple deletion in Excel and a new sheet was created, "Sample". This new sheet "Sample" contains 44 columns. 
+Based on the assessment where we developed the key of the missing values we determined that the raw data contained 112 empty columns for which no data was available and 33 columns with missing values. The 112 empty columns were then removed from the analysis by simple deletion in Excel and a new sheet was created, "Sample". This new sheet "Sample" contained 44 columns. 
 
-Exported the "Sample" data as a standalone CSV file. 
+Further investigation of the new "Sample" data indicated that some rows were shifted over particularly rows 141, 142, 206, 207, 284, 285, 494 and 495. We pinpointed the origin of the shift for the aforementioned rows to column Y. In order to account for this shift we copied the data from the "Sample" worksheet to a new sheet called "Sample Revised". Here we inserted a cell in column Y for each of the aforementioned rows to shift the values of the cells to the the right so that the cells would be associated with the correct column. 
 
+Similarly the "treatment_type" column values were shifted to the right but also broken up into values of "Radiation Therapy/Pharmaceutical Therapy" and "NOS". To fix this issue we concatenated the values for the therapy and NOS in a new column, column AS. We then named this column "treatment_type".
+
+After concatenating the values we copied the data from "Sample Revised" to a new worksheet called "cleaned_sample". In this dataset we noticed that after shifting the rows five columns were shown to be empty. Thus we removed the five columns: secondary_gleason_grade, synchronous_malignancy, tumor_grade, year_of_diagnosis and treatment_or_therapy.  We exported this data as a CSV file to then continue our analysis of the missing values in R.  
+
+##Dealing with Missing Values 
+As mentioned previously, this GDC portal "uncleaned" dataset contained 33 columns with missing values. To be able to adequately analyze the data we need to deal with these missing value strings. First we began by exporting our cleaned data sample from Excel into R. 
 
 ```{r}
 sample <- read.csv("cleanedsample.csv")
 ```
 
-##Dealing with Missing Values 
+Next, we recoded the string values representative of missing values to NAs using the direct substituion with Base R. 
 
 ```{r}
 temp.NA <- sample
 temp.NA[temp.NA == "'--"] <- NA
 temp.NA
 ```
+A cursory scan revealed that the strings were indeed changed to NA values within the dataset. 
 
 ```{r}
 #changing '-- Null values to NA 
@@ -228,8 +242,13 @@ marginplot(temp.NA1[,c(1,20)])
 
 ```
 
+Here we removed the aforementioned columns that split the therapy and NOS which corresponded to columns AK-AN
+
+
+
+
 ```{r}
-install.packages("sqldf")
+#install.packages("sqldf")
 library(sqldf)
 new_sample <- read.csv("removed_dups.csv")
 new_sample <- subset(new_sample, select=-c(36:39))
@@ -255,8 +274,6 @@ age_ds1 <- select(join_data1_sql,"Age","agegrp")
 joined_data <- sqldf("SELECT * FROM new_sample JOIN GDC on new_sample.case_id=GDC.case_id")
 view(joined_data)
 dim(joined_data)
-
-
 ```
 
 extracting numeric digits as text mining 
@@ -269,26 +286,35 @@ joined_data$Age <- as.numeric(joined_data$Age)
 joined_data[36] <- NULL
 view(joined_data)
 joined_data <- rename(joined_data, ID=case_id)
+dim(joined_data)
 
 ```
-
-
 ```{r}
-
-cols_dups <- c()
-
-for(i in 1:ncol(joined_data)){
-  if(length(unique(joined_data[,i])) <= 1){
-    cols_dups[length(cols_dups) + 1] <- i
+repeat_cols <- find_nonuniq(joined_data)
+remove_dups <- joined_data[,-repeat_cols]
+dim(remove_dups)
+```
+```{r}
+carbon.copy <- function(df){
+  df
+  for(i in 1:ncol(df)){
+    for(j in 1:nrow(df[i])){
+      if(!(nrow(unique(df[i])) > 1)){
+        df = df[-c(i)]
+      }
+    }
   }
+  return(df)
 }
 
-print(cols_dups)
+remove_dup_upd <- carbon.copy(remove_dups)
+
 ```
+
+
+
+
 ```{r}
-remove_dups <- joined_data[,-cols_dups]
-dim(remove_dups)
-View(remove_dups)
 ## removing some duplicated manually 
 remove_dups[52]<-NULL #removes the ethnicity duplicate 
 remove_dups[52] <- NULL #removes the age duplicate 
@@ -311,14 +337,19 @@ view(dataset_2)
 
 ```{r}
 ggplot(data.frame(dataset_2), aes(x=Age)) +
-  geom_histogram(colour="black",fill="lightskyblue") 
+  geom_histogram(colour="black",fill="lightskyblue") +theme_classic()
   
 summary(dataset_2$Age)
   
 ggplot(data.frame(dataset_1), aes(x=Age)) +
-  geom_histogram(colour="black",fill="lightsalmon")
+  geom_histogram(colour="black",fill="lightsalmon") + theme_classic()
 summary(dataset_1$Age)
 
+```
+
+
+```{r}
+join_data1_sql[12] <- NULL
 ```
 
 
@@ -339,14 +370,24 @@ ggplot(data.frame(freq_1treat), aes(x=agegrp, y=Freq)) +
 
 x <- c("40-59","40-59","60-69","60-69","70-79","70-79","80+")
 freq_2treat$AGEgrp <- cbind(x)
+```
 
+
+```{r}
+colors <-c("#014f86","#bde0fe")
 ggplot(data.frame(freq_2treat), aes(x=AGEgrp, y=Freq)) +
   labs(x="Age Grouped by BJC paper levels", y="Frequency of Prior Treatment", ) +
   geom_bar(aes(fill=prior_treatment),stat="identity",position="dodge") +
   guides(fill=guide_legend(title="Prior Treatment"))+
-  scale_fill_brewer(palette="Paired") +
+  scale_fill_manual(values=colors)+
   theme_classic()
 
 
 ```
+
+
+
+
+
+
 
