@@ -817,19 +817,20 @@ Alisa:
 
 # Next Steps
 
+After joining the two datasets from GDC via SQL, we noticed that our initial dataset from cBioPortal and the new dataset both had data on patient's age at diagnosis as well as whether the patient had prior treatment. As a basic step to check similarities between patients across both datasets, we plotted the distributions of age at diagnosis for both datasets.
 ```{r}
 # Plot age at diagnosis distributions for both datasets
 ggplot(data.frame(dataset_2), aes(x=Age)) +
-  geom_histogram(colour="black",fill="lightskyblue") 
+  geom_histogram(colour="black",fill="lightskyblue") +theme_classic()
   
 summary(dataset_2$Age)
   
 ggplot(data.frame(dataset_1), aes(x=Age)) +
-  geom_histogram(colour="black",fill="lightsalmon")
+  geom_histogram(colour="black",fill="lightsalmon") + theme_classic()
 summary(dataset_1$Age)
 
 ```
-
+After assessing the plots above, we noticed that the mean age at diagnosis for our first dataset (cBioPortal) was slightly later than the mean age at diagnosis for our second dataset (GDC). After realizing this, we wanted to see if patients from the cBioPortal had higher rates of prior treatment status than patients from the GDC data. In order to check this while stratifying for age groups, we plotted prior treatment status for patients from each dataset based on our age groups. 
 
 ```{r}
 # Plot prior treatment status for both datasets
@@ -859,8 +860,45 @@ ggplot(data.frame(freq_2treat), aes(x=AGEgrp, y=Freq)) +
   theme_classic()
 
 ```
+The first thing we noticed is that these graphs are slightly misleading since we are looking at frequencies instead of proportions. The cBioPortal dataset frequencies range from 0-40, while the GDC dataset frequencies range from 0 to >200. Let's try to make these graphs more comparable. 
+
+```{r}
+# Make proportions
+freq_1treat$Prop = freq_1treat$Freq / sum(freq_1treat$Freq)
+
+# Make proportions
+freq_2treat$Prop = freq_2treat$Freq / sum(freq_2treat$Freq)
+
+# Fix colors
+freq_2treat$UpdatedPT <- ifelse(freq_2treat$prior_treatment == 'yes', 'Had Prior Treatment', 'No Prior Treatment')
+
+
+
+ggplot(data.frame(freq_1treat), aes(x=agegrp, y=Prop)) +
+  labs(x="Age Grouped by BJC paper levels", y="Proportion of Prior Treatment", ) +
+  geom_bar(aes(fill=Prior.Treatment),stat="identity",position="dodge") +
+  guides(fill=guide_legend(title="Prior Treatment"))+
+  scale_fill_brewer(palette="Oranges") +
+  theme_classic() + ylim(0, 0.5)
+
+x <- c("40-59","40-59","60-69","60-69","70-79","70-79","80+")
+freq_2treat$AGEgrp <- cbind(x)
+
+ggplot(data.frame(freq_2treat), aes(x=AGEgrp, y=Prop)) +
+  labs(x="Age Grouped by BJC paper levels", y="Proportion of Prior Treatment", ) +
+  geom_bar(aes(fill=UpdatedPT),stat="identity",position="dodge") +
+  guides(fill=guide_legend(title="Prior Treatment"))+
+  scale_fill_brewer(palette="Paired") +
+  theme_classic() + ylim(0, 0.5)
+
+```
+Great! Now that we have the proportions and equal y axis ranges, we can see that the gap between having prior treatment versus no prior treatment is relatively smaller in the patients from the first dataset compared to patients from the second dataset. Additionally, the proportion of patients who received prior treatment in the first dataset seems to be higher across all age groups compared to the second dataset. 
+
+This would be a great place to start further analysis if we had more time. We could look more into how prior treatment affects diagnosis age, if prior treatment has been linked to later diagnosis age, and where we would be able to find more data to test this association. In addition to investigating diagnosis age's relationship to prior treatment status, we had also noticed that the second data set had a "vital status" column which gives us information on the survival status of the patient. This information was missing from our first data set, so another great next step would be to track the incidence of disease in our second data set (from GDC), and by using our vital status column, we would calculate the patient mortality ratio for the GDC data set. 
+
+
 # Limitations
-(Afsha)
+Though we were able to derive 
 
 # Why we used a second dataset 
 (?)
