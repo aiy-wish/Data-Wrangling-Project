@@ -199,7 +199,6 @@ Exported the "Sample" data as a standalone CSV file.
 
 ```{r}
 sample <- read.csv("cleanedsample.csv")
-
 ```
 
 ##Dealing with Missing Values 
@@ -230,7 +229,7 @@ marginplot(temp.NA1[,c(1,20)])
 ```
 
 ```{r}
-#install.packages("sqldf")
+install.packages("sqldf")
 library(sqldf)
 new_sample <- read.csv("removed_dups.csv")
 new_sample <- subset(new_sample, select=-c(36:39))

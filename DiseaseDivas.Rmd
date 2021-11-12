@@ -9,12 +9,68 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Background 
-A team of 73 researchers from all over the United States investigated clinical genomics of advanced prostate cancer. The aim of this research was to facilitate precision medicine create a prospective 
+## Introduction 
+Prostate cancer is among one of the leading causes of death in males in the United States. The genomic study of metastatic prostate cancer has been limited due to tumor samples being obtained from autopsies as well as limited cohort preclinical models. Prospective studies are few and far between due to limitations in collecting adequate tumor tissue through biopsy. A paper published in 2015 prospectively analyzed tumor biopsies among affected individuals. Subsequently as of 2016, genomic data for prostate cancer has become more widely available due to the National Cancer Institutes (NCI) Genomics Data Commons (GDC).
 
+In this project we will explore data from both the 2015 prospective cohort study along with data available from the NCI's Genomic Data Commons. This project aims to investigate three datasets, through mapping and transformation of the raw data in multiple programs such as Excel, SQL and R,  with the ultimate goal of optimizing downstream analysis of the prostate cancer cohorts. We will discuss various methods by which we wrangled the data to investigate underlying associations between individual case presentations and manifestation of disease.
 
+A team of 73 researchers conducted a multi-institutional study that investigated clinical genomics of advanced prostate cancer specifically metastatic, castration resistant prostate cancer (mCRPC). mCRPC occurs in individuals who develop resistance to androgen deprivation therapies (ADT). The aim of this research was to facilitate precision medicine by developing a prospective whole-exome and transcriptome sequencing of tumor biopsies. Data was obtained from living affected individuals to compile a set of genomic alterations. The study was published in the journal "Cell" in May 2015. 
 
-Cleaning Our Data
+The link to the publication can be found [here.](https://pubmed.ncbi.nlm.nih.gov/26000489/)
+
+Data was extracted from the cBioPortal, a public cancer genomics site hosted and mainted by the Memorial Sloan Kettering Cancer Center. The sample included 150 individuals with metastatic prostate cancer along with 17 data points per individual,  described below:
+-**Patient ID**: unique patient identifier (number)
+-**Sample ID**: unique biopsy sample identifier from clinical trial(number)
+-**Mutation Count**: mutation rate for mCRPC defined as mutations per megabase or mutations/Mb (number)
+-**Fraction Genome Altered**: fraction of mutant allele variants in biopsy (number)
+-**Diagnosis Age**: patient's age when they were diagnosed (number)
+-**Tumor Site**: physical site of tumor on human body from which biopsy was taken (string)
+-**Abiraterzone (ABI) and Enzalutamide (ENZA) Exposure Status**: exposure to  second-generation androgen deprivation therapies (binary: yes/no)
+-**Center of Sequencing**: the international academic medical center where exome sequencing occurred (string)
+-**Prior Treatment**: receipt of previous androgen deprivation therapy (binary:yes/no)
+-**Site Sequenced**: site of exome sequencing: Broad or UM (string)
+-**tumor content**: percentage of tumor captured in the biopsy (number)
+
+The National Cancer Institute (NCI) maintains a unified repository of genomic data known as the Genomic Data Commons(GDC). Groundwork for this repository began in June 2015 with nearly 50,000 raw data sequences analyzed by June 2016. This data sharing platform uses an Open-Stack-based private cloud to unite several large-scale cancer genome research programs such as TCGA and OCG. The purpose of this repository is to standardize the data processing of these multi-dimensional datasets by using common bioinformatics pipelines that facilitate direct comparison of the data. 
+
+More about the National Cancer Institute's Genomic Data Commons can be found [here.](https://gdc.cancer.gov/about-gdc)
+
+Data was extracted from GDC Portal's Exploration page. The "cleaned" version of the data sample included 493 individuals with metastatic prostrate cancer along with 24 data pointsper individual as described below: 
+-**CaseUUID**: universally unique identifier assigned to every entity in the data model (string)
+-**CaseID**:specific individual cases using the submitter ID from the genomic cancer research program (string)
+-**Project**:The cancer research program from which the case originated from (string)
+-**Primary Site**: The primary site of the cancer (string)
+-**Gender**:"Gender is defined as a set of characteristics that distinguish persons based on their social roles" (string)
+-**Files**: the quantity of files available for that case (number)
+-**Seq**:Number of the sequencing reads(an inferred sequence of basepairs) (number)
+-**Exp**:The transcriptome profiling (number)
+-**SNV**:simple nucleotide variation (number)
+-**CNV**:Copy number variation,the number of copies of a particular gene varies from one individual to the next (number)
+-**Meth**:Number of DNA methylation that took place (number)
+-**Clinical**: The number of clinical alterations (number)
+-**Bio**:biospecimen (number)
+-**Mutations**:The number of simple somatic mutations detected for that case(number)
+-**Genes**: The quantity of genes affected by mutations for each case (number)
+-**Slides**: the quantity of slides available for each case (number)
+-**Program**: The type of program the subject is enrolled in “The Cancer Genome Atlas” or the “Count Me In” (string) 
+-**Disease Type**: This describes if it is Adenomas and Adenocarcinomas, the location where the cancer is formed (string)
+-**Age at diagnosis**:Age at the time of diagnosis calculated from their day of
+birth to the day they were diagnosed with cancer (string)
+-**Days to death**:The date from when they were diagnosed, and they died (string)
+-**Vital Status**: the survival status of the person (string)
+-**Primary Diagnosis**:Their initial pathological diagnoses of cancer (string)
+-**Ethnicity**: "An individual's self-identified social and cultural category, particularly whether they identify as Hispanic or Latino" (string)
+-**Race**: "A taxonomic group that is a division of a species that is classified arbitrarily. It is characterized by shared heredity, physical attributes, and behavior, and in the case of humans, by common history, nationality, or geographic distribution" (string)
+
+##Methods 
+
+##Extract the Data from the cBioPortal 
+The first dataset was downloaded from the cBioPortal site using the "download clinical data for the selected cases" button extracting all columns. 
+
+The link to the dataset can be found [here.](https://www.cbioportal.org/study/clinicalData?id=prad_su2c_2015)
+
+##Cleaning Our Data
+The first dataset was downloaded as a TSV file which required conversion in Excel to a CSV file. After importing the data into Excel using the Import Data From Text tool, the worksheet was saved as a csv file. The raw data contained 150 rows and 20 columns. As a team we worked through the exploratory investigation and cleaning of the data by utilizing GitHub to collaborate on an R Markdown file. 
 
 ```{r}
 #Load data downloaded from 
@@ -22,6 +78,7 @@ Cleaning Our Data
 rawdat<- read.csv("diseasedivadata.csv")
 ```
 
+## DON'T KNOW WHAT THIS IS -- figure out later
 ```{r warning=FALSE}
 library(DiseaseDivas)
 rawdat1<- read.csv("diseasedivadata.csv")
@@ -33,10 +90,14 @@ df.updated
 
 ```
 
+To gain an understanding for the types of variables we would be analyzing along with some of the numeric summaries for the continuous variables, we employed the summary function. 
+
 ```{r pressure, echo=FALSE}
 #Summarize
 summary(rawdat)
 ```
+
+Preliminary findings indicate, mean age of diagnosis for prostate cancer is approximately 67 years of age. Average tumor content found in these biopsies appears to be 60%. Initial analysis revealed that there were several cells for which NA values were present. The following command was used to eliminate the NAs saving the new data to a dataframe called complete_dat. 
 
 ```{r}
 #Remove NAs
@@ -44,12 +105,16 @@ complete_dat <- na.omit(rawdat)
 
 ```
 
+Upon removal of the NAs, the dataset reduced to 147 rows and 20 columns. Three patients from the original extract contained in rows 71 to 73 were therefore excluded from subsequent analyses due to the NAs being present in both the Diagnosis.Age column along with the Abiraterone (ABI) and Enzalutamide (ENZA) Exposure Status. These two columns are crucial in further analyses being as age is a related factor for severity of disease. Furthermore, without information as to prior exposure status to the androgen deprivation therapies, assessment of mCRPC is incomplete. 
+
+Further analysis of the data revealed that several columns were found to have duplicated values. To assess whether the individual cases included in the sample were duplicated, we utilized the duplicated command to check the Sample ID column for repeat values. As shown below, none were found. 
 
 ```{r}
 #Check for duplicates
 duplicated(complete_dat$Sample.ID)
 ```
 
+Upon cursory glance the Patient ID and Sample ID column appeared to be populated with the exact same values per each row. To confirm this assumption we used the following syntax to check if the values between the two columns were unique. The syntax reads as follows, from the compelete_dat dataframe check if Patient Id is not contained in Sample Id then output the results. 
 
 ```{r}
 #Check if sample id is dup
@@ -58,29 +123,27 @@ complete_dat[!complete_dat$Patient.ID %in% complete_dat$Sample.ID, ]
 
 ```
 
-```{r}
-cols_nonunique <- c()
+The output above is empty indicating that all the Patient Ids are contained within the Sample Id. In other words the two columns are the same. 
 
-for(i in 1:ncol(complete_dat)){
-  if(length(unique(complete_dat[,i])) <= 1){
-    cols_nonunique[length(cols_nonunique) + 1] <- i
+Several columns appeared to be populated by the same value for each row. For example, the Cancer.Type column was entirely populated by the value "Prostate Adenocarcinoma".  To determine whether this assumption was indeed true we created the following for loop that cycled through each column to check that the values contained in the column were unique. 
+
+```{r}
+find_nonuniq <- function(dataset){
+  cols_nonunique <- c()
+  for(i in 1:ncol(dataset)){
+    if(length(unique(dataset[,i])) <= 1){
+      cols_nonunique[length(cols_nonunique) + 1] <- i
+    }
   }
+  print(cols_nonunique)
 }
-
-print(cols_nonunique)
-
-```
-
-```{r}
-
+find_nonuniq(complete_dat)
 remove_nonuniques <- complete_dat[,-cols_nonunique]
-
 ```
-
 
 ## Aim 1.1: Classify severity of cancer by site.
 
-I used the dplyr library for most of the data manipulation for Aim 1.1. To begin my analysis, I extracted the two columns of interest: "Center of sequencing", which has the locations of where each patient sample was sequenced, and "Tumor content", which contains the tumor content of each patient sample. Tumor content was classified as percentages that were defined by computational analysis, based on mutant allele variant fractions and zygosity shifts. I made a separate table using just these two columns from the filtered data and named it "aim_1_1".
+We used the dplyr library for most of the data manipulation for Aim 1.1. To begin our analysis, we extracted the two columns of interest: "Center of sequencing", which has the locations of where each patient sample was sequenced, and "Tumor content", which contains the tumor content of each patient sample. Tumor content was classified as percentages that were defined by computational analysis, based on mutant allele variant fractions and zygosity shifts. We made a separate table using just these two columns from the filtered data and named it "aim_1_1".
 ```{r}
 # Load dplyr library for data manipulation.
 library(dplyr)
@@ -88,7 +151,7 @@ library(dplyr)
 aim_1_1 = complete_dat %>%
   select(Center.of.sequencing, tumor.content)
 ```
-The next step in my analysis was to create a classification system for tumor content and categorize each patient sample as either low, medium, or high tumor content level. The study we downloaded our raw data from only included patient samples whose tumor content was greater than 20%, so I made a simple classification system in which 20-45% tumor content is considered low, 46-70% tumor content is considered medium, 71-100% tumor content is considered high. To add this classification to my dataframe, I created a new column named "TC_Level" and added each classification for patient sample as a factor using if-else statements.
+The next step in our analysis was to create a classification system for tumor content and categorize each patient sample as either low, medium, or high tumor content level. The study we downloaded our raw data from only included patient samples whose tumor content was greater than 20%, so we made a simple classification system in which 20-45% tumor content is considered low, 46-70% tumor content is considered medium, 71-100% tumor content is considered high. To add this classification to our data frame, we created a new column named "TC_Level" and added each classification for patient sample as a factor using if-else statements.
 ```{r}
 # 20 - 45 is low
 # 46 - 70 is medium 
@@ -99,7 +162,7 @@ aim_1_1$TC_level <- as.factor(ifelse(aim_1_1$tumor.content < 46, 'Low',
                      ifelse(aim_1_1$tumor.content < 71, 'Medium', 'High')))
 ```
 
-The next step in my analysis was to group sequencing centers (aka the "Center of sequencing" column) into geographic regions. Sequencing centers in our dataset included Dana-Farber Cancer Institute, Memorial Sloan Kettering Cancer Center, Karmanos Cancer Center, University of Michigan, University of Washington, and the Insitute of Cancer Research & The Royal Marsden. Geographic regions were grouped as shown below: 
+The next step in our analysis was to group sequencing centers (aka the "Center of sequencing" column) into geographic regions. Sequencing centers in our dataset included Dana-Farber Cancer Institute, Memorial Sloan Kettering Cancer Center, Karmanos Cancer Center, University of Michigan, University of Washington, and the Insitute of Cancer Research & The Royal Marsden. Geographic regions were grouped as shown below: 
 
 EAST COAST LOCATIONS:
 DFCI (Boston, MA)
@@ -115,7 +178,7 @@ U Washington (Seattle, WA)
 INTERNATIONAL LOCATIONS:
 RM-ICR (London, UK)
 
-To add the geographic regions to my dataframe, I followed the same step used to add the tumor content classifications to the dataframe -- I created a factor using if-else statements and added the region for each patient sample, as shown below
+To add the geographic regions to our data frame, we followed the same step used to add the tumor content classifications to the data frame -- we created a factor using if-else statements and added the region for each patient sample, as shown below
 ```{r}
 # Add geographic region based on sequencing center
 aim_1_1$Site_region <- as.factor(ifelse(aim_1_1$Center.of.sequencing == 'DFCI' | aim_1_1$Center.of.sequencing == 'MSKCC', 'East Coast',
@@ -123,7 +186,7 @@ aim_1_1$Site_region <- as.factor(ifelse(aim_1_1$Center.of.sequencing == 'DFCI' |
                      ifelse(aim_1_1$Center.of.sequencing == 'U Washington', 'West Coast', 'International'))))
 ```
 
-Now that I have created a classification system for tumor content and grouped sequencing centers by geographic region, I started to look at the data numerically and visually. To get a better understanding of the distribution of the tumor content levels across the geographic region, I created a simple table looking at the mean tumor content across each sequencing region. I made this table using the dplyr and gtsummary packages. The gtsummary package contains the tbl_summary() function which is very helpful when trying to create tables with different types of statistical information. I used piping to select the proper data columns from my original aim_1_1 subtable, and then I used the gtsummary package to design the table as shown below.
+Now that we have created a classification system for tumor content and grouped sequencing centers by geographic region, we started to look at the data numerically and visually. To get a better understanding of the distribution of the tumor content levels across the geographic region, we created a simple table looking at the mean tumor content across each sequencing region. We made this table using the dplyr and gtsummary packages. The gtsummary package contains the tbl_summary() function which is very helpful when trying to create tables with different types of statistical information. We used piping to select the proper data columns from our original aim_1_1 subtable, and then we used the gtsummary package to design the table as shown below.
 ```{r}
 library(gtsummary)
 # Create numeric summary of mean tumor content by sequencing region
@@ -133,11 +196,11 @@ raw_tc_tab = aim_1_1 %>%
   modify_spanning_header( all_stat_cols() ~ "**Sequencing Region**") %>% modify_header(label = "") 
 raw_tc_tab
 ```
-From the table created above, I can see that the mean tumor content seems to be fairly equal among the geographic regions covered in the data. The mean tumor content ranges from 58% in the West Coast/internationally to 63% on the East Coast. Additionally, the standard deviations are also relatively similar across the regions, ranging from 18% to 21%. 
+From the table created above, we can see that the mean tumor content seems to be fairly equal among the geographic regions covered in the data. The mean tumor content ranges from 58% in the West Coast/internationally to 63% on the East Coast. Additionally, the standard deviations are also relatively similar across the regions, ranging from 18% to 21%. 
 
-Next, I tried to look at the data visually. I decided to make a bar plot to visually assess the distribution of the mean tumor content percentages across sequencing regions. In order to create my plot, I first used the tidyverse package to group my data by sequencing region, and then get the mean tumor content levels for each group. I made a new table, "raw_tc_df", which contains the mean tumor content level by sequencing region that I could feed into ggplot to create my visualization. 
+Next, we tried to look at the data visually. We decided to make a bar plot to visually assess the distribution of the mean tumor content percentages across sequencing regions. In order to create my plot, we first used the tidyverse package to group my data by sequencing region, and then get the mean tumor content levels for each group. We made a new table, "raw_tc_df", which contains the mean tumor content level by sequencing region that we could feed into ggplot to create our visualization. 
 
-Then, I used ggplot to create my boxplot. Using the data from "raw_tc_df", I plotted the mean tumor content on the y axis against the sequencing regions on the x axis. I then used several features (geom_text, scale_fill_brewer, theme, just to name a few) to improve the aesthetics of the plot.
+Then, we used ggplot to create our boxplot. Using the data from "raw_tc_df", we plotted the mean tumor content on the y axis against the sequencing regions on the x axis. We then used several features (geom_text, scale_fill_brewer, theme, just to name a few) to improve the aesthetics of the plot.
 ```{r}
 library(tidyverse)
 # Create subtable which contains mean tumor content levels by sequencing region
@@ -162,7 +225,7 @@ ggplot(data=raw_tc_df, mapping=aes(x=Site_region, y=mean.tumor.content, fill=Sit
   xlab("Sequencing Region") + ylab("Mean Tumor Content (%)")
 ```
 
-After visually assessing the mean tumor content levels by region, I can see that the tumor content levels do seem to be fairly equal among the geographic regions. Next, I decided to look at the distributions of tumor content levels (using my classification system) by center of sequencing. I made this table using the gtsummary package again. I also ran a Fisher's exact test and obtained a p-value of 0.9, suggesting that there is not a significant association between Sequencing Site and tumor content level. 
+After visually assessing the mean tumor content levels by region, we can see that the tumor content levels do seem to be fairly equal among the geographic regions. Next, we decided to look at the distributions of tumor content levels (using my classification system) by center of sequencing. We made this table using the gtsummary package again. We also ran a Fisher's exact test and obtained a p-value of 0.9, suggesting that there is not a significant association between Sequencing Site and tumor content level. 
 ```{r}
 # Make a table to look at tumor content levels across sequencing site
 p1 = aim_1_1 %>% 
@@ -177,7 +240,7 @@ p1 = aim_1_1 %>%
 p1
 ```
 
-To get a better visual assessment of the tumor content levels by sequencing sites, I made a grouped bar plot using ggplot:
+To get a better visual assessment of the tumor content levels by sequencing sites, we made a grouped bar plot using ggplot:
 ```{r}
 mid_tab=table(aim_1_1$TC_level, aim_1_1$Center.of.sequencing)
 mid_df = data.frame(mid_tab)
@@ -200,7 +263,7 @@ grouped_plot_a = ggplot(data = mid_df, mapping = aes(x=Var2, y=Freq, fill=Var1))
 grouped_plot_a
 ```
 
-I then realized that this table might be misleading since some sequencing sites have a much larger sample size than others, so I decided to look at the tumor content levels by sequencing site region instead. This table was also made using gtsummary. 
+We then realized that this table might be misleading since some sequencing sites have a much larger sample size than others, so we decided to look at the tumor content levels by sequencing site region instead. This table was also made using gtsummary. 
 ```{r}
 # Create a table to compare tumor content levels across sequencing site regions
 library(dplyr)
@@ -214,7 +277,7 @@ aim_1_1 %>%
 ```
 
 
-My next visualization is a boxplot comparing tumor content by sequencing site. I used the theme feature in ggplot to change the fonts and colors in the plot. 
+Our next visualization is a boxplot comparing tumor content by sequencing site. We used the theme feature in ggplot to change the fonts and colors in the plot. 
 ```{r}
 # Plot the tumor content percentages across sequencing site
 aim_1_1 %>% select(Center.of.sequencing, tumor.content) %>%
@@ -240,7 +303,7 @@ raw_plot
 ```
 
 
-Lastly, I plotted the tumor content levels by sequencing site region. I first made a subtable to count the frequencies of tumor content levels by site region, and then fed this table into ggplot. Once again, I utilized the theme feature to add labels to each bar and customize the fonts and colors in the graph.
+Lastly, we plotted the tumor content levels by sequencing site region. We first made a subtable to count the frequencies of tumor content levels by site region, and then fed this table into ggplot. Once again, we utilized the theme feature to add labels to each bar and customize the fonts and colors in the graph.
 ```{r}
 # Make table to count frequencies of tumor content levels by site region
 table(aim_1_1$TC_level, aim_1_1$Site_region)
@@ -287,9 +350,8 @@ head(aim_1_2,10)
 
 ```
 
+In order to have few categories for finding the exposure status based on prior treatment found in different sequencing institutes, we need to club institutes into 4 main regions based on the data we have: East Coast, Midwest, West Coast and International. Similarly in Aim 1.1, we run the same if-else code for Aim 1.2.
 
-
-In order to have few categories for finding the exposure status based on prior treatment found in different sequencing institutes, we need to club institutes into 4 main regions based on the data we have: East Coast, Midwest, West Coast and International. Similarly in Aim 1.1, we run the same ifelse code for Aim 1.2.
 ```{r}
 aim_1_2$Site_region <- as.factor(ifelse(aim_1_2$Center.of.sequencing == 'DFCI' | aim_1_2$Center.of.sequencing == 'MSKCC', 'East Coast',
                      ifelse(aim_1_2$Center.of.sequencing == 'Karmanos Cancer Insitute' | aim_1_2$Center.of.sequencing == 'U Michigan', 'Midwest',
@@ -359,7 +421,9 @@ ggplot(my_summary, aes(Exposure.Status, n, fill = Prior.Treatment)) +
   geom_bar(stat = "identity") +
   facet_wrap(facets = vars(Center.of.sequencing))
 ```
-In order to get better visualization, I decided to congregate the institutes into region, and find the `Exposure.Status` grouped by the `Prior.Treatment` column based on the `Site_region`.
+
+In order to get better visualization, we decided to congregate the institutes into region, and find the `Exposure.Status` grouped by the `Prior.Treatment` column based on the `Site_region`.
+
 ```{r warning=FALSE}
 
 library(janitor)
@@ -377,8 +441,8 @@ ggplot(my.summary.region, aes(Exposure.Status, n, fill = Prior.Treatment)) +
   facet_wrap(facets = vars(Site_region))
 ```
 
+As seen in the graphs and tables, the distribution seems to be not normal and hence we decided to perform Fisher's exact test to calculate the p-value. We see that the p-value is less than 0.001, which means it is statistically significant across all confidence levels and hence there is an significant association between Sequencing Site and Exposure Status. Similarly we also get p-value less than 0.001 for Prior.Treatment and Exposure Status, which means they are statistically significant.  
 
-As seen in the graphs and tables, the distribution seems to be not normal and hence i decided to perform Fisher's exact test to calculate the p-value. We see that the p-value is less than 0.001, which means it is statistically significant across all confidence levels and hence there is an significant association between Sequencing Site and Exposure Status. Similarly we also get p-value less than 0.001 for Prior.Treatment and Exposure Status, which means they are statistically significant.  
 ```{r}
 p.test = aim_1_2 %>% 
   select(Center.of.sequencing, Exposure.Status, Prior.Treatment) %>%
@@ -390,7 +454,8 @@ p.test = aim_1_2 %>%
 p.test
 ```
 
-## AIM 3.1
+## AIM 2.1
+## NEEDS DOCUMENTATION FIXED
 ```{r}
 #subset the data 
 library(tidyverse)
@@ -423,9 +488,9 @@ ggplot(freq_gt1, aes(agegrp,`Count of Tumors`)) +
   scale_fill_viridis_d(option  = "mako") 
   
 ```
-## Aim(3.1)-Assign classifications of “high”, “medium” or “low” based on the intensity of tumor content
+## Aim(2.1)-Assign classifications of “high”, “medium” or “low” based on the intensity of tumor content
 
-Now we will be taking the datasets and checking on the `tumor.content` variable , the tumor content variable has the numeric value of the amount of tumor present in out subject , so based on this we can seperate our subjects. So basically now we will be taking our `tumor content` variable and be dividing them into three seperate category, say below 20 , in between 30 & 70 , then 70-100. The lowest set is the low severity regions , the the moderate and the high.We can noe create a seperate column and that has the severity levels.
+Now we will be taking the datasets and checking on the `tumor.content` variable , the tumor content variable has the numeric value of the amount of tumor present in out subject , so based on this we can seperate our subjects. So basically now we will be taking our `tumor content` variable and be dividing them into three separate category, say below 20 , in between 30 & 70 , then 70-100. The lowest set is the low severity regions , the the moderate and the high.We can noe create a separate column and that has the severity levels.
 ```{r}
 finaldata<-remove_nonuniques
 range(finaldata$tumor.content) ##checking the range of the content
@@ -437,57 +502,10 @@ finaldata%>%mutate(Severity=ifelse(`tumor.content`>70 & `tumor.content`<=100 ,"H
 unique(finaldata$Severity)
 
 ```
-## Aim3.3-Are these then related to biopsy sites?  (we need to add more to this)
 
-Now we have to check if they are related to the biopsy site , for this we can group by the severiry contenmt and the site where they have the tumor and get the exact count of the severity level and the zone where they are localized.
-```{r}
-finaldata%>%group_by(Severity,`Tumor.Site`)%>%summarise(count=n())#number of subjects in each level
-```
-We got the required count and the zones, new we need tyo plot the zone. For plotting the severity on a human graph we can use the package ,gganatogram: An R package for modular visualisation of anatograms and tissues based on ggplot2.Here we will be displaying data onto anatomical structures is a convenient technique to quickly observe tissue related severity, which is based on ghe tissue severity that we calculated before.
+## Aim 2.2
 
-Initally we need to make a dataframe , in a order by nameing the organs exactly as built in the package "gganatogram".Then assign them value based on the seberity levels.
-```{r}
-#source("https://neuroconductor.org/neurocLite.R")
-#neuro_install("gganatogram")
-library(gganatogram)
-library(gridExtra)
-#plotting based on the severity 
-#making a dataframe with the required values to plot
-organPlot <- data.frame(organ = c("bone_marrow", "lymph_node", "prostate", "gall_bladder", "liver", "penis","smooth_muscle", "bone","throat","heart","stomach","urinary_bladder"), 
- colour = c("red", "red", "red", "red", "red", "red","red", "red","yellow","green","yellow","green"), 
- value = c(10, 10, 10, 10, 10,10, 10, 10,5,1,5,1), 
- stringsAsFactors=F)
-
-gganatogram(data=organPlot, organism='human', sex='male', fill="value")+ theme_void() +
- ggtitle("The Severity zones")
-
-```
-Next we will be doing the same as before but this time its the biopsysite which is also determined by the tumor contect, so maximum biopsy is done on sites where the tumor contn is high.
-
-```{r}
-biopsies <- data.frame(biopsy = c("bone_marrow", "lymph_node", "prostate", "gall_bladder", "liver", "penis","smooth_muscle", "bone","throat","heart","stomach","urinary_bladder"),
- x = c(10, 10, 10, 10, 10,10, 10, 10,5,1,5,1),
- y = c(10, 10, 10, 10, 10,10, 10, 10,5,1,5,1),
- value = c(10, 10, 10, 10, 10,10, 10, 10,5,1,5,1))
-p <- hgMale_key %>%
- dplyr::filter(organ %in% c("bone_marrow", "lymph_node", "prostate", "gall_bladder", "liver", "penis","smooth_muscle", "bone","throat","heart","stomach","urinary_bladder")) %>%
- gganatogram(fillOutline="lightgray", organism="human", sex="male",
- fill="colour") + theme_void() +
- ggtitle("Position␣of␣biopsies")
-        
-p2 <- hgMale_key%>%
- dplyr::filter(organ %in% c("bone_marrow", "lymph_node", "prostate", "gall_bladder", "liver", "penis","smooth_muscle", "bone","throat","heart","stomach","urinary_bladder"))%>%
- gganatogram(fillOutline="lightgray", organism="human", sex="male", 
- fill="value") + theme_void() +
- ggtitle("Value␣of␣biopsies")
-        
-lay <- rbind(c(1,2), c(1,2), c(3, NULL))
-grid.arrange(p, p2, layout_matrix = lay)
-```
-
-## Aim 3.2
-
-This data set included a recording of patient exposure to Abiraterone and Enzalutamide (ABI and ENZA). ABI and ENZA are drugs commonly used in the treatment of prostate cancer. Both medications work as an anti-androgen drugs; ABI is an androgen synthase inhibitor, and ENZA inhibits androgen proceses in the cell. Close to half of the participants in the study were either exposed or not exposed to ABI and ENZA in the fashion of a randomized control trial. In this aim we are trying to see if the participants in each are of the study (exposed or not exposed) share similar characteristics, particularly among the Mutation Count, Fraction Genome Altered, and Tumor Content variables. To explore these characteristics of the data set, the data must first be split into those rows corresponding to participants who were exposed to ABI and ENZA and those who were not. 
+This data set included a recording of patient exposure to Abiraterone and Enzalutamide (ABI and ENZA). ABI and ENZA are drugs commonly used in the treatment of prostate cancer. Both medications work as an anti-androgen drugs; ABI is an androgen synthase inhibitor, and ENZA inhibits androgen procceses in the cell. Close to half of the participants in the study were either exposed or not exposed to ABI and ENZA in the fashion of a randomized control trial. In this aim we are trying to see if the participants in each are of the study (exposed or not exposed) share similar characteristics, particularly among the Mutation Count, Fraction Genome Altered, and Tumor Content variables. To explore these characteristics of the data set, the data must first be split into those rows corresponding to participants who were exposed to ABI and ENZA and those who were not. 
 
 ```{r}
 #Convert exposure status to numeric binary variable.
@@ -546,6 +564,58 @@ amc %>%
 ```
 
 These visualizations and results show that the groups differ by values that are reasonably expected under random chance.
+
+
+## Aim 2.3-Are these then related to biopsy sites?  (we need to add more to this)
+
+Now we have to check if they are related to the biopsy site , for this we can group by the severiry contenmt and the site where they have the tumor and get the exact count of the severity level and the zone where they are localized.
+```{r}
+finaldata%>%group_by(Severity,`Tumor.Site`)%>%summarise(count=n())#number of subjects in each level
+```
+
+We got the required count and the zones, new we need tyo plot the zone. For plotting the severity on a human graph we can use the package ,gganatogram: An R package for modular visualisation of anatograms and tissues based on ggplot2.Here we will be displaying data onto anatomical structures is a convenient technique to quickly observe tissue related severity, which is based on ghe tissue severity that we calculated before.
+
+Initally we need to make a dataframe , in a order by nameing the organs exactly as built in the package "gganatogram".Then assign them value based on the seberity levels.
+
+```{r}
+#source("https://neuroconductor.org/neurocLite.R")
+#neuro_install("gganatogram")
+library(gganatogram)
+library(gridExtra)
+#plotting based on the severity 
+#making a dataframe with the required values to plot
+organPlot <- data.frame(organ = c("bone_marrow", "lymph_node", "prostate", "gall_bladder", "liver", "penis","smooth_muscle", "bone","throat","heart","stomach","urinary_bladder"), 
+ colour = c("red", "red", "red", "red", "red", "red","red", "red","yellow","green","yellow","green"), 
+ value = c(10, 10, 10, 10, 10,10, 10, 10,5,1,5,1), 
+ stringsAsFactors=F)
+
+gganatogram(data=organPlot, organism='human', sex='male', fill="value")+ theme_void() +
+ ggtitle("The Severity zones")
+
+```
+
+Next we will be doing the same as before but this time its the biopsy site which is also determined by the tumor contect, so maximum biopsy is done on sites where the tumor content is high.
+
+```{r}
+biopsies <- data.frame(biopsy = c("bone_marrow", "lymph_node", "prostate", "gall_bladder", "liver", "penis","smooth_muscle", "bone","throat","heart","stomach","urinary_bladder"),
+ x = c(10, 10, 10, 10, 10,10, 10, 10,5,1,5,1),
+ y = c(10, 10, 10, 10, 10,10, 10, 10,5,1,5,1),
+ value = c(10, 10, 10, 10, 10,10, 10, 10,5,1,5,1))
+p <- hgMale_key %>%
+ dplyr::filter(organ %in% c("bone_marrow", "lymph_node", "prostate", "gall_bladder", "liver", "penis","smooth_muscle", "bone","throat","heart","stomach","urinary_bladder")) %>%
+ gganatogram(fillOutline="lightgray", organism="human", sex="male",
+ fill="colour") + theme_void() +
+ ggtitle("Position␣of␣biopsies")
+        
+p2 <- hgMale_key%>%
+ dplyr::filter(organ %in% c("bone_marrow", "lymph_node", "prostate", "gall_bladder", "liver", "penis","smooth_muscle", "bone","throat","heart","stomach","urinary_bladder"))%>%
+ gganatogram(fillOutline="lightgray", organism="human", sex="male", 
+ fill="value") + theme_void() +
+ ggtitle("Value␣of␣biopsies")
+        
+lay <- rbind(c(1,2), c(1,2), c(3, NULL))
+grid.arrange(p, p2, layout_matrix = lay)
+```
 
 ##Natural Language Processing
 There is no actual natural language in these data sets to process, but the principles and tools of natural language processing can be utilized to extract more information from the data. The second data has four columns corresponding to the AJCC staging classification of each patient in the data set. To help better understand what these classifications mean, we are adding a new column that includes a written description of each of the AJCC staging classifications that are provided. To do this, we can use Regex to identify AJCC stage patterns to match them to their written description. The written descriptions of each stage come from this webpage: https://www.cancer.org/cancer/prostate-cancer/detection-diagnosis-staging/staging.html
@@ -608,47 +678,170 @@ staging_dat$AJCC_Stage_Description <- ajcc_cols$AJCC_Stage_Description
 ```
 
 
-##reading in the cleaned second dataset 
-```{r}
-#sample <- read.csv("SampleRevised.csv")
-```
-##Dealing with missing values
-# ```{r}
-# temp.NA <- sample_rev
-# temp.NA[temp.NA == "'--"] <- NA
-# temp.NA
-```
-```{r}
-# #changing '-- Null values to NA 
-# temp.NA1 <- subset(temp.NA, temp.NA$classification_of_tumor != "NA" & temp.NA$last_known_disease_status !="NA" & temp.NA$tumor_largest_dimension_diameter!="NA")
-# temp.NA1
-```
-```{r}
-# #explored the relationship between the missing variables sorted by Case ID 
-# library(VIM)
-# matrixplot(temp.NA1,sortby=1)
-# ```
-# ```{r}
-# #created a margin plot to observe how the missing values in days to last follow up comapre with each case 
-# marginplot(temp.NA1[,c(1,20)])
-``` 
+##Extract the Data from National Cancer Institute 
+We downloaded the second cancer dataset from the National Cancer Institute GDC Data Portal for all the clinical cases including all the columns. 
 
-#getting in the cleaned dataset  (you guys can comment this line off)
+The link can be found [here.](https://portal.gdc.cancer.gov/exploration?cases_size=100&filters=%7B%22op%22%3A%22and%22%2C%22content%22%3A%5B%7B%22op%22%3A%22in%22%2C%22content%22%3A%7B%22field%22%3A%22cases.primary_site%22%2C%22value%22%3A%5B%22prostate%20gland%22%5D%7D%7D%2C%7B%22content%22%3A%7B%22field%22%3A%22cases.project.project_id%22%2C%22value%22%3A%5B%22TCGA-PRAD%22%5D%7D%2C%22op%22%3A%22in%22%7D%2C%7B%22content%22%3A%7B%22field%22%3A%22genes.is_cancer_gene_census%22%2C%22value%22%3A%5B%22true%22%5D%7D%2C%22op%22%3A%22in%22%7D%5D%7D&searchTableTab=cases)
+
+##Excel Cleaning for Second Data Set 
+The data was downloaded as a TSV file so it needed to be imported into Excel to change the format to a CSV or .XLSX file. The raw data contained  960 rows and 156 columns. Upon further investigation it was evident that several of the columns were empty or had values missing. In order to determine the columns with no data present along with those which had missing values we used the Filter tool in Excel. Missing values were those marked as '-- in the cells. 
+
+The raw data contained 112 empty columns for which no data was available and 33 columns with missing values. The 112 empty columns were then removed from the analysis by simple deletion in Excel and a new sheet was created, "Sample". This new sheet "Sample" contains 44 columns. 
+
+Exported the "Sample" data as a standalone CSV file. 
+
 ```{r}
-SampleRevised<-read_csv("/Users/parinithakompala/Documents/Data-Wrangling-Project/cleanedsample.csv")
+sample <- read.csv("cleanedsample.csv")
+```
+
+##Dealing with Missing Values 
+
+```{r}
+temp.NA <- sample
+temp.NA[temp.NA == "'--"] <- NA
+temp.NA
 ```
 
 ```{r}
-class(SampleRevised$Diagnosis.Age)
+#changing '-- Null values to NA 
+temp.NA1 <- subset(temp.NA, temp.NA$classification_of_tumor != "NA" & temp.NA$last_known_disease_status !="NA" & temp.NA$tumor_largest_dimension_diameter!="NA")
+temp.NA1
+
+```
+```{r}
+#explored the relationship between the missing variables sorted by Case ID 
+library(VIM)
+matrixplot(temp.NA1,sortby=1)
+
+```
+
+```{r}
+#created a margin plot to observe how the missing values in days to last follow up comapre with each case 
+marginplot(temp.NA1[,c(1,20)])
+
+```
+
+```{r}
+install.packages("sqldf")
+library(sqldf)
+new_sample <- read.csv("removed_dups.csv")
+new_sample <- subset(new_sample, select=-c(36:39))
+dim(new_sample)
+GDC <- read.csv("Dataset2DD.csv")
+GDC <- rename(GDC, case_id=Case.UUID)
+dim(GDC)
+
+dataset_1 <- remove_nonuniques
+dataset_1 <- rename(dataset_1, ID=Patient.ID)
+dataset_1 <- rename(dataset_1,Age=Diagnosis.Age)
+dataset_1sql <- sqldf("SELECT ID, case when Age >=40 and Age <= 59 then '40-59' when Age >59 and Age <= 69 then '60-69'when Age >69 and Age <= 79 then '70-79' else '80+' end  FROM dataset_1 GROUP BY ID,
+                      case when Age >=40 and Age <= 59 then '40-59' when 
+                      Age >59 and Age <= 69 then '60-69'when
+                      Age >69 and Age <= 79 then '70-79' 
+                      else '80+' end")
+names(dataset_1sql)[2]<-"agegrp"
+join_data1_sql <- sqldf("SELECT * FROM dataset_1 JOIN dataset_1sql on dataset_1.ID=dataset_1sql.ID")
+
+#age check 
+age_ds1 <- select(join_data1_sql,"Age","agegrp")
+
+joined_data <- sqldf("SELECT * FROM new_sample JOIN GDC on new_sample.case_id=GDC.case_id")
+view(joined_data)
+dim(joined_data)
+
+
+```
+
+extracting numeric digits as text mining 
+
+```{r}
+z <- substr(joined_data$Age.at.diagnosis, 1,2)
+z
+joined_data$Age <- cbind(z)
+joined_data$Age <- as.numeric(joined_data$Age)
+joined_data[36] <- NULL
+view(joined_data)
+joined_data <- rename(joined_data, ID=case_id)
+
 ```
 
 
 ```{r}
-SampleRevised$`Diagnosis.Age`<- 2021-(SampleRevised$year_of_birth)
+
+cols_dups <- c()
+
+for(i in 1:ncol(joined_data)){
+  if(length(unique(joined_data[,i])) <= 1){
+    cols_dups[length(cols_dups) + 1] <- i
+  }
+}
+
+print(cols_dups)
+```
+```{r}
+remove_dups <- joined_data[,-cols_dups]
+dim(remove_dups)
+View(remove_dups)
+## removing some duplicated manually 
+remove_dups[52]<-NULL #removes the ethnicity duplicate 
+remove_dups[52] <- NULL #removes the age duplicate 
+dim(remove_dups)
 ```
 
 ```{r}
+dataset_2 <- remove_dups
+dataset_2sql <- sqldf("SELECT ID, case when Age >=40 and Age <= 59 then '40-59' when Age >59 and Age <= 69 then '60-69'when Age >69 and Age <= 79 then '70-79' else '80+' end  FROM remove_dups GROUP BY ID,
+                      case when Age >=40 and Age <= 59 then '40-59' when 
+                      Age >59 and Age <= 69 then '60-69'when
+                      Age >69 and Age <= 79 then '70-79' 
+                      else '80+' end")
+names(dataset_2sql)[2]<-"agegrp"
+dataset_2$agegrp <- cbind(dataset_2sql[2])
+view(dataset_2)
 
 ```
+
+
+```{r}
+ggplot(data.frame(dataset_2), aes(x=Age)) +
+  geom_histogram(colour="black",fill="lightskyblue") 
+  
+summary(dataset_2$Age)
+  
+ggplot(data.frame(dataset_1), aes(x=Age)) +
+  geom_histogram(colour="black",fill="lightsalmon")
+summary(dataset_1$Age)
+
+```
+
+
+```{r}
+freq_1treat <-join_data1_sql %>% group_by(agegrp,Prior.Treatment) %>% summarise(Freq=n())
+dat2 <- dataset_2
+dat2[dat2 == "'--"] <- NA
+dat2 <- dat2[!is.na(dat2$prior_treatment),]
+freq_2treat <- dat2 %>% group_by(agegrp,prior_treatment) %>% summarise(Freq=n())
+
+
+ggplot(data.frame(freq_1treat), aes(x=agegrp, y=Freq)) +
+  labs(x="Age Grouped by BJC paper levels", y="Frequency of Prior Treatment", ) +
+  geom_bar(aes(fill=Prior.Treatment),stat="identity",position="dodge") +
+  guides(fill=guide_legend(title="Prior Treatment"))+
+  scale_fill_brewer(palette="Oranges") +
+  theme_classic()
+
+x <- c("40-59","40-59","60-69","60-69","70-79","70-79","80+")
+freq_2treat$AGEgrp <- cbind(x)
+
+ggplot(data.frame(freq_2treat), aes(x=AGEgrp, y=Freq)) +
+  labs(x="Age Grouped by BJC paper levels", y="Frequency of Prior Treatment", ) +
+  geom_bar(aes(fill=prior_treatment),stat="identity",position="dodge") +
+  guides(fill=guide_legend(title="Prior Treatment"))+
+  scale_fill_brewer(palette="Paired") +
+  theme_classic()
+
+```
+
+
 
 
