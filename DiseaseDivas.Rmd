@@ -10,9 +10,9 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Introduction 
-Prostate cancer is among one of the leading causes of death in males in the United States. The genomic study of metastatic prostate cancer has been limited due to tumor samples being obtained from autopsies as well as limited cohort preclinical models. Prospective studies are few and far between due to limitations in collecting adequate tumor tissue through biopsy. A paper published in 2015 prospectively analyzed tumor biopsies among affected individuals. Subsequently as of 2016, genomic data for prostate cancer has become more widely available due to the National Cancer Institutes (NCI) Genomics Data Commons (GDC).
+Prostate cancer is among one of the leading causes of death in males in the United States. The genomic study of metastatic prostate cancer has been limited due to tumor samples being obtained from autopsies as well as limited cohort pre-clinical models. Prospective studies are few and far between due to limitations in collecting adequate tumor tissue through biopsy. A paper published in 2015 prospectively analyzed tumor biopsies among affected individuals. Subsequently as of 2016, genomic data for prostate cancer has become more widely available due to the National Cancer Institutes (NCI) Genomics Data Commons (GDC).
 
-In this project we will explore data from both the 2015 prospective cohort study along with data available from the NCI's Genomic Data Commons. This project aims to investigate three datasets, through mapping and transformation of the raw data in multiple programs such as Excel, SQL and R,  with the ultimate goal of optimizing downstream analysis of the prostate cancer cohorts. We will discuss various methods by which we wrangled the data to investigate underlying associations between individual case presentations and manifestation of disease.
+In this project we will explore data from both the 2015 prospective cohort study along with data available from the NCI's Genomic Data Commons. This project aims to investigate three data sets, through mapping and transformation of the raw data through multiple platforms such as Excel, SQL and R,  with the ultimate goal of optimizing downstream analysis of the prostate cancer cohorts. We will discuss various methods by which we wrangled the data to investigate underlying associations between individual case presentations and manifestation of disease.
 
 A team of 73 researchers conducted a multi-institutional study that investigated clinical genomics of advanced prostate cancer specifically metastatic, castration resistant prostate cancer (mCRPC). mCRPC occurs in individuals who develop resistance to androgen deprivation therapies (ADT). The aim of this research was to facilitate precision medicine by developing a prospective whole-exome and transcriptome sequencing of tumor biopsies. Data was obtained from living affected individuals to compile a set of genomic alterations. The study was published in the journal "Cell" in May 2015. 
 
@@ -25,7 +25,7 @@ Data was extracted from the cBioPortal, a public cancer genomics site hosted and
 -**Fraction Genome Altered**: fraction of mutant allele variants in biopsy (number)
 -**Diagnosis Age**: patient's age when they were diagnosed (number)
 -**Tumor Site**: physical site of tumor on human body from which biopsy was taken (string)
--**Abiraterzone (ABI) and Enzalutamide (ENZA) Exposure Status**: exposure to  second-generation androgen deprivation therapies (binary: yes/no)
+-**Abiraterzone (ABI) and Enzalutamide (ENZA) Exposure Status**: exposure to second-generation androgen deprivation therapies (binary: yes/no)
 -**Center of Sequencing**: the international academic medical center where exome sequencing occurred (string)
 -**Prior Treatment**: receipt of previous androgen deprivation therapy (binary:yes/no)
 -**Site Sequenced**: site of exome sequencing: Broad or UM (string)
@@ -61,6 +61,16 @@ birth to the day they were diagnosed with cancer (string)
 -**Primary Diagnosis**:Their initial pathological diagnoses of cancer (string)
 -**Ethnicity**: "An individual's self-identified social and cultural category, particularly whether they identify as Hispanic or Latino" (string)
 -**Race**: "A taxonomic group that is a division of a species that is classified arbitrarily. It is characterized by shared heredity, physical attributes, and behavior, and in the case of humans, by common history, nationality, or geographic distribution" (string)
+
+
+Using patient data from the 2015 prospective cohort study, we centered our project around three main aims:
+
+First, we wanted to look at possible associations between geographic location and key characteristics of prostate cancer. More specifically, our analysis revolved around looking at links between patients' sequencing site location and severity of tumor content, along with whether sequencing site region had any link to prior treatment status and exposure to second-generation androgen deprivation therapies. Through this aim, we sought to answer the question "Does geographic region affect severity of prostate cancer characteristics?" We specifically chose to focus on geographic region for this aim so we could draw conclusions on if patient location had any clinical implications when considering future treatments for prostate cancer, and answer questions such as "Would it be beneficial to allocate more resources to certain regions of the country?" or "Are men in certain regions of the country who have had exposure to second-generation androgen deprivation therapies at more risk for developing prostate cancer?"
+
+Our second aim focused on patient mutation counts and their relationship to biopsy sites, exposure to second-generation androgen deprivation therapies, and fraction of patient's genome that was altered. According to a 2017 publication from Cell [Martincorena, et al. ](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5720395/?report=abstract), cancer will usually emerge in a patient after 1-10 mutations. Thus, we created a classification system to categorize mutation level as "high", "medium", or "low" based on the mutation count variable from the data set, and compare severity of mutation to other patient characteristics. Since the 2015 prospective cohort study was specifically interested in patients who developed metastatic, castration resistant prostate cancer (mCRPC), which occurs in individuals who develop resistance to androgen deprivation therapies (ADT), our second aim sought to look at correlations between mutation count and exposure to second-generation androgen deprivation therapies, along with fraction of patient's genome altered and biopsy sites. 
+
+Our last aim studied possible associations between patient age at diagnosis and tumor site. We wanted to study this specific association to see if we could identify if earlier age at diagnosis corresponds to specific tumor site (likewise for older ages of diagnosis), since finding such an association could have clinical implications for when considering treatments for different age groups. To study this association, we performed an age stratified analysis based on age groups that were used by a population based study published in the British Journal of Cancer in 2013 [read here](https://www.nature.com/articles/bjc2013268#Tab1).
+
 
 ##Methods 
 
