@@ -806,14 +806,13 @@ view(dataset_2)
 
 ## CONCLUSION
 
+# Summary
 Our analysis aimed to understand the associations between patient characteristics and severity of prostate cancer through various data wrangling procedures we learned throughout the quarter. After utilizing three platforms for our cleaning and wrangling processes (R, SQL, and Excel), and creating numerical summaries along with visual representations of our data through R packages such as gtsummary and ggplot, we have come to the following conclusions:
 
-# Insert one-line summary for Afsha to join together later 
-Afsha: After visually assessing, numerically summarizing, and performing a Chi-squared test on the relationships between geographic location and severity of tumor content (%), the dataset provides no evidence of association between geographic location and severity of tumor content (%).
-Jess:
-Pari:
-Ayush:
-Alisa:
+  1. After performing a Chi-squared test on the relationships between geographic location and severity of tumor content (%), the data set provides no        evidence of association between geographic location and severity of tumor content (%).
+  2. After running a Fisher's exact test (for Sequencing Site) and a Pearson's Chi Squared test (Prior Treatment Status), there is evidence of a             statistically significant association between Sequencing Site and Exposure Status along with Prior Treatment Status and Exposure Status. 
+  3. As men age, incidence of prostate cancer increases with metastasis of disease occurring more frequently in the lymph nodes and bone. 
+  4. From visual assessments, there does not seem to be an association between exposure status and mutation group, fraction of genome altered, or tumor      content.
 
 # Next Steps
 
@@ -892,16 +891,13 @@ ggplot(data.frame(freq_2treat), aes(x=AGEgrp, y=Prop)) +
   theme_classic() + ylim(0, 0.5)
 
 ```
-Great! Now that we have the proportions and equal y axis ranges, we can see that the gap between having prior treatment versus no prior treatment is relatively smaller in the patients from the first dataset compared to patients from the second dataset. Additionally, the proportion of patients who received prior treatment in the first dataset seems to be higher across all age groups compared to the second dataset. 
+Great! Now that we have the proportions and equal y axis ranges, we can see that the gap between having prior treatment versus no prior treatment is relatively smaller in the patients from the first dataset compared to patients from the second data set. Additionally, the proportion of patients who received prior treatment in the first dataset seems to be higher across all age groups compared to the second data set. 
 
-This would be a great place to start further analysis if we had more time. We could look more into how prior treatment affects diagnosis age, if prior treatment has been linked to later diagnosis age, and where we would be able to find more data to test this association. In addition to investigating diagnosis age's relationship to prior treatment status, we had also noticed that the second data set had a "vital status" column which gives us information on the survival status of the patient. This information was missing from our first data set, so another great next step would be to track the incidence of disease in our second data set (from GDC), and by using our vital status column, we would calculate the patient mortality ratio for the GDC data set. 
+This would be a great place to start further analysis if we had more time. We could look more into how prior treatment affects diagnosis age, if prior treatment has been linked to later diagnosis age, and where we would be able to find more data to test this association. One thing to note is that the first data set's patients were specifically studied on prior Taxane treatment, while the patients in the second data set did not have a specific treatment mentioned. So, we could also look at Taxane treatment effectiveness in preventing prostate cancer versus other treatments. In addition to investigating diagnosis age's relationship to prior treatment status, we had also noticed that the second data set had a "vital status" column which gives us information on the survival status of the patient. This information was missing from our first data set, so another great next step would be to track the incidence of disease in our second data set (from GDC), and by using our vital status column, we would calculate the patient mortality ratio for the GDC data set. 
 
 
 # Limitations
-Though we were able to derive 
-
-# Why we used a second dataset 
-(?)
+Though we were able to derive several conclusions from our data sets, there were a few limitations we faced. For starters, the data set we got from cBioPortal did not have well-defined variables or information on certain variables were calculated, what the units of measurements were, etc. For example, we initially struggled to find information on how tumor content and mutation count were measured, what the units of measurements were, and what ranges of each measurement were considered significant. When we tried to do some background research through search engines such as Google, we weren't able to find any helpful information, which leads us to our second limitation: prostate cancer data is very niche, and there were not many resources readily available for us to use to get a better understanding on some of the variables we were dealing with. Nevertheless, after reading through the data set's attached paper for understanding tumor content and looking at other academic papers to better understand how mutation count works, we were able to successfully interpret our variables of interest.
 
 # Looking forward - clinical implications
-(?)
+TO-DO
