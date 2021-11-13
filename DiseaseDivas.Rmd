@@ -71,6 +71,8 @@ Our second aim focused on patient mutation counts and their relationship to biop
 
 Our last aim, titled the "Bonus Aim" as we hadn't originally planned to perform this analysis, studied possible associations between patient age at diagnosis and tumor site. We wanted to study this specific association to see if we could identify if earlier age at diagnosis corresponds to specific tumor site (likewise for older ages of diagnosis), since finding such an association could have clinical implications for when considering treatments for different age groups. To study this association, we performed an age stratified analysis based on age groups that were used by a population based study published in the British Journal of Cancer in 2013 [read here](https://www.nature.com/articles/bjc2013268#Tab1).
 
+We also wanted to utilize the lesson on Natural Language Processing from class in our data sets, so we applied the principles of NLP to the second data set in order to better understand information that was given about cancer stages for each patient. In order to do this, we used Regex and information on cancer stages descriptions found [here.](https://www.cancer.org/cancer/prostate-cancer/detection-diagnosis-staging/staging.html)
+
 
 ## PIPELINE
 
