@@ -276,8 +276,8 @@ aim_1_1 %>%
   add_p() %>% bold_labels()
 ```
 
-
 Our next visualization is a boxplot comparing tumor content by sequencing site. We used the theme feature in ggplot to change the fonts and colors in the plot. 
+
 ```{r}
 # Plot the tumor content percentages across sequencing site
 aim_1_1 %>% select(Center.of.sequencing, tumor.content) %>%
@@ -302,8 +302,8 @@ raw_plot = ggplot(data = aim_1_1, mapping = aes(x=Center.of.sequencing, y=tumor.
 raw_plot
 ```
 
-
 Lastly, we plotted the tumor content levels by sequencing site region. We first made a subtable to count the frequencies of tumor content levels by site region, and then fed this table into ggplot. Once again, we utilized the theme feature to add labels to each bar and customize the fonts and colors in the graph.
+
 ```{r}
 # Make table to count frequencies of tumor content levels by site region
 table(aim_1_1$TC_level, aim_1_1$Site_region)
@@ -356,40 +356,6 @@ In order to have few categories for finding the exposure status based on prior t
 aim_1_2$Site_region <- as.factor(ifelse(aim_1_2$Center.of.sequencing == 'DFCI' | aim_1_2$Center.of.sequencing == 'MSKCC', 'East Coast',
                      ifelse(aim_1_2$Center.of.sequencing == 'Karmanos Cancer Insitute' | aim_1_2$Center.of.sequencing == 'U Michigan', 'Midwest',
                      ifelse(aim_1_2$Center.of.sequencing == 'U Washington', 'West Coast', 'International'))))
-
-```
-
-## Showing this on the map
-Plotting the locations of the Center's of Sequencing on the Map.
-
-```{r warning=FALSE}
-library(usmap)
-library(ggmap)
-library(tidyverse)
-library(sf)
-library("leaflet")
-library(janitor)
-
-summary.table.region = tabyl(aim_1_2, Exposure.Status,Prior.Treatment, Site_region)
-summary.table.region
-
-
-# finding coordinates of the center of sequencing with the help of ggmap to geocode
-institutes = c('DFCI (Boston, MA)','MSKCC (New York, NY)','Karmanos (Detroit, MI)','U Michigan (Ann Arbor, MI)','U Washington (Seattle, WA)', 'RM-ICR (London,UK)')
-lat = c(42.337658509643305,40.76518827528495,42.35333328919597,42.284458000108245, 47.656547857753246, 51.34484519769561)
-long = c(-71.10811497373804, -73.95574795341078,-83.05719650854894, -83.73322289632657, -122.2991984615769, -0.18878884213938013 )
-institutes.coordinates <- data.frame(institutes, lat, long)
-institutes.coordinates
-
-temp <- aim_1_2
-
-temp %>% 
-  leaflet() %>%
-  addProviderTiles(providers$Stamen.TonerLite, group = "Toner Lite") %>%
-  addLayersControl(baseGroups = c("Toner Lite", "World Imagery")) %>%
-  
-  addMarkers(label = institutes,popup = institutes, institutes.coordinates$long, institutes.coordinates$lat)
-
 
 ```
 
