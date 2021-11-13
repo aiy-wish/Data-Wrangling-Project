@@ -69,10 +69,23 @@ First, we wanted to look at possible associations between geographic location an
 
 Our second aim focused on patient mutation counts and their relationship to biopsy sites, exposure to second-generation androgen deprivation therapies, and fraction of patient's genome that was altered. According to a 2017 publication from Cell [Martincorena, et al. ](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5720395/?report=abstract), cancer will usually emerge in a patient after 1-10 mutations. Thus, we created a classification system to categorize mutation level as "high", "medium", or "low" based on the mutation count variable from the data set, and compare severity of mutation to other patient characteristics. Since the 2015 prospective cohort study was specifically interested in patients who developed metastatic, castration resistant prostate cancer (mCRPC), which occurs in individuals who develop resistance to androgen deprivation therapies (ADT), our second aim sought to look at correlations between mutation count and exposure to second-generation androgen deprivation therapies, along with fraction of patient's genome altered and biopsy sites. 
 
-Our last aim studied possible associations between patient age at diagnosis and tumor site. We wanted to study this specific association to see if we could identify if earlier age at diagnosis corresponds to specific tumor site (likewise for older ages of diagnosis), since finding such an association could have clinical implications for when considering treatments for different age groups. To study this association, we performed an age stratified analysis based on age groups that were used by a population based study published in the British Journal of Cancer in 2013 [read here](https://www.nature.com/articles/bjc2013268#Tab1).
+Our last aim, titled the "Bonus Aim" as we hadn't originally planned to perform this analysis, studied possible associations between patient age at diagnosis and tumor site. We wanted to study this specific association to see if we could identify if earlier age at diagnosis corresponds to specific tumor site (likewise for older ages of diagnosis), since finding such an association could have clinical implications for when considering treatments for different age groups. To study this association, we performed an age stratified analysis based on age groups that were used by a population based study published in the British Journal of Cancer in 2013 [read here](https://www.nature.com/articles/bjc2013268#Tab1).
 
 
+## PIPELINE
+
+Below is the pipeline for our project. It covers our cleaning process for both data sets, our process for working with relational data (with GDC data), how we performed Natural Language Processing on the GDC portal data sets, and what we did for each of our aims. We will be covering each of these points in detail over the course of this paper.
+
+```{r img-with-knitr, echo=FALSE, fig.align='center', out.width='100%'}
+knitr::include_graphics("~/Downloads/Untitled.png")
+```
 ##Methods 
+
+
+# GITHUB
+
+We used Github, a version-control software readily available on the web, to collaborate with each other throughout the project and efficiently add our individual contributions to our final paper. We created a repository titled "Data Wrangling Project", which included our final Rmd file (this paper), a copy of our project pipeline image, our custom library package, and all relevant data sets throughout our analysis. We followed a standard protocol for adding and updating changes to our files -- we used the git pull command for updating our files and we used the add, commit, and push commands for adding our individual changes to the repository. Utilizing Github allowed all of our group members to work on our individual aims at our own time and pace while keeping everyone else updated on our individual and overall progress. A link to our repository can be found [here](https://github.com/aiy-wish/Data-Wrangling-Project).
+
 
 ##Extract the Data from the cBioPortal 
 The first dataset was downloaded from the cBioPortal site using the "download clinical data for the selected cases" button extracting all columns. 
@@ -593,7 +606,7 @@ lay <- rbind(c(1,2), c(1,2), c(3, NULL))
 grid.arrange(p, p2, layout_matrix = lay)
 ```
 
-##Natural Language Processing
+## Natural Language Processing
 There is no actual natural language in these data sets to process, but the principles and tools of natural language processing can be utilized to extract more information from the data. The second data has four columns corresponding to the AJCC staging classification of each patient in the data set. To help better understand what these classifications mean, we are adding a new column that includes a written description of each of the AJCC staging classifications that are provided. To do this, we can use Regex to identify AJCC stage patterns to match them to their written description. The written descriptions of each stage come from this webpage: https://www.cancer.org/cancer/prostate-cancer/detection-diagnosis-staging/staging.html
 
 ```{r}
