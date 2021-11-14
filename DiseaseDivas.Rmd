@@ -91,7 +91,7 @@ We used Github, a version-control software readily available on the web, to coll
 # CUSTOM FUNCTIONS
 Below are our custom functions that will be used throughout our data cleaning and joining processes. 
 
-Our first function, `remove.nulls`, removes any columns from a data frame which contains all null values.
+Our first function, `string_NA`, checks for values in a data frame that are equal to the string " '-- ", and changes the value to "NA".
 
 Our second function, `carbon.copy`, checks for columns that have the exact same values in a data frame. If two columns have the exact same values (case insensitive), the function will remove one of those columns.
 
@@ -101,25 +101,19 @@ Our functions are included below:
 ```{r}
 #install.packages("pracma")
 library(pracma)
+library(DDCustomPkg)
 
-
-# Remove null columns in data frame
-remove.nulls <- function(df){
-  for(i in 1:ncol(df)){
-    if(is.na(df[i])){
-      df = df[-c(i)]
-    }
-  }
-  return(df)
+## ADD IN FIRST FUNCTION 
+string_NA <- function(data){
+  data[data == "'--"] <- NA
+  return(data)
 }
-
 
 # Remove a column if two columns are the exact same
-carbon.copy <- function(df){
+carbon_copy <- function(df){
   return(df[!duplicated(as.list(df))])
 }
-
-
+  
 # Print out all columns that have the same value for all rows 
 find_nonuniq <- function(dataset){
   cols_nonunique <- c()
@@ -132,12 +126,14 @@ find_nonuniq <- function(dataset){
 }
 ```
 
-##Extract the Data from the cBioPortal 
-The first dataset was downloaded from the cBioPortal site using the "download clinical data for the selected cases" button extracting all columns. 
+We also compiled our functions into a simple library, titled `DiseaseDivas`, which is available on our GitHub repository. We followed methods outlined by Dr. Joshua Levy from class on Thursday, October 14th, 2021. Link to the lecture can be found [here.](https://dartmouth.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=50ab9cd2-72da-4c24-aade-ad8700320d4f)
+
+# Extracting the Data from the cBioPortal 
+The first data set was downloaded from the cBioPortal site using the "download clinical data for the selected cases" button extracting all columns. 
 
 The link to the dataset can be found [here.](https://www.cbioportal.org/study/clinicalData?id=prad_su2c_2015)
 
-##Cleaning Our Data
+# Cleaning Our Data
 The first dataset was downloaded as a TSV file which required conversion in Excel to a CSV file. After importing the data into Excel using the Import Data From Text tool, the worksheet was saved as a csv file. The raw data contained 150 rows and 20 columns. As a team we worked through the exploratory investigation and cleaning of the data by utilizing GitHub to collaborate on an R Markdown file. 
 
 ```{r}
@@ -153,15 +149,14 @@ To gain an understanding for the types of variables we would be analyzing along 
 summary(rawdat)
 ```
 
-Preliminary findings indicate, mean age of diagnosis for prostate cancer is approximately 67 years of age. Average tumor content found in these biopsies appears to be 60%. Initial analysis revealed that there were several cells for which NA values were present. The following command was used to eliminate the NAs saving the new data to a dataframe called complete_dat. 
+Preliminary findings indicate, mean age of diagnosis for prostate cancer is approximately 67 years of age. Average tumor content found in these biopsies appears to be 60%. Initial analysis revealed that there were several cells for which NA values were present. The following command was used to eliminate the NAs saving the new data to a data frame called complete_dat. 
 
 ```{r}
 #Remove NAs
 complete_dat <- na.omit(rawdat)
-
 ```
 
-Upon removal of the NAs, the dataset reduced to 147 rows and 20 columns. Three patients from the original extract contained in rows 71 to 73 were therefore excluded from subsequent analyses due to the NAs being present in both the Diagnosis.Age column along with the Abiraterone (ABI) and Enzalutamide (ENZA) Exposure Status. These two columns are crucial in further analyses being as age is a related factor for severity of disease. Furthermore, without information as to prior exposure status to the androgen deprivation therapies, assessment of mCRPC is incomplete. 
+Upon removal of the NAs, the data set reduced to 147 rows and 20 columns. Three patients from the original extract contained in rows 71 to 73 were therefore excluded from subsequent analyses due to the NAs being present in both the Diagnosis.Age column along with the Abiraterone (ABI) and Enzalutamide (ENZA) Exposure Status. These two columns are crucial in further analyses being as age is a related factor for severity of disease. Furthermore, without information as to prior exposure status to the androgen deprivation therapies, assessment of mCRPC is incomplete. 
 
 Further analysis of the data revealed that several columns were found to have duplicated values. To assess whether the individual cases included in the sample were duplicated, we utilized the duplicated command to check the Sample ID column for repeat values. As shown below, none were found. 
 
@@ -175,8 +170,6 @@ Upon cursory glance the Patient ID and Sample ID column appeared to be populated
 ```{r}
 #Check if sample id is dup
 complete_dat[!complete_dat$Patient.ID %in% complete_dat$Sample.ID, ]
-
-
 ```
 
 The output above is empty indicating that all the Patient Ids are contained within the Sample Id. In other words the two columns are the same. 
@@ -184,16 +177,7 @@ The output above is empty indicating that all the Patient Ids are contained with
 Several columns appeared to be populated by the same value for each row. For example, the Cancer.Type column was entirely populated by the value "Prostate Adenocarcinoma".  To determine whether this assumption was indeed true we created the following for loop that cycled through each column to check that the values contained in the column were unique. 
 
 ```{r}
-find_nonuniq <- function(dataset){
-  cols_nonunique <- c()
-  for(i in 1:ncol(dataset)){
-    if(length(unique(dataset[,i])) <= 1){
-      cols_nonunique[length(cols_nonunique) + 1] <- i
-    }
-  }
-  print(cols_nonunique)
-}
-cols_nonunique=find_nonuniq(complete_dat)
+cols_nonunique=DDCustomPkg::find_nonuniq(complete_dat)
 remove_nonuniques <- complete_dat[,-cols_nonunique]
 ```
 
@@ -362,7 +346,7 @@ Lastly, we plotted the tumor content levels by sequencing site region. We first 
 
 ```{r}
 # Make table to count frequencies of tumor content levels by site region
-table(aim_1_1$TC_level, aim_1_1$Site_region)
+tab = table(aim_1_1$TC_level, aim_1_1$Site_region)
 tab1 = data.frame(tab)
 
 # Stacked barplot
