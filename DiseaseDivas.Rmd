@@ -88,6 +88,49 @@ knitr::include_graphics("~/Downloads/Untitled.png")
 
 We used Github, a version-control software readily available on the web, to collaborate with each other throughout the project and efficiently add our individual contributions to our final paper. We created a repository titled "Data Wrangling Project", which included our final Rmd file (this paper), a copy of our project pipeline image, our custom library package, and all relevant data sets throughout our analysis. We followed a standard protocol for adding and updating changes to our files -- we used the git pull command for updating our files and we used the add, commit, and push commands for adding our individual changes to the repository. Utilizing Github allowed all of our group members to work on our individual aims at our own time and pace while keeping everyone else updated on our individual and overall progress. A link to our repository can be found [here](https://github.com/aiy-wish/Data-Wrangling-Project).
 
+# CUSTOM FUNCTIONS
+Below are our custom functions that will be used throughout our data cleaning and joining processes. 
+
+Our first function, `remove.nulls`, removes any columns from a data frame which contains all null values.
+
+Our second function, `carbon.copy`, checks for columns that have the exact same values in a data frame. If two columns have the exact same values (case insensitive), the function will remove one of those columns.
+
+Our third and final function `find_nonuniq`, prints out columns in a given data frame that do not contain a single unique value. 
+
+Our functions are included below:
+```{r}
+#install.packages("pracma")
+library(pracma)
+
+
+# Remove null columns in data frame
+remove.nulls <- function(df){
+  for(i in 1:ncol(df)){
+    if(is.na(df[i])){
+      df = df[-c(i)]
+    }
+  }
+  return(df)
+}
+
+
+# Remove a column if two columns are the exact same
+carbon.copy <- function(df){
+  return(df[!duplicated(as.list(df))])
+}
+
+
+# Print out all columns that have the same value for all rows 
+find_nonuniq <- function(dataset){
+  cols_nonunique <- c()
+  for(i in 1:ncol(dataset)){
+    if(length(unique(dataset[,i])) <= 1){
+      cols_nonunique[length(cols_nonunique) + 1] <- i #append the vector with the new columns
+    }
+  }
+  print(cols_nonunique) #print the vector
+}
+```
 
 ##Extract the Data from the cBioPortal 
 The first dataset was downloaded from the cBioPortal site using the "download clinical data for the selected cases" button extracting all columns. 
@@ -101,18 +144,6 @@ The first dataset was downloaded as a TSV file which required conversion in Exce
 #Load data downloaded from 
 #rawdat <- read.csv("/cloud/project/data/diseasedivadata.csv")
 rawdat<- read.csv("~/Desktop/Data-Wrangling-Project/diseasedivadata.csv")
-```
-
-## DON'T KNOW WHAT THIS IS -- figure out later
-```{r warning=FALSE}
-library(DiseaseDivas)
-rawdat1<- read.csv("diseasedivadata.csv")
-rawdat1
-
-df.updated = remove.nulls(rawdat1)
-df.updated
-
-
 ```
 
 To gain an understanding for the types of variables we would be analyzing along with some of the numeric summaries for the continuous variables, we employed the summary function. 
@@ -359,17 +390,15 @@ grouped_plot
 And that completes the analysis for aim 1.1!
 
 ## AIM 1.2: Classify by exposure status (grouped by prior treatment) by site
-Just like in Aim 1.1, we are going to use the library `dplyer` to perform data manipulation for this Aim. In order to know more about the exposure status, we select two columns: `Abiraterone..ABI..and.Enzalutamide..ENZA..Exposure.Status` which is a binary column for a patient's exposure to Abiraterone and Enzalutamide (contains Yes's and No's)  and `Prior.Treatment` stores the information if the patient has ever received any prior taxane treatment or not.
+Just like in Aim 1.1, we are going to use the library `dplyer` to perform data manipulation for this Aim. In order to know more about the exposure status, we select two columns: `Abiraterone..ABI..and.Enzalutamide..ENZA..Exposure.Status` which is a binary column for a patient's exposure to Abiraterone and Enzalutamide (contains Yes's and No's)  and `Prior.Treatment` stores the information if the patient has ever received any prior Taxane treatment or not.
 
 ```{r}
 # Load dplyr library for data manipulation.
 library(dplyr)
-# Extract columns needed for Aim 1.1 and make subtable
+# Extract columns needed for Aim 1.2 and make sub-table
 aim_1_2 = complete_dat %>%
   select(Center.of.sequencing,Exposure.Status = Abiraterone..ABI..and.Enzalutamide..ENZA..Exposure.Status,Prior.Treatment) %>%
   group_by(Prior.Treatment)
-
-# Renaming the Exposure Status column name
 
 head(aim_1_2,10)
 
@@ -397,6 +426,7 @@ temp
 ```
 
 Next we perform visualizations on the same numbers we just got above and present the data in form of bar graphs with the help of `ggplot2` package and used `geom_bar` to plot the graph grouped by Prior.Treatment and have six graphs for six different `Center.of.sequencing` institutes. Furthermore, to plot the graph, we use the `janitor` and `dplyr` packages to store the tables based on these three variables. 
+
 ```{r warning=FALSE}
 library(janitor)
 summary_table = tabyl(aim_1_2, Exposure.Status,Prior.Treatment, Center.of.sequencing)
@@ -413,7 +443,7 @@ ggplot(my_summary, aes(Exposure.Status, n, fill = Prior.Treatment)) +
   facet_wrap(facets = vars(Center.of.sequencing))
 ```
 
-In order to get better visualization, we decided to congregate the institutes into region, and find the `Exposure.Status` grouped by the `Prior.Treatment` column based on the `Site_region`.
+In order to get better visualizations, we decided to congregate the institutes into region, and find the `Exposure.Status` grouped by the `Prior.Treatment` column based on the `Site_region`.
 
 ```{r warning=FALSE}
 
@@ -432,9 +462,11 @@ ggplot(my.summary.region, aes(Exposure.Status, n, fill = Prior.Treatment)) +
   facet_wrap(facets = vars(Site_region))
 ```
 
-As seen in the graphs and tables, the distribution seems to be not normal and hence we decided to perform Fisher's exact test to calculate the p-value. We see that the p-value is less than 0.001, which means it is statistically significant across all confidence levels and hence there is an significant association between Sequencing Site and Exposure Status. Similarly we also get p-value less than 0.001 for Prior.Treatment and Exposure Status, which means they are statistically significant.  
+As seen in the graphs and tables, the distribution seems to be not normal and hence we decided to perform Fisher's exact test to calculate the p-value. We see that the p-value is less than 0.001, which means it is statistically significant across all confidence levels and hence there is an significant association between Sequencing Site and Exposure Status. Similarly we also get p-value less than 0.001 for Prior Treatment status and Exposure Status (using Pearson's Chi-Squared test), which means there is a statistically significant association between exposure status/sequencing site and exposure status/prior treatment status.   
 
 ```{r}
+# Create numeric summary comparing exposure status to sequencing site and prior treatment status
+# Run Fisher's exact test and Chi-squared for sequencing site and prior treatment status, respectively
 p.test = aim_1_2 %>% 
   select(Center.of.sequencing, Exposure.Status, Prior.Treatment) %>%
   tbl_summary(by = Exposure.Status, label = Center.of.sequencing ~ "Sequencing Site") %>% 
@@ -445,58 +477,85 @@ p.test = aim_1_2 %>%
 p.test
 ```
 
-## AIM 2.1
-## NEEDS DOCUMENTATION FIXED
-```{r}
-#subset the data 
-library(tidyverse)
-age_tumor <- remove_nonuniques[c(4,11)]
-age_tumor
-summary(age_tumor$Diagnosis.Age)
+Now that we have completed our analysis for Aim 1, we can conclude that exposure status has shown evidence of associaiton with prior treatment status (Taxane treatment) and sequencing site, and that sequencing site does not seem to be associated with severity of tumor content. 
 
-age_tumor$agegrp <- ifelse(age_tumor$Diagnosis.Age >= 40 & age_tumor$Diagnosis.Age <=59, "40-59",
-                  ifelse(age_tumor$Diagnosis.Age > 59 & age_tumor$Diagnosis.Age <= 69, "60-69",
-                         ifelse(age_tumor$Diagnosis.Age > 69 & age_tumor$Diagnosis.Age <= 79, "70-79",
-                                ifelse(age_tumor$Diagnosis.Age >79,"80+", NA))))
+## Aim 2.1 - Assign classifications of “high”, “medium” or “low” based on the intensity of mutation count
 
-library(dplyr)
-install.packages("gtsummary")
-library(gtsummary)
-age_tumor %>% 
-  select(Tumor.Site, agegrp) %>%
-  tbl_summary(by = agegrp, label = Tumor.Site ~ "Tumor Site") %>% add_p(test=everything()~"kruskal.test")
-```
-
-```{r}
-freq <- age_tumor %>% group_by(agegrp,Tumor.Site) %>% summarise(Freq=n())
-freq <- rename(freq, "Count of Tumors"=Freq)
-freq_gt1 <-freq[which(freq$`Count of Tumors`>1),]
-library(ggplot2)
-library(viridis)
-ggplot(freq_gt1, aes(agegrp,`Count of Tumors`)) +
-  labs(x="Age Grouped by BJC paper levels", y="Frequency of Tumors") +
-  geom_bar(aes(fill=`Tumor.Site`),stat="identity",position="dodge") +
-  scale_fill_viridis_d(option  = "mako") 
-  
-```
-## Aim(2.1)-Assign classifications of “high”, “medium” or “low” based on the intensity of tumor content
-
-Now we will be taking the datasets and checking on the `tumor.content` variable , the tumor content variable has the numeric value of the amount of tumor present in out subject , so based on this we can seperate our subjects. So basically now we will be taking our `tumor content` variable and be dividing them into three separate category, say below 20 , in between 30 & 70 , then 70-100. The lowest set is the low severity regions , the the moderate and the high.We can noe create a separate column and that has the severity levels.
+For Aim 2, we will be creating a mutation count classification system similar to the one made and utilized in Aim 1. To assess how we should divide the counts into "high", "medium", and "low", lets first look at the distribution of Mutation Count:
 ```{r}
 finaldata<-remove_nonuniques
-range(finaldata$tumor.content) ##checking the range of the content
+summary(finaldata$Mutation.Count)
+```
 
-#fixing thresholds to fixate the Severity levels
-finaldata%>%add_column(Severity="Low")->finaldata
-finaldata%>%mutate(Severity=ifelse(`tumor.content`>30 & `tumor.content`<=70 ,"Moderate",Severity))->finaldata
-finaldata%>%mutate(Severity=ifelse(`tumor.content`>70 & `tumor.content`<=100 ,"High",Severity))->finaldata
-unique(finaldata$Severity)
+Based off of the summary above, we can divide the mutation count into the following levels of severity:
+
+Low Mutation Count: 0-55 mutations
+Medium Mutation Count: 56-110 mutations
+High Mutation Count: >110 mutations
+
+Now, lets add this severity classification to our data frame using our tried and true if-else statement and summarize the frequencies of mutation count severity levels:
+```{r}
+# low = 0 - 55
+# med = 56 - 110
+# high = >110
+finaldata%>%add_column(mu_class="Low")->finaldata
+finaldata%>%mutate(mu_class=ifelse(`Mutation.Count`>55 & `Mutation.Count`<=110 ,"Moderate",mu_class))->finaldata
+finaldata%>%mutate(mu_class=ifelse(`Mutation.Count`>110,"High",mu_class))->finaldata
+# Summarize frequencies of mutation count severity levels
+table(finaldata$mu_class)
 
 ```
+
+Now that we have summarized the frequencies of mutation count severity levels, we can plot the frequencies in relation to biopsy sites.
+
+For plotting the severity on a human graph we can use the package `gganatogram`, which is a package based on ggplot2 and allows for better visualization of organs and tissues. Here, we will be displaying mutation count data onto anatomical structures from the package. Essentially, we will be grouping our data set by biopsy site, and then calculating the mean mutation count for each site, and then use our mutation count classification system to set an appropriate value for visualizing the spread of severity across biopsy sites.
+
+First we need to construct a data frame by renaming the biopsy sites exactly as built in the package `gganatogram`. Then, we can assign each tumor site a value corresponding to the severity level that matches the mutation count levels.
+
+```{r}
+# Download all our gganatogram packages 
+#source("https://neuroconductor.org/neurocLite.R")
+#neuro_install("gganatogram")
+library(gganatogram)
+library(gridExtra) 
+
+# Calculate mean mutation count levels for each biopsy site
+finaldata %>%
+  group_by(Tumor.Site) %>%
+  summarise(mean(Mutation.Count))
+```
+We've successfully calculated the avergae mutation count for each biopsy site! Now, we can start the process to plot these on a human graph. First, note that the ranges for mutation count are much more variable that tumor content. Good thing we created a classification system for this! To ensure that our color scale doesn't range from 0-1000 mutations, which would cause most of the biopsy sites to be colored the same shade since majority of them would be on the lower end of the scale, we can utilize our classification system to normalize our mutation count values to a certain extent. 
+
+In the section below, we create a data frame that is formatted for the gganatogram package. It contains two columns -- organ and value. Organ is the biopsy site, and value is the mutation count (note that the columns must be named like this in order to be fed into gganatogram). 
+
+To normalize the mutation count values, we will manually check which level of mutation each relevant biopsy site matches to, and then set that biopsy site's value to the maximum value of that level's range. For example, lymph node's mutation count average is 101, which falls into the medium severity level, which ranges from 56 to 110, so lymph node's value in our data frame will be 110. 
+
+It is also worth noting that we can only plot the biopsy sites which are included in gganatogram's `hgMale_key` data frame due to the way the package works, but for the purposes of data wrangling we figured including the package and all it's visually helpful plots is worth the loss of a couple of sites not included in the library. 
+```{r}
+# For reference, here is our mutation count classification system
+# low = 0 - 55
+# med = 56 - 110
+# high = >110
+
+
+biopsies <- data.frame(organ = c("lymph_node", "prostate", "liver", "penis", "bone","heart","stomach","urinary_bladder"),
+                       value = c(110, 55, 110, 200, 200, 200, 200, 110), 
+                       stringsAsFactors = TRUE)
+
+
+temp_works <-gganatogram(data = biopsies, organism="human", sex="male", 
+ fill="value",  fillOutline = "#E7F6FF") + theme_void() +
+ ggtitle("Mutation Count Severity for Biopsy Site") + coord_fixed() + 
+  scale_fill_gradient2(low = "grey", mid = "white", 
+                       high = "red", midpoint = .02)
+temp_works
+
+```
+Wow! We just made our first human plot that looks at mutation count severity levels by biopsy site! Thanks, `gganatogram`! As we can see from above the penis, bone, heart, and stomach biopsy sites seem to have the highest mutation count. This could be useful to look into in further studies to see if there could be any clinical implications in this area. 
 
 ## Aim 2.2
 
-This data set included a recording of patient exposure to Abiraterone and Enzalutamide (ABI and ENZA). ABI and ENZA are drugs commonly used in the treatment of prostate cancer. Both medications work as an anti-androgen drugs; ABI is an androgen synthase inhibitor, and ENZA inhibits androgen procceses in the cell. Close to half of the participants in the study were either exposed or not exposed to ABI and ENZA in the fashion of a randomized control trial. In this aim we are trying to see if the participants in each are of the study (exposed or not exposed) share similar characteristics, particularly among the Mutation Count, Fraction Genome Altered, and Tumor Content variables. To explore these characteristics of the data set, the data must first be split into those rows corresponding to participants who were exposed to ABI and ENZA and those who were not. 
+This data set included a recording of patient exposure to Abiraterone and Enzalutamide (ABI and ENZA). ABI and ENZA are drugs commonly used in the treatment of prostate cancer. Both medications work as an anti-androgen drugs; ABI is an androgen synthase inhibitor, and ENZA inhibits androgen processes in the cell. Close to half of the participants in the study were either exposed or not exposed to ABI and ENZA in the fashion of a randomized control trial. In this aim we are trying to see if the participants in each arm of the study (exposed or not exposed) share similar characteristics, particularly among the Mutation Count, Fraction Genome Altered, and Tumor Content variables. To explore these characteristics of the data set, the data must first be split into those rows corresponding to participants who were exposed to ABI and ENZA and those who were not. 
 
 ```{r}
 #Convert exposure status to numeric binary variable.
@@ -506,8 +565,9 @@ binary_exposure <- remove_nonuniques$Abiraterone..ABI..and.Enzalutamide..ENZA..E
 binary_exposure[binary_exposure == "Yes"] = 1
 binary_exposure[binary_exposure == "No"] = 0
 
-exposure_data$Binary.Exposure <- binary_exposure
+exposure_data$Binary.Exposure <- binary_exposure # Add column for binary exposure
 
+# Make separate tables for exposed vs non-exposed patients
 exposed <- which(binary_exposure == 1)
 non_exposed <- which(binary_exposure == 0)
 
@@ -515,9 +575,10 @@ exposed_dat <- exposure_data[exposed,]
 nonexposed_dat <- exposure_data[non_exposed,]
 ```
 
-Next, the participants can be compared across the two groups. 
+Next, the participants can be plotted by the two groups -- exposure vs. no exposure -- for comparing mutation counts, fraction of genome that was altered, and tumor content. 
 
 ```{r}
+# Construct table used for plotting mutation count, fraction of genome altered, and tumor content by exposure status
 emc <- exposed_dat %>% select(c("Mutation.Count", "Fraction.Genome.Altered", "tumor.content"))
 nemc <- nonexposed_dat %>% select(c("Mutation.Count", "Fraction.Genome.Altered", "tumor.content"))
 
@@ -526,27 +587,31 @@ nemc$Exposed <- "Non-Exposed"
 
 amc <- rbind(emc, nemc)
 
-ggplot(amc,aes(x=Mutation.Count)) + 
-    geom_histogram(data=subset(amc,Exposed == 'Exposed'),fill = "red", alpha = 0.2) +
-    geom_histogram(data=subset(amc,Exposed == 'Non-Exposed'),fill = "blue", alpha = 0.2) +
-    xlab("Mutation Count by Exposure Group")
+# Plot distributions of mutation count by exposure status
+ggplot(amc,aes(x=Mutation.Count, fill=Exposed)) + 
+  geom_histogram(data=subset(amc,Exposed == 'Non-Exposed')) +
+  geom_histogram(data=subset(amc,Exposed == 'Exposed')) +
+  xlab("Mutation Count by Exposure Group") +
+  ylab("Frequency")+
+  theme_minimal()
+
+# Plot distributions of fraction genome altered by exposure status
+ggplot(amc,aes(x=Fraction.Genome.Altered, fill=Exposed)) + 
+    geom_histogram(data=subset(amc,Exposed == 'Exposed')) +
+    geom_histogram(data=subset(amc,Exposed == 'Non-Exposed')) +
+    xlab("Fraction Genome Altered by Exposure Group") +
     ylab("Frequency")+
     theme_minimal()
 
-ggplot(amc,aes(x=Fraction.Genome.Altered)) + 
-    geom_histogram(data=subset(amc,Exposed == 'Exposed'),fill = "red", alpha = 0.2) +
-    geom_histogram(data=subset(amc,Exposed == 'Non-Exposed'),fill = "blue", alpha = 0.2) +
-    xlab("Fraction Genome Altered by Exposure Group")
+# Plot distributions of tumor content by exposure status
+ggplot(amc,aes(x=tumor.content, fill=Exposed)) + 
+    geom_histogram(data=subset(amc,Exposed == 'Exposed')) +
+    geom_histogram(data=subset(amc,Exposed == 'Non-Exposed')) +
+    xlab("Tumor Content by Exposure Group") +
     ylab("Frequency")+
     theme_minimal()
-    
-ggplot(amc,aes(x=tumor.content)) + 
-    geom_histogram(data=subset(amc,Exposed == 'Exposed'),fill = "red", alpha = 0.2) +
-    geom_histogram(data=subset(amc,Exposed == 'Non-Exposed'),fill = "blue", alpha = 0.2) +
-    xlab("Tumor Content by Exposure Group")
-    ylab("Frequency")+
-    theme_minimal()
-    
+
+# Create numeric summary of characteristics by exposure status    
 colnames(amc) <- c("Mutation Count", "Fraction Genome Altered", "Tumor Content", "Exposed")
 
 amc %>% 
@@ -554,59 +619,99 @@ amc %>%
     
 ```
 
-These visualizations and results show that the groups differ by values that are reasonably expected under random chance.
+These visualizations and results show that the groups differ by values that are reasonably expected under random chance. We performed a Welch's two sample t-test (which assumes unequal variances between exposure arms), and obtained p-values of 0.5 (mutation count), 0.12 (fraction genome altered), and 0.6 (tumor content). These values all suggest that there is no association between exposure status and mutation count, fraction genome altered, and tumor content.
 
 
-## Aim 2.3-Are these then related to biopsy sites?  (we need to add more to this)
+## Aim 2.3- Is Severity of Mutation Count Related to Frequency of Biopsy Sites?  
 
-Now we have to check if they are related to the biopsy site , for this we can group by the severiry contenmt and the site where they have the tumor and get the exact count of the severity level and the zone where they are localized.
+To finish off aim 2, we will be checking if severity of Mutation Count is associated with frequency of biopsy sites sampled in the first data set. Let's first create a data frame that stores the frequency of each biopsy site from our data set:
 ```{r}
-finaldata%>%group_by(Severity,`Tumor.Site`)%>%summarise(count=n())#number of subjects in each level
+# Frequencies of biopsy site in first data set
+aim_2_3 = data.frame(table(finaldata$Tumor.Site))
+aim_2_3
+```
+Now we can once again use the `gganatogram` package to plot the frequencies of each biopsy site on a human outline. Note, that since the package is picky about which organs we can use, we must once again manually create a data frame with relevant "organs" for the package's plotting function and manually include the values (in this case, the frequency of the biopsy site):
+```{r}
+# Create data frame for plotting frequencies of biopsy site
+biopsies <- data.frame(organ = c("lymph_node", "prostate", "liver", "penis", "bone","heart","stomach","urinary_bladder"),
+ value = c(61, 2, 18, 1, 2, 43, 1, 1), stringsAsFactors = TRUE)
+
+# Plot frequency of biopsy sites
+p2 <-gganatogram(data = biopsies, organism="human", sex="male", 
+ fill="value",  fillOutline = "#E7F6FF") + theme_void() +
+ ggtitle("Frequency for each Biopsy Site") + coord_fixed() + scale_fill_gradient2(low = "grey", mid = "white", high = "red", midpoint = .02)
+p2
+```
+Now that we have created two human plots -- one for mutation count severity by biopsy site, and one for frequency of each biopsy site from our data set, we can compare the two side-by-side:
+```{r}
+# Compare tumor content severity for biopsy site to frequency for each biopsy site
+lay <- rbind(c(1,2), c(1,2))
+grid.arrange(temp_works, p2, layout_matrix = lay)
+```
+Now that we can compare severity of tumor content directly next to frequency of biopsy site, we can visually assess any possible correlation between the two. After comparing the two side-by-side, we can see that there does not seem to be any association between tumor content severity at a biopsy site and how frequently that biopsy site was sampled in this data set. And with that, we can complete our analysis for Aim 2!
+
+## BONUS AIM
+The last aim checks for an association between diagnosis age and tumor site. According to the Cleveland Clinic 1 in 6 men will be diagnosed with prostate cancer during the course of their lifetime. Research from the American Cancer Society suggests that 6 out of 10 cases of prostate cancer are diagnosed among men 65 years or older. As mentioned previously the mean age of diagnosis among this prospective cohort was 67 years of age. Prior research suggests that as men get older their risk of being diagnosed with prostate cancer increases. In addition, the publication in Cell suggests that bone tumors are the most common site of metastatic disease. This aim therefore intends to determine whether these two prior notions hold true among the data in question. 
+
+To conduct the analysis we subset the data columns Diagnosis.Age and Tumor.Site into a dataframe called age_tumor. The numeric index of these columns was 4 and 11 respectively. Before proceeding with any analysis we conducted an exploratory investigation to understand the quantity of unique tumor sites present in the data set along with the spread of age at diagnosis. 
+
+```{r}
+age_tumor <- remove_nonuniques[c(4,11)] #subset the data 
+age_tumor
+summary(unique(age_tumor$Tumor.Site)) #look at unique values for tumor.site 
 ```
 
-We got the required count and the zones, new we need tyo plot the zone. For plotting the severity on a human graph we can use the package ,gganatogram: An R package for modular visualisation of anatograms and tissues based on ggplot2.Here we will be displaying data onto anatomical structures is a convenient technique to quickly observe tissue related severity, which is based on ghe tissue severity that we calculated before.
-
-Initally we need to make a dataframe , in a order by nameing the organs exactly as built in the package "gganatogram".Then assign them value based on the seberity levels.
+According to the aforementioned summary and unique command, 20 unique tumor sites are present within this data. Next, we explored the distribution of diagnosis age to determine min, max, mean and median ages for this prospective prostate cohort. 
 
 ```{r}
-#source("https://neuroconductor.org/neurocLite.R")
-#neuro_install("gganatogram")
-library(gganatogram)
-library(gridExtra)
-#plotting based on the severity 
-#making a dataframe with the required values to plot
-organPlot <- data.frame(organ = c("bone_marrow", "lymph_node", "prostate", "gall_bladder", "liver", "penis","smooth_muscle", "bone","throat","heart","stomach","urinary_bladder"), 
- colour = c("red", "red", "red", "red", "red", "red","red", "red","yellow","green","yellow","green"), 
- value = c(10, 10, 10, 10, 10,10, 10, 10,5,1,5,1), 
- stringsAsFactors=F)
-
-gganatogram(data=organPlot, organism='human', sex='male', fill="value")+ theme_void() +
- ggtitle("The Severity zones")
-
+summary(age_tumor$Diagnosis.Age)
 ```
 
-Next we will be doing the same as before but this time its the biopsy site which is also determined by the tumor contect, so maximum biopsy is done on sites where the tumor content is high.
+Given the minimum age at diagnosis was 40 and the maximum age at diagnosis was 85 we needed to come up with a way to age-stratify the data in order to compare the various tumor sites with age at diagnosis. TAn article published in the [British Journal of Cancer](https://www.nature.com/articles/bjc2013268#Tab1) described a methodology for stratifying age within a population based study investigating prostate cancer. The researchers stratified age according to the following groups "40-59", "60-69", "70-79" and "80+ years". Since this was a validated study we employed the same age-stratified bins for our analysis. 
 
 ```{r}
-biopsies <- data.frame(biopsy = c("bone_marrow", "lymph_node", "prostate", "gall_bladder", "liver", "penis","smooth_muscle", "bone","throat","heart","stomach","urinary_bladder"),
- x = c(10, 10, 10, 10, 10,10, 10, 10,5,1,5,1),
- y = c(10, 10, 10, 10, 10,10, 10, 10,5,1,5,1),
- value = c(10, 10, 10, 10, 10,10, 10, 10,5,1,5,1))
-p <- hgMale_key %>%
- dplyr::filter(organ %in% c("bone_marrow", "lymph_node", "prostate", "gall_bladder", "liver", "penis","smooth_muscle", "bone","throat","heart","stomach","urinary_bladder")) %>%
- gganatogram(fillOutline="lightgray", organism="human", sex="male",
- fill="colour") + theme_void() +
- ggtitle("Position␣of␣biopsies")
-        
-p2 <- hgMale_key%>%
- dplyr::filter(organ %in% c("bone_marrow", "lymph_node", "prostate", "gall_bladder", "liver", "penis","smooth_muscle", "bone","throat","heart","stomach","urinary_bladder"))%>%
- gganatogram(fillOutline="lightgray", organism="human", sex="male", 
- fill="value") + theme_void() +
- ggtitle("Value␣of␣biopsies")
-        
-lay <- rbind(c(1,2), c(1,2), c(3, NULL))
-grid.arrange(p, p2, layout_matrix = lay)
+library(tidyverse) #load tidyverse to assist in analysis 
+#grouping the age by the BJC age-stratified bins using ifelse statements 
+age_tumor$agegrp <- ifelse(age_tumor$Diagnosis.Age >= 40 & age_tumor$Diagnosis.Age <=59, "40-59",
+                  ifelse(age_tumor$Diagnosis.Age > 59 & age_tumor$Diagnosis.Age <= 69, "60-69",
+                         ifelse(age_tumor$Diagnosis.Age > 69 & age_tumor$Diagnosis.Age <= 79, "70-79",
+                                ifelse(age_tumor$Diagnosis.Age >79,"80+", NA))))
 ```
+
+After stratifying the data, we created a summary table to assess the aggregated counts of tumors by site grouped by age. 
+
+```{r}
+library(dplyr) #load dplyr to use gtsummary 
+#install.packages("gtsummary") #in order to create the graph you may need to install the gtsummary pkg
+library(gtsummary) #load gtsummary to create the summary table 
+age_tumor %>% 
+  select(Tumor.Site, agegrp) %>%
+  tbl_summary(by = agegrp, label = Tumor.Site ~ "Tumor Site") %>% #develop the table based on the selected input
+  add_p(test=everything()~"kruskal.test") #test for the differences among ranks 
+```
+
+As evidenced by the output of the table, several of the aggregate counts of tumors by site were either 0 or 1 in most cases, which is not that significant. Five sites however did demonstrate counts greater than 1 and those include, Bone, Liver, Lymph Node, Prostate and Soft Tissue. To assess whether the differences among the age stratified ranks were significant by tumor site we conducted a Kruskal-Wallis Rank Sum Test. The output of which can be found in the last column of this table. The value of p was reported as 0.9 and assuming an alpha significance level of 0.05 this value is not significant. Thus, we conclude that there is no significant difference exhibited among the age stratified ranks by tumor site. 
+
+We found the quantities of the aggregate counts for the following tumor sites: Bone, Liver, Lymph Node, Prostate and Soft Tissue to be interesting so we further subsetted the data to explore the distribution of tumors. Additionally, we wanted to further assess whether bone, as mentioned earlier, was indeed the site of greatest metastatic disease. 
+
+```{r}
+#calculate the frequency of tumors by age group 
+freq <- age_tumor %>% group_by(agegrp,Tumor.Site) %>% summarise(Freq=n())
+freq <- rename(freq, "Count of Tumors"=Freq) #rename the frequency column 
+freq_gt1 <-freq[which(freq$`Count of Tumors`>1),] #subset the data to include the five columns of interest 
+library(ggplot2) #load in ggplot to create graphical summary 
+library(viridis) #load in viridis for pretty color palette 
+#create a bar chart of the data 
+ggplot(freq_gt1, aes(agegrp,`Count of Tumors`)) +
+  labs(x="Age Grouped by BJC paper levels", y="Frequency of Tumors") +
+  geom_bar(aes(fill=`Tumor.Site`),stat="identity",position="dodge") +
+  scale_fill_viridis_d(option  = "mako") 
+```
+
+Curiously enough, bone was not the most common site of metastatic disease among this prospective prostate cohort. In fact, the lymph nodes were shown to have a greater quantity of tumors amounting to 61 tumors across the entire cohort as opposed to 43 among bone. Here from this graph we can also see that the "60-69" and "70-79" groups experience the most tumors proportionally, as would  be expected given that as men age the likelihood of developing prostate cancer increases. If time permitted we would have further calculated the incident rate ratios per age group for the five tumor sites where frequency was greater than 1 to understand the proportional burden of disease experienced by each age group. 
+
+Overall, this aim confirms that as men age incidence of prostate cancer increases with metastasis of disease occurring more frequently in the lymph nodes and bone. This data was limited given that the population was a bit skewed toward the older age groups (60-79) with very few cases representing those older than 80. More information as to prognosis and vital status beyond age 80 would be beneficial in determining whether the assumption of age and incidence is valid. 
+
 
 ## Natural Language Processing
 There is no actual natural language in these data sets to process, but the principles and tools of natural language processing can be utilized to extract more information from the data. The second data has four columns corresponding to the AJCC staging classification of each patient in the data set. To help better understand what these classifications mean, we are adding a new column that includes a written description of each of the AJCC staging classifications that are provided. To do this, we can use Regex to identify AJCC stage patterns to match them to their written description. The written descriptions of each stage come from this webpage: https://www.cancer.org/cancer/prostate-cancer/detection-diagnosis-staging/staging.html
